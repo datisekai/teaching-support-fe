@@ -1,0 +1,145 @@
+stages:
+  - yarn
+  - build
+  - package
+  - dev
+  - release
+  - prod
+
+.node_cache: &node_cache
+  key: conmeodat-dashboard
+  paths:
+    - node_modules/
+    - .yarn-cache/
+  policy: pull
+
+yarn:
+  image: node:lts-alpine
+  stage: yarn
+  cache:
+    <<: *node_cache
+    policy: pull-push
+  script:
+    - yarn install --cache-folder .yarn-cache
+  only:
+    refs:
+      - master
+      - merge_requests
+      - /^production.*/
+    changes:
+      - "package.json"
+
+build:
+  image: node:lts-alpine
+  stage: build
+  cache:
+    <<: *node_cache
+  script:
+    - yarn install --cache-folder .yarn-cache
+    # always build prod for verify
+    - yarn build:prod
+  only:
+    - merge_requests
+
+.package_docker:
+  image: registry.gitlab.com/eye-solution/devops/node-typescript-docker:v1.0.3
+  cache:
+    <<: *node_cache
+  variables:
+    DOCKER_TLS_CERTDIR: ""
+    DOCKER_DRIVER: overlay2
+  services:
+    - docker:stable-dind
+  script:
+    - |
+      if [[ -n "$CI_REGISTRY_USER" ]]; then
+        echo "Logging to GitLab Container Registry with CI credentials..."
+        echo $CI_REGISTRY_PASSWORD | docker login -u "$CI_REGISTRY_USER" "$CI_REGISTRY" --password-stdin
+      fi
+    - yarn install --cache-folder .yarn-cache
+    - yarn build:$ENV
+    # Build docker
+    - DOCKER_IMAGE=$CI_REGISTRY_IMAGE
+    - DIST=./dist
+    - docker build -f Dockerfile -t $DOCKER_IMAGE:$CI_PIPELINE_ID -t $DOCKER_IMAGE:latest --build-arg DIST=${DIST} .
+    - docker push $DOCKER_IMAGE:$CI_PIPELINE_ID
+    # make sure tag latest is the latest version
+    - docker push $DOCKER_IMAGE:latest
+
+package_dev:
+  extends:
+    - .package_docker
+  stage: package
+  variables:
+    ENV: stg
+  only:
+    refs:
+      - master
+      - /^production.*/
+  except:
+    - "tags"
+
+deploy_dev:
+  image: alpine
+  stage: dev
+  before_script:
+    - apk add openssh-client
+    - eval $(ssh-agent -s)
+    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh 
+    - ssh-keyscan eyeteam.vn >> ~/.ssh/known_hosts
+    - chmod 644 ~/.ssh/known_hosts
+  environment:
+    name: development
+  script:
+    - echo "Deploying application... $CI_REGISTRY_IMAGE:$CI_PIPELINE_ID"
+    - ssh app@eyeteam.vn "
+        export DOCKER_DASHBOARD_IMAGE=$CI_REGISTRY_IMAGE:$CI_PIPELINE_ID &&
+        cd ./conmeodat/deployment &&
+        docker-compose -p conmeodat stop dashboard &&
+        docker-compose -p conmeodat rm -f dashboard &&
+        docker-compose -p conmeodat up -d dashboard
+      "
+    - echo "Application successfully deployed."
+  only:
+    - master
+
+create:releasetag:
+  image: registry.gitlab.com/gitlab-org/release-cli:latest
+  stage: release
+  release:
+    name: 'Release $CI_COMMIT_SHA'
+    description: 'Created using the release-cli for pipeline $CI_PIPELINE_ID'
+    tag_name: '$CI_PIPELINE_ID'
+    ref: '$CI_COMMIT_SHA'
+  script:
+    - echo 'running release_job'
+  only:
+    - master
+  when: manual
+
+# production
+package_prod:
+  extends:
+    - .package_docker
+  stage: package
+  allow_failure: false
+  variables:
+    ENV: prod
+  only:
+    - tags
+  when: manual
+
+deploy_prod:
+  image: alpine
+  stage: prod
+  environment:
+    name: production
+  only: 
+    - tags
+  needs: ["package_prod"]
+  when: on_success
+  script:
+    - if [ -z "$DOCKER_TAG" ]; then if [ -z "$CI_COMMIT_TAG" ]; then export DOCKER_TAG=${CI_PIPELINE_ID}; else export DOCKER_TAG=${CI_COMMIT_TAG}; fi; fi
+    - echo "Deploy production $CI_REGISTRY_IMAGE:$DOCKER_TAG"

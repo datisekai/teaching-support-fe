@@ -1,0 +1,81 @@
+{
+  "name": "dashboard-vuecli",
+  "version": "0.6.27",
+  "dependencies": {
+    "@chenfengyuan/vue-qrcode": "^1.0.1",
+    "@tinymce/tinymce-vue": "^1.1.0",
+    "axios": "^0.18.0",
+    "babel-polyfill": "^6.26.0",
+    "chart.js": "^2.7.3",
+    "core-js": "^2.6.5",
+    "element-ui": "^2.4.11",
+    "firebase": "^7.15.5",
+    "fullcalendar": "^3.9.0",
+    "google-maps": "^3.3.0",
+    "happypack": "^5.0.0",
+    "jquery": "^3.5.1",
+    "jvectormap-next": "^3.0.0",
+    "nprogress": "^0.2.0",
+    "sortablejs": "^1.10.0-rc2",
+    "sweetalert2": "^7.33.1",
+    "vee-validate": "^2.1.4",
+    "vue": "^2.6.10",
+    "vue-chartjs": "^3.4.0",
+    "vue-clickaway": "^2.2.2",
+    "vue-codemirror": "^4.0.6",
+    "vue-color": "^2.7.0",
+    "vue-draggable-nested-tree": "^2.2.2",
+    "vue-loading-overlay": "^3.2.0",
+    "vue-notifyjs": "^0.4.3",
+    "vue-picture-preview": "^2.0.1",
+    "vue-router": "^3.0.2",
+    "vue-toast": "^3.1.0",
+    "vue-tree-halower": "^1.8.0",
+    "vue2-google-maps": "^0.10.7",
+    "vue2-transitions": "^0.2.3",
+    "vuex": "^3.0.1",
+    "vuex-toast": "^0.1.3"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "^3.9.0",
+    "@vue/cli-plugin-eslint": "^3.9.0",
+    "@vue/cli-service": "^3.9.0",
+    "babel-eslint": "^10.0.1",
+    "eslint": "^5.16.0",
+    "eslint-plugin-vue": "^5.0.0",
+    "node-sass": "npm:sass",
+    "sass-loader": "^7.0.3",
+    "vue-template-compiler": "^2.6.10"
+  },
+  "scripts": {
+    "build": "export NODE_OPTIONS=--openssl-legacy-provider && vue-cli-service build",
+    "build:prod": "NODE_ENV=production vue-cli-service build --mode=prod",
+    "build:stg": "NODE_ENV=production vue-cli-service build --mode=stg",
+    "lint": "vue-cli-service lint",
+    "serve": "export NODE_OPTIONS=--openssl-legacy-provider && vue-cli-service serve"
+  },
+  "private": true,
+  "browserslist": [
+    "> 1%",
+    "last 2 versions"
+  ],
+  "eslintConfig": {
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "eslint:recommended",
+      "plugin:vue/essential"
+    ],
+    "parserOptions": {
+      "parser": "babel-eslint"
+    },
+    "root": true,
+    "rules": {}
+  },
+  "postcss": {
+    "plugins": {
+      "autoprefixer": {}
+    }
+  }
+}

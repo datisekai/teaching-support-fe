@@ -1,0 +1,55 @@
+export default [
+  {
+    prop: 'id',
+    label: 'id',
+    minWidth: 60,
+    type: 'number',
+    link: '/customer',
+  },
+  {
+    prop: 'avatar',
+    label: 'avatar',
+    minWidth: 60,
+    type: 'image',
+  },
+  {
+    prop: 'fullname',
+    label: 'fullname',
+    minWidth: 120,
+    type: 'text',
+    searchable: true,
+    link: '/customer',
+  },
+  {
+    prop: 'email',
+    label: 'email',
+    minWidth: 120,
+    type: 'text',
+    searchable: true,
+  },
+  {
+    prop: 'phone',
+    label: 'phone',
+    minWidth: 100,
+    type: 'text',
+    searchable: true,
+  },
+  {
+    prop: 'gender',
+    label: 'gender',
+    minWidth: 60,
+    type: 'select',
+  },
+  {
+    prop: 'dateOfBirth',
+    label: 'dateOfBirth',
+    minWidth: 120,
+    type: 'date',
+  },
+  {
+    prop: 'createdAt',
+    label: 'createdAt',
+    minWidth: 120,
+    type: 'date',
+  },
+];

@@ -1,0 +1,56 @@
+export default [
+  {
+    prop: 'image',
+    label: 'image',
+    minWidth: 80,
+    type: 'image',
+    size: 'medium',
+  },
+  {
+    prop: 'title',
+    label: 'title',
+    minWidth: 250,
+    type: 'text',
+    link: '/campaign',
+    searchable: true,
+  },
+  {
+    prop: 'discountType',
+    label: 'type',
+    minWidth: 120,
+    type: 'select',
+    searchable: true,
+  },
+  {
+    prop: 'value',
+    label: 'value',
+    minWidth: 100,
+    type: 'text',
+  },
+  {
+    prop: 'startDate',
+    label: 'startDate',
+    minWidth: 120,
+    type: 'datetime',
+  },
+  {
+    prop: 'expiredDate',
+    label: 'expiredDate',
+    minWidth: 120,
+    type: 'datetime',
+  },
+  {
+    prop: 'isActive',
+    label: 'isActive',
+    minWidth: 120,
+    type: 'action',
+    callback: '',
+  },
+  {
+    prop: 'isExpired',
+    label: 'isExpired',
+    minWidth: 80,
+    type: 'select',
+    searchable: true,
+  },
+];

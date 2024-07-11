@@ -1,0 +1,238 @@
+.color {
+  &.red {
+    color: red;
+  }
+
+  &.white {
+    color: white
+  }
+}
+#explorer {
+  height: 86vh;
+  background-color: #fafafa;
+  .header {
+    height: 50px;
+    border-bottom: #ccc solid 1px;
+    text-align: right;
+    select.custom-select {
+      width: auto;
+      margin: 5px !important;
+    }
+    .dropdown {
+      text-align: right;
+    }
+    .btn-show-left{
+      display: none;
+    }
+    .block-left{
+      width: 30%;
+      padding-left: 15px;
+      .btn-link{
+        padding-top: 12px;
+      }
+    }
+    .block-right{
+      width: 70%;
+      padding-right: 15px;
+      .btn-link{
+        padding-top: 12px;
+      }
+    }
+
+    button{
+      img{
+        width: 24px;
+      }
+    }
+
+    @media screen and (max-width: 768px) {
+      .btn-show-left{
+        display: block;
+      }
+      .block-left{
+        width: 40%;
+      }
+      .block-right{
+        width: 60%;
+      }
+    }
+
+    @media screen and (max-width: 575px) {
+      .btn-show-left{
+        display: block;
+      }
+      .block-left{
+        width: 80%;
+      }
+      .block-right{
+        width: 40px;
+      }
+      .btn-xpl-custom{
+        padding-top: 5px !important;
+      }
+    }
+  }
+  .body {
+    display: flex;
+    height: calc(85vh - 100px);
+    .block-left{
+      width: 30%;
+    }
+    .block-right{
+      width: 70%;
+      background-color: #fff;
+    }
+    @media screen and (max-width: 768px) {
+      .block-left{
+        display: none;
+      }
+      .block-right{
+        width: 100%;
+      }
+      .show-left{
+        display: block;
+        width: 80%;
+      }
+
+      #file-grid{
+        display: block;
+        .xpl-file{
+          display: block;
+          width: 100%;
+          text-align: left;
+          align-items: inherit !important;
+          height: auto;
+          .text{
+            position: absolute;
+            top: 5px;
+            left: 75px;
+            width: 70%;
+          }
+          .delete-btn{
+            top: 5px;
+            padding-left: 8px;
+          }
+        }
+      }
+    }
+    @media screen and (max-width: 600px) {
+      .show-left{
+        display: block;
+        width: 650px;
+      }
+    }
+    @media screen and (max-width: 450px) {
+      .show-left{
+        display: block;
+        width: 650px;
+      }
+    }
+  }
+  .footer {
+    border-top: #ccc solid 1px;
+    height: 50px;
+    display: flex;
+    .left {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-right: #ccc solid 1px;
+      height: 100%;
+    }
+    .right {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 100%;
+      .btn {
+        margin: 0 5px;
+      }
+    }
+  }
+  #folder-tree {
+    border-right: #ccc solid 1px;
+    word-break: break-word;
+    overflow-y: scroll;
+    .subfolders {
+      margin-left: 20px;
+    }
+    .xpl-folder {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      border-bottom: 1px solid #ccc;
+      padding: 10px;
+      background-color: #fff;
+      .left {
+        display: flex;
+        align-items: center;
+        .folder-icon {
+          width: 18px;
+          height: 14px;
+        }
+      }
+      .right {
+        font-size: 1.3rem;
+        font-weight: bold;
+        display: none;
+        padding: 0 5px;
+        height: 25px;
+        line-height: 25px;
+      }
+      &.active {
+        color: #0EADB8;
+        font-weight: bold;
+      }
+      &:hover {
+        color: #0EADB8;
+        font-weight: bold;
+        .right {
+          display: block;
+        }
+      }
+    }
+  }
+  .empty-folder {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    color: #bbb;
+  }
+  #file-grid {
+    padding: 15px;
+    overflow-y: scroll;
+    display: grid;
+    height: 100%;
+    &.size-s {
+      grid-auto-rows: 120px;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    }
+    &.size-m {
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      grid-auto-rows: 160px;
+    }
+    &.size-l {
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      grid-auto-rows: 220px;
+    }
+  }
+  .modal-footer {
+    display: flex;
+    justify-content: flex-end;
+  }
+  .space-around {
+    display: flex;
+    justify-content: space-around;
+  }
+  .btn-xpl{
+    &:hover, &:active, &:focus{
+      background-color: unset !important;
+      color: black !important;
+      text-decoration: none;
+    }
+    color: #0EADB8;
+  }
+}

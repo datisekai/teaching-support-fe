@@ -1,0 +1,55 @@
+export default [
+  {
+    prop: 'id',
+    label: 'id',
+    minWidth: 30,
+    type: 'number',
+    link: '/notification',
+  },
+  {
+    prop: 'title',
+    label: 'title',
+    minWidth: 100,
+    type: 'text',
+    link: '/notification',
+    searchable: true,
+  },
+  {
+    prop: 'content',
+    label: 'content',
+    minWidth: 180,
+    type: 'text',
+  },
+  {
+    prop: 'notificationType',
+    label: 'type',
+    minWidth: 80,
+    type: 'select',
+    searchable: true,
+  },
+  {
+    prop: 'sendAt',
+    label: 'sendAt',
+    minWidth: 100,
+    type: 'datetime',
+    searchable: true,
+  },
+  {
+    prop: 'processedAt',
+    label: 'processedAt',
+    minWidth: 100,
+    type: 'datetime',
+  },
+  {
+    prop: 'isBroadcast',
+    label: 'isBroadcast',
+    minWidth: 40,
+    type: 'select',
+  },
+  {
+    prop: 'updatedAt',
+    label: 'updatedAt',
+    minWidth: 100,
+    type: 'datetime',
+  },
+];
