@@ -3,6 +3,8 @@ import axios from "axios";
 import cookieUtil from "../helpers/cookie-util";
 const prefix = process.env.VUE_APP_API_BASE_URL;
 
+export const SOCKET_URL = process.env.VUE_APP_SOCKET_URL;
+
 const client = axios.create({
   baseURL: prefix,
   timeout: 20000,

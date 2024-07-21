@@ -11,17 +11,17 @@
                 <h3 slot="header" class="header text-center">Đăng nhập</h3>
 
                 <fg-input
-                  v-model="form.email"
-                  addon-left-icon="nc-icon nc-email-85"
-                  placeholder="Email..."
+                  v-model="form.code"
+                  addon-left-icon="nc-icon nc-single-02"
+                  placeholder="Mã giảng viên"
                   @keyup.enter="signIn"
-                  :class="errors.has('email') ? 'border-danger' : ''"
-                  v-validate="'required|email'"
-                  data-vv-name="email"
-                  data-vv-as="Email"
+                  :class="errors.has('code') ? 'border-danger' : ''"
+                  v-validate="'required'"
+                  data-vv-name="code"
+                  data-vv-as="Mã giảng viên"
                 ></fg-input>
-                <span class="text-danger" v-if="errors.has('email')">{{
-                  errors.first("email")
+                <span class="text-danger" v-if="errors.has('code')">{{
+                  errors.first("code")
                 }}</span>
 
                 <fg-input
@@ -95,7 +95,7 @@ export default {
         });
       }
       const credentials = {
-        email: this.form.email,
+        code: this.form.code,
         password: this.form.password
       };
       try {
@@ -119,7 +119,7 @@ export default {
   data() {
     return {
       form: {
-        email: "",
+        code: "",
         password: ""
       }
     };

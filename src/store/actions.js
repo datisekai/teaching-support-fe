@@ -3954,5 +3954,46 @@ export const actions = {
       let body = resp.data;
       commit(types.FETCH_ORDERS, body.data);
     });
+  },
+  fetchMyRooms(context, params) {
+    let { commit, state } = context;
+    return api
+      .get("/api.room/my-rooms" + buildQuery(params))
+      .catch(err => {
+        console.error(err.stack);
+      })
+      .then(resp => {
+        let body = resp.data;
+        commit(types.FETCH_MY_ROOMS, body.data);
+        return body.data;
+      });
+  },
+  createRoom(context, form) {
+    let { commit, state } = context;
+    return new Promise((resolve, reject) => {
+      api
+        .post("/api.room", form)
+        .catch(err => {
+          console.error(err.stack);
+          reject(err);
+        })
+        .then(resp => {
+          let body = resp.data;
+          // commit(types.CREATE_ROOM, body.data);
+          resolve(body.data);
+        });
+    });
+  },
+  fetchRoomDetail(context, id) {
+    let { commit, state } = context;
+    api
+      .get("/api.room/" + id)
+      .then(resp => {
+        let body = resp.data;
+        commit(types.FETCH_ROOM_DETAIL, body.data);
+      })
+      .catch(err => {
+        console.error(err.stack);
+      });
   }
 };

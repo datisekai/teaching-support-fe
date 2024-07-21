@@ -198,6 +198,15 @@ const CreatePost = () =>
 const EditPost = () =>
   import("src/components/Dashboard/Views/Posts/Edit-Post.vue");
 
+// Room
+
+const AllRooms = () =>
+  import("src/components/Dashboard/Views/Rooms/All-Rooms.vue");
+const CreateRoom = () =>
+  import("src/components/Dashboard/Views/Rooms/Create-Room.vue");
+const EditRoom = () =>
+  import("src/components/Dashboard/Views/Rooms/Edit-Room.vue");
+
 // Warranty Location
 const AllWarrantyLocations = () =>
   import("src/components/Dashboard/Views/Warranty-Locations/All-Locations.vue");
@@ -1056,44 +1065,67 @@ const registerPage = {
   component: Register
 };
 
+const roomMenu = {
+  path: "/rooms",
+  component: DashboardLayout,
+  children: [
+    {
+      path: "/",
+      name: "AllRooms",
+      component: AllRooms
+    },
+    {
+      path: "create",
+      name: "CreateRoom",
+      component: CreateRoom
+    },
+    {
+      path: ":id",
+      name: "EditRoom",
+      component: EditRoom
+    }
+  ]
+};
+
 const routes = [
   {
     path: "/",
     component: DashboardLayout,
     name: "dashboard"
   },
-  reviewMenu,
-  notificationMenu,
+  // reviewMenu,
+  // notificationMenu,
   loginPage,
   forgotPage,
   createPasswordPage,
-  registerPage,
-  productMenu,
-  articleMenu,
-  attributeMenu,
-  attributesMenu,
-  collectionsMenu,
-  ordersMenu,
-  couponMenu,
-  campaignMenu,
-  flashsaleMenu,
-  customerMenu,
-  settingMenu,
-  tagMenu,
-  modelMenu,
-  warrantyCodeMenu,
-  warrantyFormMenu,
-  MaintenanceFormMenu,
-  receiptMenu,
-  quotationMenu,
-  invoiceMenu,
-  reimbursementMenu,
-  warrantyPostMenu,
-  warrantySettingMenu,
-  warrantyReportMenu,
+  // registerPage,
+  // productMenu,
+  // articleMenu,
+  // attributeMenu,
+  // attributesMenu,
+  // collectionsMenu,
+  // ordersMenu,
+  // couponMenu,
+  // campaignMenu,
+  // flashsaleMenu,
+  // customerMenu,
+  // settingMenu,
+  // tagMenu,
+  // modelMenu,
+  // warrantyCodeMenu,
+  // warrantyFormMenu,
+  // MaintenanceFormMenu,
+  // receiptMenu,
+  // quotationMenu,
+  // invoiceMenu,
+  // reimbursementMenu,
+  // warrantyPostMenu,
+  // warrantySettingMenu,
+  // warrantyReportMenu,
   educationMenu,
-  customerServiceMenu,
-  warrantyLocationMenu,
+  roomMenu,
+  // customerServiceMenu,
+  // warrantyLocationMenu,
   { path: "*", component: NotFound }
 ];
 

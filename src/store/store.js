@@ -13,8 +13,8 @@ Vue.use(Vuex);
 
 const state = {
   ctx: {},
-  pageTitle: "Bán vàng Dashboard",
-  sidebarTitle: "Bán vàng",
+  pageTitle: "Portal",
+  sidebarTitle: "Portal",
   sidebarLogo: "/static/img/logo.png",
   noImage: "/static/img/no-image.png",
   token: util.getCookie("token") || "",
@@ -190,6 +190,10 @@ const state = {
 
   //activated products
   activatedProducts: [],
+
+  // my rooms
+  myRooms: [],
+  roomDetail: {},
 
   report: {
     education: {

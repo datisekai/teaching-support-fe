@@ -1,0 +1,256 @@
+<template lang="html">
+  <div>
+    <form-card :group="group" v-model="form"> </form-card>
+
+    <div class="card">
+      <div class="card-header">
+        <h6 class="title">Thông tin real-time</h6>
+      </div>
+      <div class="card-body form-card">
+        <div>
+          {{ roomState }}
+        </div>
+        <div>
+          {{ roomPlayers }}
+        </div>
+      </div>
+    </div>
+
+    <div class="card card-attendance" ref="myQRCode" v-if="roomState.qr_key">
+      <div class="card-header attendance-header">
+        <h6 class="title">QR CODE</h6>
+        <el-button type="primary" @click="toggleFullScreen"
+          >Full Screen</el-button
+        >
+      </div>
+      <div class="card-body form-card">
+        <div>
+          <h3 class="room-title">{{ roomData.title }}</h3>
+          <p class="room-description" v-html="roomData.description"></p>
+        </div>
+        <div class="screen-qr">
+          <vue-qrcode :value="roomState.qr_key" />
+          <div class="screen-players">
+            <div
+              class="player"
+              v-for="(player, index) of roomPlayers"
+              :key="index"
+            >
+              {{ player.code }} - {{ player.name }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import editRoomForm from "./room-edit-form.js";
+import FormCard from "src/components/UIComponents/FormCard.vue";
+import { Notification, Button } from "element-ui";
+import api, { SOCKET_URL } from "src/api/index";
+import VueQrcode from "vue-qrcode";
+export default {
+  components: {
+    FormCard,
+    Notification,
+    VueQrcode,
+    ElButton: Button
+  },
+  data() {
+    return {
+      form: {},
+      group: editRoomForm,
+      roomData: {},
+      client: null,
+      roomColyseus: null,
+      roomState: {},
+      roomPlayers: []
+    };
+  },
+  computed: {
+    // room() {
+    //   const detail = this.$store.state.roomDetail;
+    //   return detail;
+    // }
+  },
+  watch: {
+    // room(nVal, oVal) {
+    //   if (nVal.id) {
+    //     this.form = Object.assign({}, nVal);
+    //     console.log(this.form);
+    //   }
+    // }
+  },
+  async mounted() {
+    this.client = new Colyseus.Client(SOCKET_URL);
+    const id = this.$route.params.id;
+    // this.$store.dispatch("fetchRoomDetail", id);
+    await this.getRoomDetail(id);
+    this.joinById();
+
+    this.$store.dispatch("setPageTitle", "Cập nhật trạng thái điểm danh");
+    this.$store.dispatch("setCurrentActions", [
+      {
+        label: "Cập nhật",
+        type: "primary",
+        icon: "",
+        callback: this.save
+      }
+    ]);
+  },
+  methods: {
+    toggleFullScreen() {
+      const element = this.$refs.myQRCode;
+      console.log("click", element);
+
+      if (!element.fullscreenElement) {
+        element.requestFullscreen();
+      } else if (element.exitFullscreen) {
+        element.exitFullscreen();
+      }
+    },
+    async joinById() {
+      const id = this.roomData.room_socket_id;
+      try {
+        console.log(this.$store.state.user);
+        const user = this.$store.state.user;
+        const options = {
+          code: user.code,
+          email: user.email,
+          name: user.email,
+          qr_key: 1,
+          role: "teacher",
+          user_id: user.id
+        };
+        const room = await this.client.joinById(id, options);
+        this.listenMessage(room);
+        this.roomColyseus = room;
+      } catch (error) {
+        Notification({
+          title: "Error",
+          message: error.toString(),
+          position: "bottom-right",
+          type: "error"
+        });
+        this.$router.push(`/rooms`);
+        console.log(error);
+      }
+    },
+    listenMessage(room) {
+      room.onStateChange(state => {
+        console.log("the room state has been updated:", state);
+        this.roomState = state.data;
+        this.form.status = state.data.status;
+        let players = [];
+        state.players.forEach(item => {
+          players.push({
+            code: item.code,
+            name: item.name,
+            role: item.role,
+            userId: item.userId
+          });
+        });
+
+        this.roomPlayers = players;
+      });
+    },
+    async getRoomDetail(id) {
+      try {
+        const room = await api.get("/api.room/" + id);
+        const data = room.data.data;
+        this.roomData = data;
+        this.form = { status: data.status };
+        return room.data;
+      } catch (error) {
+        console.log(error);
+        return null;
+      }
+    },
+    async save() {
+      try {
+        const result = await this.$validator.validateAll();
+        console.log(result);
+        if (result) {
+          const payload = { status: this.form.status };
+          console.log(payload);
+          try {
+            this.roomColyseus.send("update_status", payload);
+            Notification({
+              title: "Success",
+              message: "Update succeeded",
+              position: "bottom-right",
+              type: "success"
+            });
+          } catch (error) {
+            Notification({
+              title: error.message.toString(),
+              message: "Unknown error",
+              position: "bottom-right",
+              type: "error"
+            });
+          }
+          // await this.$store.dispatch(
+          //   "update",
+          //   Object.assign({}, this.form)
+          // );
+          // Notification({
+          //   title: "Success",
+          //   message: "Update succeeded",
+          //   position: "bottom-right",
+          //   type: "success"
+          // });
+        }
+      } catch (e) {
+        Notification({
+          title: "Error",
+          message: e.message,
+          position: "bottom-right",
+          type: "error"
+        });
+      }
+    }
+  }
+};
+</script>
+<style lang="scss" scoped>
+.screen-qr {
+  display: flex;
+  align-items: center;
+  width: 100%;
+
+  img {
+    width: 50%;
+  }
+}
+
+.screen-players {
+  flex: 1;
+  padding: 20px;
+
+  .player {
+    font-size: 1rem;
+  }
+}
+
+.room-title {
+  text-align: center;
+  font-weight: 700;
+}
+
+.room-description {
+  text-align: center;
+  font-size: 1.5rem;
+}
+
+.card-attendance {
+  aspect-ratio: 16/9;
+
+  .attendance-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+</style>

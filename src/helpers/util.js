@@ -38,7 +38,8 @@ const nameHash = {
   errors: "errors",
   product_error: "product-error",
   product_accessory: "product-accessory",
-  product_model: "product-model"
+  product_model: "product-model",
+  group: "group"
 };
 
 const modelNameHash = {
@@ -57,10 +58,11 @@ const modelNameHash = {
   flashsale: "flashsale",
   user: "khách hàng",
   error: "lỗi",
-  errorDescription: "mô tả"
+  errorDescription: "mô tả",
+  group: "lớp học"
 };
 
-const multipleTypes = ["articles", "blogs", "pages", "customers"];
+const multipleTypes = ["articles", "blogs", "pages", "customers", "groups"];
 
 const selectOptions = {
   discountType: [

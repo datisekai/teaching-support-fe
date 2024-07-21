@@ -29,13 +29,14 @@ export const mutations = {
   [types.AUTH_SUCCESS]: (state, data) => {
     state.status = "success";
     console.log("AUTH_SUCCESS", data);
-    util.setCookie("token", data.accessToken, 30);
-    util.setCookie("role", data.user.roles[0], 30);
+    const token = data.token;
+    const role = data.user.role;
+    util.setCookie("token", token, 30);
+    util.setCookie("role", role, 30);
     util.setCookie("user", JSON.stringify(data.user || data), 30);
     state.user = data.user;
-    state.role = data.user.roles[0];
-    // state.role = "admin";
-    state.token = data.jwt || data.token;
+    state.role = role;
+    state.token = token;
   },
 
   [types.AUTH_ERROR]: state => {
@@ -108,6 +109,10 @@ export const mutations = {
   // product
   [types.FETCH_PRODUCTS](state, data) {
     state.products = data;
+  },
+  //My room
+  [types.FETCH_MY_ROOMS](state, data) {
+    state.myRooms = data;
   },
 
   [types.FETCH_PRODUCT_DETAIL](state, product) {
@@ -983,6 +988,9 @@ export const mutations = {
 
   [types.FETCH_EDUCATION_POST_DETAIL](state, data) {
     state.educationPostDetail = data;
+  },
+  [types.FETCH_ROOM_DETAIL](state, data) {
+    state.roomDetail = data;
   },
 
   [types.STORE_EDUCATION_POST](state, resp) {

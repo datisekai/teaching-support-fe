@@ -13,7 +13,7 @@
             :href="host"
           >
             <img :src="sidebarLogo" alt="conmeodat" width="30" class="mr-1" />
-            BÁN VÀNG
+            PORTAL
           </a>
         </li>
         <drop-down
@@ -82,8 +82,8 @@ export default {
   props: {
     title: {
       type: String,
-      default: "Bán vàng",
-      description: "Sidebar title"
+      default: "Portal",
+      description: "Teaching support portal"
     },
     backgroundColor: {
       type: String,
