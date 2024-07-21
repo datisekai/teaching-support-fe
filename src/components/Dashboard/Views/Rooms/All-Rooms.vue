@@ -155,7 +155,7 @@ export default {
         center: true
       })
         .then(() => {
-          this.$store.dispatch("removeRooms", row.id).then(res => {
+          this.$store.dispatch("removeRoom", row.id).then(res => {
             Notification({
               title: "Success",
               message: "Delete completed",

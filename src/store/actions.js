@@ -3974,6 +3974,7 @@ export const actions = {
       api
         .post("/api.room", form)
         .catch(err => {
+          console.log("errorss", err);
           console.error(err.stack);
           reject(err);
         })
@@ -3995,5 +3996,22 @@ export const actions = {
       .catch(err => {
         console.error(err.stack);
       });
+  },
+  removeRoom(context, id) {
+    let { commit, state } = context;
+    return new Promise((resolve, reject) => {
+      api
+        .delete("/api.room/" + id)
+        .catch(err => {
+          console.error(err.stack);
+        })
+        .then(resp => {
+          let body = resp.data;
+          commit(types.REMOVE_ROOM, {
+            id: id
+          });
+          resolve(body.data);
+        });
+    });
   }
 };

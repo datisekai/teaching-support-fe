@@ -56,6 +56,7 @@ export default {
           this.$router.push(`/rooms`);
         }
       } catch (e) {
+        console.log("error", e);
         Notification({
           title: "Error",
           message: e.message,

@@ -1215,5 +1215,10 @@ export const mutations = {
   },
   [types.FETCH_SETTING_DATA](state, data) {
     state.setting = data;
+  },
+  [types.REMOVE_ROOM](state, resp) {
+    state.myRooms = state.myRooms.filter(row => {
+      return row.id != resp.id;
+    });
   }
 };

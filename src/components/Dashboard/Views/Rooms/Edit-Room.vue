@@ -20,8 +20,8 @@
       <div class="card-header attendance-header">
         <h6 class="title">QR CODE</h6>
         <el-button type="primary" @click="toggleFullScreen"
-          >Full Screen</el-button
-        >
+          >{{ isFullScreen ? "Exit" : "Full" }} Screen
+        </el-button>
       </div>
       <div class="card-body form-card">
         <div>
@@ -66,7 +66,8 @@ export default {
       client: null,
       roomColyseus: null,
       roomState: {},
-      roomPlayers: []
+      roomPlayers: [],
+      isFullScreen: false
     };
   },
   computed: {
@@ -99,16 +100,25 @@ export default {
         callback: this.save
       }
     ]);
+
+    document.addEventListener("fullscreenchange", event => {
+      console.log("called", document.fullscreenElement);
+      if (!document.fullscreenElement) {
+        console.log("abc");
+        this.isFullScreen = false;
+      }
+    });
   },
   methods: {
     toggleFullScreen() {
       const element = this.$refs.myQRCode;
-      console.log("click", element);
 
-      if (!element.fullscreenElement) {
+      if (!document.fullscreenElement) {
         element.requestFullscreen();
-      } else if (element.exitFullscreen) {
-        element.exitFullscreen();
+        this.isFullScreen = true;
+      } else if (document.exitFullscreen) {
+        document.exitFullscreen();
+        this.isFullScreen = false;
       }
     },
     async joinById() {
@@ -153,7 +163,7 @@ export default {
           });
         });
 
-        this.roomPlayers = players;
+        this.roomPlayers = players.filter(item => item.role != "teacher");
       });
     },
     async getRoomDetail(id) {
@@ -171,10 +181,8 @@ export default {
     async save() {
       try {
         const result = await this.$validator.validateAll();
-        console.log(result);
         if (result) {
           const payload = { status: this.form.status };
-          console.log(payload);
           try {
             this.roomColyseus.send("update_status", payload);
             Notification({
@@ -191,16 +199,6 @@ export default {
               type: "error"
             });
           }
-          // await this.$store.dispatch(
-          //   "update",
-          //   Object.assign({}, this.form)
-          // );
-          // Notification({
-          //   title: "Success",
-          //   message: "Update succeeded",
-          //   position: "bottom-right",
-          //   type: "success"
-          // });
         }
       } catch (e) {
         Notification({

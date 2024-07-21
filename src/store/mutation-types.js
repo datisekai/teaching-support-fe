@@ -316,3 +316,5 @@ export const FETCH_MY_ROOMS = "FETCH_MY_ROOMS";
 export const CREATE_ROOM = "CREATE_ROOM";
 
 export const FETCH_ROOM_DETAIL = "FETCH_ROOM_DETAIL";
+
+export const REMOVE_ROOM = "REMOVE_ROOM";

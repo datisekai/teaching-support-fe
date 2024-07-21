@@ -26,11 +26,12 @@ let api = {
   onUnauthorized(cb) {
     client.interceptors.response.use(undefined, function(error) {
       const errorResponse = error.response;
+      console.log("errorResponse", errorResponse);
       if (401 === errorResponse.status && cb) {
         cb(errorResponse);
       } else {
         const errorData = errorResponse.data;
-        throw new Error(errorData.error.message);
+        throw new Error(errorData.message);
       }
     });
   },
