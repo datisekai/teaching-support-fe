@@ -11,7 +11,7 @@
           {{ roomState }}
         </div>
         <div>
-          {{ roomPlayers }}
+          {{ enrollStudents }}
         </div>
       </div>
     </div>
@@ -33,10 +33,10 @@
           <div class="screen-players">
             <div
               class="player"
-              v-for="(player, index) of roomPlayers"
+              v-for="(student, index) of enrollStudents"
               :key="index"
             >
-              {{ player.code }} - {{ player.name }}
+              {{ student.code }} - {{ student.name }}
             </div>
           </div>
         </div>
@@ -67,7 +67,8 @@ export default {
       roomColyseus: null,
       roomState: {},
       roomPlayers: [],
-      isFullScreen: false
+      isFullScreen: false,
+      enrollStudents: []
     };
   },
   computed: {
@@ -153,17 +154,16 @@ export default {
         console.log("the room state has been updated:", state);
         this.roomState = state.data;
         this.form.status = state.data.status;
-        let players = [];
-        state.players.forEach(item => {
-          players.push({
+
+        let enrollStudents = [];
+        state.enrollStudents.forEach(item => {
+          enrollStudents.push({
             code: item.code,
             name: item.name,
-            role: item.role,
             userId: item.userId
           });
         });
-
-        this.roomPlayers = players.filter(item => item.role != "teacher");
+        this.enrollStudents = enrollStudents;
       });
     },
     async getRoomDetail(id) {
