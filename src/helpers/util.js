@@ -39,7 +39,9 @@ const nameHash = {
   product_error: "product-error",
   product_accessory: "product-accessory",
   product_model: "product-model",
-  group: "group"
+  group: "group",
+  department: "department",
+  course: "course"
 };
 
 const modelNameHash = {
@@ -59,10 +61,20 @@ const modelNameHash = {
   user: "khách hàng",
   error: "lỗi",
   errorDescription: "mô tả",
-  group: "lớp học"
+  group: "lớp học",
+  department: "ngành",
+  course: "môn học"
 };
 
-const multipleTypes = ["articles", "blogs", "pages", "customers", "groups"];
+const multipleTypes = [
+  "articles",
+  "blogs",
+  "pages",
+  "customers",
+  "groups",
+  "departments",
+  "courses"
+];
 
 const selectOptions = {
   discountType: [

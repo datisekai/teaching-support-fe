@@ -2,7 +2,7 @@
   <div class="row">
     <div class="card">
       <div class="card-body">
-        <div class="row">
+        <!-- <div class="row">
           <div class="col-lg-9 col-md-6 col-sm-6 col-6">
             <my-filter
               :rules="rules"
@@ -15,7 +15,7 @@
               @input="cols => this.$refs['table'].updateColumns(cols)"
             ></column-toggle>
           </div>
-        </div>
+        </div> -->
         <div class="col-sm-12 p-0">
           <my-table
             ref="table"

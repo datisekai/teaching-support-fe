@@ -23,7 +23,7 @@ function buildQuery(params) {
 
 export const actions = {
   async login({ commit }, credentials) {
-    const resp = await api.post("/api.auth/login", credentials);
+    const resp = await api.post("/api.auth/login-portal", credentials);
     const body = resp.data;
     const data = body.data;
     commit(types.AUTH_SUCCESS, data);
@@ -4011,6 +4011,167 @@ export const actions = {
             id: id
           });
           resolve(body.data);
+        });
+    });
+  },
+  // Department
+  fetchDepartments(context, params) {
+    let { commit, state } = context;
+    return api
+      .get("/api.department" + buildQuery(params))
+      .catch(err => {
+        console.error(err.stack);
+      })
+      .then(resp => {
+        let body = resp.data;
+        commit(types.FETCH_DEPARTMENTS, body.data);
+        return body.data;
+      });
+  },
+  createDepartment(context, form) {
+    let { commit, state } = context;
+    return new Promise((resolve, reject) => {
+      api
+        .post("/api.department", form)
+        .catch(err => {
+          reject(err);
+        })
+        .then(resp => {
+          let body = resp.data;
+          // commit(types.CREATE_ROOM, body.data);
+          resolve(body.data);
+        });
+    });
+  },
+  fetchDepartment(context, id) {
+    let { commit, state } = context;
+    api
+      .get("/api.department/" + id)
+      .then(resp => {
+        let body = resp.data;
+        commit(types.FETCH_DEPARTMENT, body.data);
+      })
+      .catch(err => {
+        console.error(err.stack);
+      });
+  },
+  removeDepartment(context, id) {
+    let { commit, state } = context;
+    return new Promise((resolve, reject) => {
+      api
+        .delete("/api.department/" + id)
+        .catch(err => {
+          console.error(err.stack);
+        })
+        .then(resp => {
+          let body = resp.data;
+          commit(types.REMOVE_DEPARTMENT, {
+            id: id
+          });
+          resolve(body.data);
+        });
+    });
+  },
+  updateDepartment(context, form) {
+    let { commit, state } = context;
+    return new Promise(function(resolve, reject) {
+      api
+        .put("/api.department/" + form.id, form)
+        .catch(err => {
+          console.error(err.stack);
+        })
+        .then(resp => {
+          let body = resp.data;
+          if (!body.error) {
+            commit(types.UPDATE_DEPARTMENT, {
+              form: form,
+              data: body.data
+            });
+            resolve(body.data);
+          } else {
+            reject(body.error);
+          }
+        });
+    });
+  },
+
+  //Course
+  fetchCourses(context, params) {
+    let { commit, state } = context;
+    return api
+      .get("/api.course" + buildQuery(params))
+      .catch(err => {
+        console.error(err.stack);
+      })
+      .then(resp => {
+        let body = resp.data;
+        commit(types.FETCH_COURSES, body.data);
+        return body.data;
+      });
+  },
+  createCourse(context, form) {
+    let { commit, state } = context;
+    return new Promise((resolve, reject) => {
+      api
+        .post("/api.course", form)
+        .catch(err => {
+          reject(err);
+        })
+        .then(resp => {
+          let body = resp.data;
+          // commit(types.CREATE_ROOM, body.data);
+          resolve(body.data);
+        });
+    });
+  },
+  fetchCourse(context, id) {
+    let { commit, state } = context;
+    api
+      .get("/api.course/" + id)
+      .then(resp => {
+        let body = resp.data;
+        commit(types.FETCH_COURSE, body.data);
+      })
+      .catch(err => {
+        console.error(err.stack);
+      });
+  },
+  removeCourse(context, id) {
+    let { commit, state } = context;
+    return new Promise((resolve, reject) => {
+      api
+        .delete("/api.course/" + id)
+        .catch(err => {
+          console.error(err.stack);
+        })
+        .then(resp => {
+          let body = resp.data;
+          commit(types.REMOVE_COURSE, {
+            id: id
+          });
+          resolve(body.data);
+        });
+    });
+  },
+  updateCourse(context, form) {
+    let { commit, state } = context;
+    return new Promise(function(resolve, reject) {
+      api
+        .put("/api.course/" + form.id, form)
+        .catch(err => {
+          console.error(err.stack);
+        })
+        .then(resp => {
+          let body = resp.data;
+          if (!body.error) {
+            commit(types.UPDATE_COURSE, {
+              form: form,
+              data: body.data
+            });
+            resolve(body.data);
+          } else {
+            reject(body.error);
+          }
         });
     });
   }

@@ -407,7 +407,9 @@ export default {
       errorSetting: "Cài đặt lỗi bảo hành",
       warrantyLocationUpdate: "Cập nhật địa điểm bảo hành",
       warrantyLocationCreate: "Tạo địa điểm bảo hành",
-      room: "Quản lý điểm danh"
+      room: "Quản lý điểm danh",
+      department: "Quản lý ngành học",
+      course: "Quản lý môn học"
     },
     tableHeader: {
       actions: "Thao tác",
@@ -505,7 +507,8 @@ export default {
       errorCode: "Mã lỗi",
       accessory: "Linh kiện",
       accessories: "Linh kiện",
-      duration: "Thời gian"
+      duration: "Thời gian",
+      department_name: "Ngành"
     },
     sidebar: {
       myAccount: "Tài khoản của tôi",

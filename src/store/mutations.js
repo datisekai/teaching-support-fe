@@ -1220,5 +1220,33 @@ export const mutations = {
     state.myRooms = state.myRooms.filter(row => {
       return row.id != resp.id;
     });
+  },
+  [types.FETCH_DEPARTMENTS](state, data) {
+    state.departments = data;
+  },
+  [types.FETCH_DEPARTMENT](state, data) {
+    state.department = data;
+  },
+  [types.REMOVE_DEPARTMENT](state, resp) {
+    state.departments = state.departments.filter(row => {
+      return row.id != resp.id;
+    });
+  },
+  [types.UPDATE_DEPARTMENT](state, data) {
+    state.department = { ...state.department, ...data };
+  },
+  [types.FETCH_COURSES](state, data) {
+    state.courses = data;
+  },
+  [types.FETCH_COURSE](state, data) {
+    state.course = data;
+  },
+  [types.REMOVE_COURSE](state, resp) {
+    state.courses = state.courses.filter(row => {
+      return row.id != resp.id;
+    });
+  },
+  [types.UPDATE_COURSE](state, data) {
+    state.course = { ...state.course, ...data };
   }
 };

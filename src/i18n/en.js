@@ -331,7 +331,10 @@ export default {
       notificationDetail: "Notification Detail",
       birthdayCouponSetting: "Birthday Coupon Setting",
       model: "Model",
-      warrantyCode: "Warranty Code"
+      warrantyCode: "Warranty Code",
+      department: "Department",
+      room: "Room",
+      course: "Course"
     },
     tableHeader: {
       actions: "Actions",
@@ -402,7 +405,8 @@ export default {
       activatedDate: "Activated date",
       expiredDate: "Expired date",
       model: "Model",
-      customer: "Customer"
+      customer: "Customer",
+      department_name: "Department name"
     },
     sidebar: {
       myAccount: "My Account",

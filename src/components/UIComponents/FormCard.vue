@@ -383,7 +383,9 @@ export default {
         "collections",
         "pages",
         "category",
-        "group"
+        "group",
+        "department",
+        "course"
       ],
       imageUrl: "",
       windowWidth: 0

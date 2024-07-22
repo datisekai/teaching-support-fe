@@ -335,6 +335,24 @@ const EditCSCoupon = () =>
 //Settings
 const AllTheme = () =>
   import("src/components/Dashboard/Views/Theme/All-Setting.vue");
+
+//Departments
+const AllDepartments = () =>
+  import("src/components/Dashboard/Views/Departments/All-Departments.vue");
+const CreateDepartment = () =>
+  import("src/components/Dashboard/Views/Departments/Create-Department.vue");
+const EditDepartment = () =>
+  import("src/components/Dashboard/Views/Departments/Edit-Department.vue");
+
+//Courses
+
+const AllCourses = () =>
+  import("src/components/Dashboard/Views/Courses/All-Courses.vue");
+const CreateCourse = () =>
+  import("src/components/Dashboard/Views/Courses/Create-Course.vue");
+const EditCourse = () =>
+  import("src/components/Dashboard/Views/Courses/Edit-Course.vue");
+
 const customerServiceMenu = {
   path: "/cs",
   component: DashboardLayout,
@@ -1087,6 +1105,50 @@ const roomMenu = {
   ]
 };
 
+const departmentMenu = {
+  path: "/departments",
+  component: DashboardLayout,
+  children: [
+    {
+      path: "/",
+      name: "AllDepartments",
+      component: AllDepartments
+    },
+    {
+      path: "create",
+      name: "CreateDepartment",
+      component: CreateDepartment
+    },
+    {
+      path: ":id",
+      name: "EditDepartment",
+      component: EditDepartment
+    }
+  ]
+};
+
+const courseMenu = {
+  path: "/courses",
+  component: DashboardLayout,
+  children: [
+    {
+      path: "/",
+      name: "AllCourses",
+      component: AllCourses
+    },
+    {
+      path: "create",
+      name: "CreateCourse",
+      component: CreateCourse
+    },
+    {
+      path: ":id",
+      name: "EditCourse",
+      component: EditDepartment
+    }
+  ]
+};
+
 const routes = [
   {
     path: "/",
@@ -1124,6 +1186,8 @@ const routes = [
   // warrantyReportMenu,
   educationMenu,
   roomMenu,
+  departmentMenu,
+  courseMenu,
   // customerServiceMenu,
   // warrantyLocationMenu,
   { path: "*", component: NotFound }

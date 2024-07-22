@@ -195,6 +195,14 @@ const state = {
   myRooms: [],
   roomDetail: {},
 
+  //departments
+  departments: [],
+  department: {},
+
+  //courses
+  courses: [],
+  course: {},
+
   report: {
     education: {
       article: {
