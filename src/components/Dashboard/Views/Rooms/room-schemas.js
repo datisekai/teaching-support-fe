@@ -12,10 +12,9 @@ export default [
     minWidth: 120
   },
   {
-    prop: "description",
-    label: "description",
-    type: "html",
-    searchable: true,
+    prop: "group_course",
+    label: "Lớp học",
+    type: "text",
     minWidth: 120
   },
   {

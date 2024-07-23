@@ -14,11 +14,6 @@ export default {
           label: "Mô tả",
           type: "editor"
           //   validate: "required"
-        },
-        {
-          prop: "due_date",
-          label: "Năm học",
-          type: "text"
         }
       ]
     }

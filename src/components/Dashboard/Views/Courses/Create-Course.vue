@@ -2,22 +2,13 @@
   <div class="row">
     <div class="col-lg-8 col-md-8 col-sm-12">
       <form-card
-        v-for="(group, index) of centerGroups"
+        v-for="(group, index) of dataForm.groups"
         :key="'groupleft' + index"
         :group="group"
         v-model="form"
       ></form-card>
     </div>
-    <div class="col-lg-4 col-md-4 col-sm-12">
-      <form-card
-        v-for="(group, index) of sideGroups"
-        :key="'groupright' + index"
-        hasTop="true"
-        :group="group"
-        v-model="form"
-      >
-      </form-card>
-    </div>
+
     <div class="container-fluid">
       <div class="page-action">
         <el-button @click="cancel">Hủy</el-button>
@@ -32,7 +23,7 @@ import FormCard from "src/components/UIComponents/FormCard.vue";
 import CustomField from "src/components/UIComponents/CustomField.vue";
 import { Message, Input, Button } from "element-ui";
 import MySelect from "src/components/UIComponents/Select";
-import dataFrom from "./course-form";
+import dataForm from "./course-form";
 
 const _form = {};
 const _custom_field = {};
@@ -48,35 +39,10 @@ export default {
     MySelect,
     CustomField
   },
-  beforeCreate() {
-    firstGroups = dataFrom[0].groups;
-    secondGroups = dataFrom[1].groups;
 
-    firstGroups.forEach(group => {
-      group.attributes.forEach(attr => {
-        if (attr.multiple && _form[attr.prop]) {
-          _form[attr.prop] = [];
-        } else {
-          _form[attr.prop] = "";
-        }
-        attr.value = _form[attr.prop];
-      });
-    });
-    secondGroups.forEach(group => {
-      group.attributes.forEach(attr => {
-        if (attr.multiple && _form[attr.prop]) {
-          _form[attr.prop] = [];
-        } else {
-          _form[attr.prop] = "";
-        }
-        attr.value = _form[attr.prop];
-      });
-    });
-  },
   data() {
     return {
-      centerGroups: firstGroups,
-      sideGroups: secondGroups,
+      dataForm,
       form: _form,
       show_fields: [],
       is_disabled: false

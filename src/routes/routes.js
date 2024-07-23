@@ -206,7 +206,8 @@ const CreateRoom = () =>
   import("src/components/Dashboard/Views/Rooms/Create-Room.vue");
 const EditRoom = () =>
   import("src/components/Dashboard/Views/Rooms/Edit-Room.vue");
-
+const AllRoomStudents = () =>
+  import("src/components/Dashboard/Views/Rooms/All-Students.vue");
 // Warranty Location
 const AllWarrantyLocations = () =>
   import("src/components/Dashboard/Views/Warranty-Locations/All-Locations.vue");
@@ -1101,6 +1102,11 @@ const roomMenu = {
       path: ":id",
       name: "EditRoom",
       component: EditRoom
+    },
+    {
+      path: "students/:id",
+      name: "AllRoomStudents",
+      component: AllRoomStudents
     }
   ]
 };
@@ -1144,7 +1150,7 @@ const courseMenu = {
     {
       path: ":id",
       name: "EditCourse",
-      component: EditDepartment
+      component: EditCourse
     }
   ]
 };

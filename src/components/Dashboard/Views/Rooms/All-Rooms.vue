@@ -65,7 +65,10 @@ export default {
   computed: {
     rooms() {
       const rows = this.$store.state.myRooms.map(c => {
-        return c;
+        return {
+          ...c,
+          group_course: `${c.group.name} - ${c.group.course.name}`
+        };
       });
       return dtHelper.filterByRules(rows, this.filterOutput);
     },
@@ -93,6 +96,12 @@ export default {
       filterOutput: [],
       columnDefs,
       actions: [
+        {
+          type: "secondary",
+          icon: "nc-icon nc-badge",
+          title: "details",
+          callback: this.view
+        },
         {
           type: "primary",
           icon: "nc-icon nc-ruler-pencil",
@@ -136,6 +145,9 @@ export default {
     ]);
   },
   methods: {
+    view(index, row) {
+      this.$router.push(`/rooms/students/${row.id}`);
+    },
     updateFilter(filterOutput) {
       this.filterOutput = filterOutput;
     },

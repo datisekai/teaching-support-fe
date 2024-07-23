@@ -9,10 +9,5 @@ export default [
     prop: "name",
     label: "name",
     type: "text"
-  },
-  {
-    prop: "due_date",
-    label: "Năm học",
-    type: "text"
   }
 ];

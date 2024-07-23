@@ -1221,6 +1221,12 @@ export const mutations = {
       return row.id != resp.id;
     });
   },
+  [types.FETCH_ROOM_STUDENTS](state, data) {
+    state.roomStudents = data;
+  },
+  [types.RESET_ROOM_STUDENTS](state) {
+    state.roomStudents = [];
+  },
   [types.FETCH_DEPARTMENTS](state, data) {
     state.departments = data;
   },
@@ -1248,5 +1254,19 @@ export const mutations = {
   },
   [types.UPDATE_COURSE](state, data) {
     state.course = { ...state.course, ...data };
+  },
+  [types.FETCH_GROUPS](state, data) {
+    state.groups = data;
+  },
+  [types.FETCH_GROUP](state, data) {
+    state.group = data;
+  },
+  [types.REMOVE_GROUP](state, resp) {
+    state.groups = state.groups.filter(row => {
+      return row.id != resp.id;
+    });
+  },
+  [types.UPDATE_GROUP](state, data) {
+    state.group = { ...state.group, ...data };
   }
 };

@@ -1,37 +1,27 @@
-export default [
-  {
-    groups: [
-      {
-        title: "THÔNG TIN",
-        attributes: [
-          {
-            prop: "name",
-            label: "Tên",
-            type: "text",
-            validate: "required"
-          },
-          {
-            prop: "description",
-            label: "Mô tả",
-            type: "editor"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    groups: [
-      {
-        title: "Khác",
-        attributes: [
-          {
-            prop: "department",
-            label: "Ngành",
-            type: "department",
-            validate: "required"
-          }
-        ]
-      }
-    ]
-  }
-];
+export default {
+  groups: [
+    {
+      title: "Thông tin cơ bản",
+      attributes: [
+        {
+          prop: "name",
+          label: "Tên môn học",
+          type: "text",
+          validate: "required"
+        },
+        {
+          prop: "description",
+          label: "Mô tả",
+          type: "editor",
+          validate: "required"
+        },
+        {
+          prop: "department",
+          label: "department",
+          type: "department",
+          validate: "required"
+        }
+      ]
+    }
+  ]
+};

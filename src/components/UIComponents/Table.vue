@@ -1,13 +1,18 @@
 <template>
   <div class="row m-0">
     <div class="col-sm-12 wrapper-table">
-      <el-dropdown v-if="checkSelect" :style="dwStyle" class="dropdown-check-table">
-        <el-button type="primary" :style="{'width': dwStyle.width}">
-          ({{checkSelect}}) {{$t(`el.pageTitle.${pageTitle}`)}} {{$t(`el.table.selected`)}}
+      <el-dropdown
+        v-if="checkSelect"
+        :style="dwStyle"
+        class="dropdown-check-table"
+      >
+        <el-button type="primary" :style="{ width: dwStyle.width }">
+          ({{ checkSelect }}) {{ $t(`el.pageTitle.${pageTitle}`) }}
+          {{ $t(`el.table.selected`) }}
           <i class="el-icon-arrow-down el-icon--right"></i>
         </el-button>
         <el-dropdown-menu
-          :style="{'width': dwStyle.width}"
+          :style="{ width: dwStyle.width }"
           class="dropdown-status-table"
           slot="dropdown"
           v-if="actionsTable && actionsTable.length"
@@ -23,7 +28,8 @@
               class="full-width text-left"
               :class="actionTable.color"
               :key="'btn' + index"
-            >{{$t(`el.button.${actionTable.title}`)}}</el-button>
+              >{{ $t(`el.button.${actionTable.title}`) }}</el-button
+            >
           </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
@@ -54,13 +60,19 @@
           :prop="column.prop"
           :sortable="column.sortable"
           :label="$t(`el.tableHeader.${column.label}`)"
-          :fixed="index == 0 ? 'left':false"
+          :fixed="index == 0 ? 'left' : false"
         >
           <template slot-scope="props">
             <span v-if="column.type === 'image'" align="center">
               <div v-if="props.row[column.prop]">
-                <router-link v-if="column.link" :to="column.link + '/' + props.row['id']">
-                  <img class="img-table" :src="getImageSrc(props.row[column.prop], column.size)">
+                <router-link
+                  v-if="column.link"
+                  :to="column.link + '/' + props.row['id']"
+                >
+                  <img
+                    class="img-table"
+                    :src="getImageSrc(props.row[column.prop], column.size)"
+                  />
                 </router-link>
                 <template v-else-if="column.popover == true">
                   <el-popover
@@ -70,56 +82,79 @@
                     trigger="hover"
                   >
                     <div class="popover-img">
-                      <img :src="getImageSrc(props.row[column.prop], 'src')">
+                      <img :src="getImageSrc(props.row[column.prop], 'src')" />
                     </div>
                     <img
                       slot="reference"
                       class="img-table"
                       :src="getImageSrc(props.row[column.prop])"
-                    >
+                    />
                   </el-popover>
                 </template>
                 <img
                   v-else-if="column.externalLink"
                   class="img-table"
                   :src="getImageSrc(props.row[column.prop])"
-                >
-                <img v-else class="img-table" :src="getImageSrc(props.row[column.prop])">
+                />
+                <img
+                  v-else
+                  class="img-table"
+                  :src="getImageSrc(props.row[column.prop])"
+                />
               </div>
               <div v-else>
-                <img class="img-table" :src="noImage">
+                <img class="img-table" :src="noImage" />
               </div>
             </span>
-            <span v-else-if="column.prop === 'actionText'" v-html="props.row[column.prop]"></span>
+            <span
+              v-else-if="column.prop === 'actionText'"
+              v-html="props.row[column.prop]"
+            ></span>
             <span v-else-if="column.type === 'number'">
               <router-link
                 v-if="column.link"
                 :to="column.link + '/' + props.row['id']"
-              >{{$util.formatNumber(props.row[column.prop])}}</router-link>
-              <span v-else>{{$util.formatNumber(props.row[column.prop])}}</span>
+                >{{ $util.formatNumber(props.row[column.prop]) }}</router-link
+              >
+              <span v-else>{{
+                $util.formatNumber(props.row[column.prop])
+              }}</span>
             </span>
             <span v-else-if="column.type === 'select'">
-              <badge v-if="$util.parseType(column.prop, props.row[column.prop])" :type="$util.parseType(column.prop, props.row[column.prop])">
-                {{parseStatus(column.prop, props.row[column.prop])}}
+              <badge
+                v-if="$util.parseType(column.prop, props.row[column.prop])"
+                :type="$util.parseType(column.prop, props.row[column.prop])"
+              >
+                {{ parseStatus(column.prop, props.row[column.prop]) }}
               </badge>
               <span v-else>
-                {{parseStatus(column.prop, props.row[column.prop])}}
+                {{ parseStatus(column.prop, props.row[column.prop]) }}
               </span>
             </span>
             <span v-else-if="column.type === 'badge'">
-              <badge :type="props.row['type'] || 'default'">{{props.row[column.prop]}}</badge>
+              <badge :type="props.row['type'] || 'default'">{{
+                props.row[column.prop]
+              }}</badge>
             </span>
             <span v-else-if="column.type === 'html'">
               <span v-html="props.row[column.prop]"></span>
             </span>
             <span v-else-if="column.type === 'money'">
-              <span v-if="props.row[column.prop]">{{$util.formatVndShort(props.row[column.prop])}}</span>
+              <span v-if="props.row[column.prop]">{{
+                $util.formatVndShort(props.row[column.prop])
+              }}</span>
             </span>
             <span v-else-if="column.type === 'date'">
-              <span>{{props.row[column.prop] && $util.formatDate(props.row[column.prop])}}</span>
+              <span>{{
+                props.row[column.prop] &&
+                  $util.formatDate(props.row[column.prop])
+              }}</span>
             </span>
             <span v-else-if="column.type === 'datetime'">
-              <span>{{props.row[column.prop] && $util.formatDateTime(props.row[column.prop])}}</span>
+              <span>{{
+                props.row[column.prop] &&
+                  $util.formatDateTime(props.row[column.prop])
+              }}</span>
             </span>
             <span v-else-if="column.type === 'action'">
               <el-switch
@@ -130,10 +165,20 @@
               ></el-switch>
             </span>
             <span v-else>
-              <router-link v-if="column.link" :to="column.link + '/' + (column.propLink ? props.row[column.propLink] : props.row['id'])" :target="column.blank ? '_blank' : ''">
-                {{props.row[column.prop]}}
+              <router-link
+                v-if="column.link"
+                :to="
+                  column.link +
+                    '/' +
+                    (column.propLink
+                      ? props.row[column.propLink]
+                      : props.row['id'])
+                "
+                :target="column.blank ? '_blank' : ''"
+              >
+                {{ props.row[column.prop] }}
               </router-link>
-              <span v-else>{{props.row[column.prop]}}</span>
+              <span v-else>{{ props.row[column.prop] }}</span>
             </span>
           </template>
         </el-table-column>
@@ -154,7 +199,9 @@
                 :type="action.type"
                 :key="action.type + i"
                 :title="$t(`el.button.${action.title}`)"
-                :disabled="action.disabled && action.disabled(props.$index, props.row)"
+                :disabled="
+                  action.disabled && action.disabled(props.$index, props.row)
+                "
                 @click="action.callback(props.$index, props.row)"
               >
                 <i :class="action.icon"></i>
@@ -168,7 +215,9 @@
                 :type="action.type"
                 :key="action.type + i"
                 :title="$t(`el.button.${action.title}`)"
-                :disabled="action.disabled && action.disabled(props.$index, props.row)"
+                :disabled="
+                  action.disabled && action.disabled(props.$index, props.row)
+                "
                 @click="action.callback(props.$index, props.row)"
               >
                 <i :class="action.icon"></i>
@@ -184,13 +233,15 @@
           class="select-default"
           v-for="item in pagination.perPageOptions"
           :key="item"
-          :label="$t('el.table.perpageText',[item])"
+          :label="$t('el.table.perpageText', [item])"
           :value="item"
         ></el-option>
       </el-select>
     </div>
     <div class="col-sm-4 pagination-info">
-      <p class="text-entries text-center">{{$t('el.table.paginationText',[from, to, total])}}</p>
+      <p class="text-entries text-center">
+        {{ $t("el.table.paginationText", [from, to, total]) }}
+      </p>
     </div>
     <div class="col-sm-4">
       <p-pagination
@@ -204,14 +255,34 @@
 </template>
 <script>
 import {
-  Table, TableColumn, Select, Option, Dropdown, Button, DropdownMenu, DropdownItem, Popover, Switch
+  Table,
+  TableColumn,
+  Select,
+  Option,
+  Dropdown,
+  Button,
+  DropdownMenu,
+  DropdownItem,
+  Popover,
+  Switch
 } from "element-ui";
 import Badge from "./Badge.vue";
 import PPagination from "src/components/UIComponents/Pagination.vue";
 import { mapState } from "vuex";
 
 export default {
-  props: ["actions", "ignoreActions", "actionsTable", "columnDefs", "dataRows", "noSort", "selectable", "rowKey", "summary", "parentActions"],
+  props: [
+    "actions",
+    "ignoreActions",
+    "actionsTable",
+    "columnDefs",
+    "dataRows",
+    "noSort",
+    "selectable",
+    "rowKey",
+    "summary",
+    "parentActions"
+  ],
   components: {
     ElTable: Table,
     ElSelect: Select,
@@ -227,7 +298,7 @@ export default {
     Badge
   },
   computed: {
-    ...mapState(['pageTitle']),
+    ...mapState(["pageTitle"]),
     pagedData() {
       return this.tableData.slice(this.from, this.to);
     },
@@ -251,6 +322,7 @@ export default {
      */
     queriedData() {
       if (!this.searchQuery) {
+        console.log("this.tableData", this.tableData);
         this.pagination.total = this.tableData.length;
         return this.pagedData;
       }
@@ -298,7 +370,7 @@ export default {
   },
   data() {
     return {
-      noImage: '/static/img/no-image.png',
+      noImage: "/static/img/no-image.png",
       pagination: {
         perPage: 10,
         currentPage: 1,
@@ -325,12 +397,14 @@ export default {
       const defaultIndex = this.summary ? this.summary.index || 1 : 1;
       columns.forEach((column, index) => {
         if (index === 0) {
-          sums[index] = this.$t('el.tableHeader.totalPrice') + ':';
+          sums[index] = this.$t("el.tableHeader.totalPrice") + ":";
           return;
         }
         if (index != defaultIndex) return;
-        sums[index] = this.$util.formatNumber(this.summary ? this.summary.total : 0);
-      })
+        sums[index] = this.$util.formatNumber(
+          this.summary ? this.summary.total : 0
+        );
+      });
       return sums;
     },
     parseStatus(prop, value) {
@@ -370,11 +444,11 @@ export default {
     updateColumns(columns) {
       this.tableColumns = columns;
     },
-    getImageSrc(image, size = 'medium') {
+    getImageSrc(image, size = "medium") {
       let url = this.noImage;
       if (image) {
-        url = typeof image === 'string' ? image : image[size];
-        if (!url.includes('http')) {
+        url = typeof image === "string" ? image : image[size];
+        if (!url.includes("http")) {
           url = this.host + image[size];
         }
       }
@@ -432,7 +506,7 @@ export default {
     max-height: 65px;
   }
 }
-.el-table__row.expanded td:first-child .cell{
+.el-table__row.expanded td:first-child .cell {
   display: flex;
   align-items: center;
   .el-table__expand-icon {

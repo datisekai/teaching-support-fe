@@ -336,3 +336,14 @@ export const FETCH_COURSE = "FETCH_COURSE";
 
 export const REMOVE_COURSE = "REMOVE_COURSE";
 export const UPDATE_COURSE = "UPDATE_COURSE";
+export const FETCH_ROOM_STUDENTS = "FETCH_ROOM_STUDENTS";
+export const RESET_ROOM_STUDENTS = "RESET_ROOM_STUDENTS";
+
+export const FETCH_GROUPS = "FETCH_GROUPS";
+
+export const CREATE_GROUP = "CREATE_GROUP";
+
+export const FETCH_GROUP = "FETCH_GROUP";
+
+export const REMOVE_GROUP = "REMOVE_GROUP";
+export const UPDATE_GROUP = "UPDATE_GROUP";

@@ -3968,6 +3968,22 @@ export const actions = {
         return body.data;
       });
   },
+  fetchRoomStudents(context, id) {
+    let { commit, state } = context;
+    api
+      .get("/api.event-room/" + id)
+      .then(resp => {
+        let body = resp.data;
+        commit(types.FETCH_ROOM_STUDENTS, body.data);
+      })
+      .catch(err => {
+        console.error(err.stack);
+      });
+  },
+  resetRoomStudents(context) {
+    let { commit, state } = context;
+    commit(types.RESET_ROOM_STUDENTS, []);
+  },
   createRoom(context, form) {
     let { commit, state } = context;
     return new Promise((resolve, reject) => {
@@ -4165,6 +4181,86 @@ export const actions = {
           let body = resp.data;
           if (!body.error) {
             commit(types.UPDATE_COURSE, {
+              form: form,
+              data: body.data
+            });
+            resolve(body.data);
+          } else {
+            reject(body.error);
+          }
+        });
+    });
+  },
+  // Group
+  fetchGroups(context, params) {
+    let { commit, state } = context;
+    return api
+      .get("/api.group" + buildQuery(params))
+      .catch(err => {
+        console.error(err.stack);
+      })
+      .then(resp => {
+        let body = resp.data;
+        commit(types.FETCH_GROUPS, body.data);
+        return body.data;
+      });
+  },
+  createGroup(context, form) {
+    let { commit, state } = context;
+    return new Promise((resolve, reject) => {
+      api
+        .post("/api.group", form)
+        .catch(err => {
+          reject(err);
+        })
+        .then(resp => {
+          let body = resp.data;
+          // commit(types.CREATE_ROOM, body.data);
+          resolve(body.data);
+        });
+    });
+  },
+  fetchGroup(context, id) {
+    let { commit, state } = context;
+    api
+      .get("/api.group/" + id)
+      .then(resp => {
+        let body = resp.data;
+        commit(types.FETCH_GROUP, body.data);
+      })
+      .catch(err => {
+        console.error(err.stack);
+      });
+  },
+  removeGroup(context, id) {
+    let { commit, state } = context;
+    return new Promise((resolve, reject) => {
+      api
+        .delete("/api.group/" + id)
+        .catch(err => {
+          console.error(err.stack);
+        })
+        .then(resp => {
+          let body = resp.data;
+          commit(types.REMOVE_GROUP, {
+            id: id
+          });
+          resolve(body.data);
+        });
+    });
+  },
+  updateGroup(context, form) {
+    let { commit, state } = context;
+    return new Promise(function(resolve, reject) {
+      api
+        .put("/api.group/" + form.id, form)
+        .catch(err => {
+          console.error(err.stack);
+        })
+        .then(resp => {
+          let body = resp.data;
+          if (!body.error) {
+            commit(types.UPDATE_GROUP, {
               form: form,
               data: body.data
             });

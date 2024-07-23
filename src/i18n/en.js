@@ -334,7 +334,8 @@ export default {
       warrantyCode: "Warranty Code",
       department: "Department",
       room: "Room",
-      course: "Course"
+      course: "Course",
+      roomStudents: "Attendance List"
     },
     tableHeader: {
       actions: "Actions",
@@ -406,7 +407,8 @@ export default {
       expiredDate: "Expired date",
       model: "Model",
       customer: "Customer",
-      department_name: "Department name"
+      department_name: "Department name",
+      code: "Code"
     },
     sidebar: {
       myAccount: "My Account",

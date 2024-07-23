@@ -2,9 +2,9 @@
   <div>
     <form-card :group="group" v-model="form"> </form-card>
 
-    <div class="card">
+    <!-- <div class="card">
       <div class="card-header">
-        <h6 class="title">Thông tin real-time</h6>
+        <h6 class="title">Debug</h6>
       </div>
       <div class="card-body form-card">
         <div>
@@ -14,9 +14,13 @@
           {{ enrollStudents }}
         </div>
       </div>
-    </div>
+    </div> -->
 
-    <div class="card card-attendance" ref="myQRCode" v-if="roomState.qr_key">
+    <div
+      class="card card-attendance"
+      :class="{ 'aspect-video': roomState.qr_key }"
+      ref="myQRCode"
+    >
       <div class="card-header attendance-header">
         <h6 class="title">QR CODE</h6>
         <el-button type="primary" @click="toggleFullScreen"
@@ -24,11 +28,11 @@
         </el-button>
       </div>
       <div class="card-body form-card">
-        <div>
+        <div v-if="roomState.qr_key">
           <h3 class="room-title">{{ roomData.title }}</h3>
           <p class="room-description" v-html="roomData.description"></p>
         </div>
-        <div class="screen-qr">
+        <div v-if="roomState.qr_key" class="screen-qr">
           <vue-qrcode :value="roomState.qr_key" />
           <div class="screen-players">
             <div
@@ -39,6 +43,11 @@
               {{ student.code }} - {{ student.name }}
             </div>
           </div>
+        </div>
+        <div v-if="!roomState.qr_key">
+          <p class="room-guide">
+            Cập nhật trạng thái sang <b>điểm danh</b> để hiển thị QR điểm danh
+          </p>
         </div>
       </div>
     </div>
@@ -71,20 +80,8 @@ export default {
       enrollStudents: []
     };
   },
-  computed: {
-    // room() {
-    //   const detail = this.$store.state.roomDetail;
-    //   return detail;
-    // }
-  },
-  watch: {
-    // room(nVal, oVal) {
-    //   if (nVal.id) {
-    //     this.form = Object.assign({}, nVal);
-    //     console.log(this.form);
-    //   }
-    // }
-  },
+  computed: {},
+  watch: {},
   async mounted() {
     this.client = new Colyseus.Client(SOCKET_URL);
     const id = this.$route.params.id;
@@ -103,9 +100,7 @@ export default {
     ]);
 
     document.addEventListener("fullscreenchange", event => {
-      console.log("called", document.fullscreenElement);
       if (!document.fullscreenElement) {
-        console.log("abc");
         this.isFullScreen = false;
       }
     });
@@ -242,13 +237,20 @@ export default {
   font-size: 1.5rem;
 }
 
-.card-attendance {
+.aspect-video {
   aspect-ratio: 16/9;
+}
 
+.card-attendance {
   .attendance-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
   }
+}
+
+.room-guide {
+  text-align: center;
+  font-size: 1.2rem;
 }
 </style>

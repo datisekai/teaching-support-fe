@@ -194,6 +194,7 @@ const state = {
   // my rooms
   myRooms: [],
   roomDetail: {},
+  roomStudents: [],
 
   //departments
   departments: [],

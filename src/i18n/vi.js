@@ -409,7 +409,8 @@ export default {
       warrantyLocationCreate: "Tạo địa điểm bảo hành",
       room: "Quản lý điểm danh",
       department: "Quản lý ngành học",
-      course: "Quản lý môn học"
+      course: "Quản lý môn học",
+      roomStudents: "Danh sách sinh viên điểm danh"
     },
     tableHeader: {
       actions: "Thao tác",
@@ -508,7 +509,8 @@ export default {
       accessory: "Linh kiện",
       accessories: "Linh kiện",
       duration: "Thời gian",
-      department_name: "Ngành"
+      department_name: "Ngành",
+      code: "Mã"
     },
     sidebar: {
       myAccount: "Tài khoản của tôi",
