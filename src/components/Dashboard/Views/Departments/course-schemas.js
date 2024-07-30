@@ -9,5 +9,10 @@ export default [
     prop: "name",
     label: "name",
     type: "text"
+  },
+  {
+    prop: "code",
+    label: "Mã môn học",
+    type: "text"
   }
 ];

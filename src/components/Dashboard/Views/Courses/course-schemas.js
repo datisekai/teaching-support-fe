@@ -6,6 +6,12 @@ export default [
     type: "number"
   },
   {
+    prop: "code",
+    label: "Mã môn học",
+    minWidth: 120,
+    type: "text"
+  },
+  {
     prop: "name",
     label: "name",
     minWidth: 120,

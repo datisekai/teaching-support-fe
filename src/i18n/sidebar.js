@@ -327,31 +327,31 @@ export default [
       //   path: "/education/coupon",
       //   roles: ["admin", "manager"]
       // },
-      {
-        name: "teachers",
-        path: "/education/teacher",
-        roles: ["admin", "manager"]
-      },
-      {
-        name: "documents",
-        path: "/education/document",
-        roles: ["admin", "manager"]
-      },
+      // {
+      //   name: "teachers",
+      //   path: "/education/teacher",
+      //   roles: ["admin", "manager"]
+      // },
+      // {
+      //   name: "documents",
+      //   path: "/education/document",
+      //   roles: ["admin", "manager"]
+      // },
       {
         name: "exam",
         path: "/education/exam",
         roles: ["admin", "manager"]
       },
-      {
-        name: "surveys",
-        path: "/education/survey",
-        roles: ["admin", "manager"]
-      },
-      {
-        name: "posts",
-        path: "/education/post",
-        roles: ["admin", "manager"]
-      },
+      // {
+      //   name: "surveys",
+      //   path: "/education/survey",
+      //   roles: ["admin", "manager"]
+      // },
+      // {
+      //   name: "posts",
+      //   path: "/education/post",
+      //   roles: ["admin", "manager"]
+      // },
       {
         name: "ticket",
         path: "/education/ticket",

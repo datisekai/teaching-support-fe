@@ -9,12 +9,12 @@ export default {
           type: "text"
           //   validate: "required"
         },
-        {
-          prop: "description",
-          label: "Mô tả",
-          type: "editor"
-          //   validate: "required"
-        },
+        // {
+        //   prop: "description",
+        //   label: "Mô tả",
+        //   type: "editor"
+        //   //   validate: "required"
+        // },
         {
           prop: "due_date",
           label: "Năm học",

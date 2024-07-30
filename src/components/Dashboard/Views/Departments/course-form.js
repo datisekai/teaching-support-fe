@@ -10,6 +10,12 @@ export default {
           //   validate: "required"
         },
         {
+          prop: "code",
+          label: "Mã môn học",
+          type: "text"
+          //   validate: "required"
+        },
+        {
           prop: "description",
           label: "Mô tả",
           type: "editor"
