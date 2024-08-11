@@ -1,7 +1,7 @@
 <template lang="html">
   <div class="row">
     <!-- {{ course }} -->
-    {{ form }}
+    <!-- {{ form }} -->
     <div class="col-lg-8 col-md-8 col-sm-12">
       <form-card
         v-for="(group, index) of dataForm.groups"
@@ -110,13 +110,18 @@ export default {
       is_edit_group: false,
       actions: [
         {
+          type: "secondary",
+          icon: "fa-solid fa-clipboard-user",
+          callback: this.createRoom
+        },
+        {
           type: "primary",
-          icon: "nc-icon nc-ruler-pencil",
+          icon: "fa-solid fa-pen-to-square",
           callback: this.editGroup
         }
         // {
         //   type: "danger",
-        //   icon: "nc-icon nc-simple-remove",
+        //   icon: "fa-solid fa-xmark",
         //   callback: this.removeGroup
         // }
       ],
@@ -155,6 +160,9 @@ export default {
     ]);
   },
   methods: {
+    createRoom(index, row) {
+      this.$router.push(`/rooms/create?group_id=${row.id}`);
+    },
     showModalGroup() {
       this.dialogAddGroupVisible = true;
       this.current_group = {};

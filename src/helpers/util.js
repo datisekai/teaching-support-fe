@@ -41,7 +41,8 @@ const nameHash = {
   product_model: "product-model",
   group: "group",
   department: "department",
-  course: "course"
+  course: "course",
+  teacher: "teacher"
 };
 
 const modelNameHash = {
@@ -73,7 +74,8 @@ const multipleTypes = [
   "customers",
   "groups",
   "departments",
-  "courses"
+  "courses",
+  "teachers"
 ];
 
 const selectOptions = {

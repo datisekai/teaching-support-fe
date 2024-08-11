@@ -208,6 +208,8 @@ const EditRoom = () =>
   import("src/components/Dashboard/Views/Rooms/Edit-Room.vue");
 const AllRoomStudents = () =>
   import("src/components/Dashboard/Views/Rooms/All-Students.vue");
+const AllLogStudents = () =>
+  import("src/components/Dashboard/Views/Rooms/All-Logs.vue");
 // Warranty Location
 const AllWarrantyLocations = () =>
   import("src/components/Dashboard/Views/Warranty-Locations/All-Locations.vue");
@@ -353,6 +355,15 @@ const CreateCourse = () =>
   import("src/components/Dashboard/Views/Courses/Create-Course.vue");
 const EditCourse = () =>
   import("src/components/Dashboard/Views/Courses/Edit-Course.vue");
+
+//Groups
+
+const AllGroups = () =>
+  import("src/components/Dashboard/Views/Groups/All-Groups.vue");
+const CreateGroup = () =>
+  import("src/components/Dashboard/Views/Groups/Create-Group.vue");
+const EditGroup = () =>
+  import("src/components/Dashboard/Views/Groups/Edit-Group.vue");
 
 const customerServiceMenu = {
   path: "/cs",
@@ -1107,6 +1118,11 @@ const roomMenu = {
       path: "students/:id",
       name: "AllRoomStudents",
       component: AllRoomStudents
+    },
+    {
+      path: "logs/:id",
+      name: "AllLogStudents",
+      component: AllLogStudents
     }
   ]
 };
@@ -1155,6 +1171,28 @@ const courseMenu = {
   ]
 };
 
+const groupMenu = {
+  path: "/groups",
+  component: DashboardLayout,
+  children: [
+    {
+      path: "/",
+      name: "AllGroups",
+      component: AllGroups
+    },
+    {
+      path: "create",
+      name: "CreateGroup",
+      component: CreateGroup
+    },
+    {
+      path: ":id",
+      name: "EditGroup",
+      component: EditGroup
+    }
+  ]
+};
+
 const routes = [
   {
     path: "/",
@@ -1194,6 +1232,7 @@ const routes = [
   roomMenu,
   departmentMenu,
   courseMenu,
+  groupMenu,
   // customerServiceMenu,
   // warrantyLocationMenu,
   { path: "*", component: NotFound }

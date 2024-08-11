@@ -195,6 +195,7 @@ const state = {
   myRooms: [],
   roomDetail: {},
   roomStudents: [],
+  logStudents: [],
 
   //departments
   departments: [],
@@ -203,6 +204,12 @@ const state = {
   //courses
   courses: [],
   course: {},
+
+  //groups
+  groups: [],
+  group: {},
+
+  loading: false,
 
   report: {
     education: {
@@ -319,9 +326,11 @@ const state = {
   setting: {}
 };
 
-export default new Vuex.Store({
+const store = new Vuex.Store({
   state,
   mutations,
   actions,
   getters
 });
+
+export default store;

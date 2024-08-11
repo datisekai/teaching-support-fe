@@ -4,7 +4,10 @@
       <div class="card-body">
         <div class="row">
           <div class="col-lg-9 col-md-6 col-sm-6 col-6">
-            <my-filter :rules="rules" v-on:filter-change="updateFilter"></my-filter>
+            <my-filter
+              :rules="rules"
+              v-on:filter-change="updateFilter"
+            ></my-filter>
           </div>
           <div class="col-lg-3 col-md-6 col-sm-6 col-6">
             <column-toggle
@@ -28,28 +31,38 @@
   </div>
 </template>
 <script>
-import { Message, MessageBox } from 'element-ui';
-import MyTable from 'src/components/UIComponents/Table.vue';
-import MyFilter from 'src/components/UIComponents/Filter.vue';
-import dtHelper from 'src/helpers/datatable';
-import ColumnToggle from 'src/components/UIComponents/ColumnToggle';
-import contactSchemas from './contact-schemas';
+import { Message, MessageBox } from "element-ui";
+import MyTable from "src/components/UIComponents/Table.vue";
+import MyFilter from "src/components/UIComponents/Filter.vue";
+import dtHelper from "src/helpers/datatable";
+import ColumnToggle from "src/components/UIComponents/ColumnToggle";
+import contactSchemas from "./contact-schemas";
 
 export default {
   components: {
     MyTable,
     MyFilter,
-    ColumnToggle,
+    ColumnToggle
   },
   computed: {
     contact() {
       const rows = this.$store.state.contact;
       return dtHelper.filterByRules(rows, this.filterOutput);
-    },
+    }
   },
   data() {
-    const initFiledArrays = ['id', 'name', 'email', 'phone', 'created_at', 'reply'];
-    const columnDefs = dtHelper.buildInitFields(contactSchemas, initFiledArrays);
+    const initFiledArrays = [
+      "id",
+      "name",
+      "email",
+      "phone",
+      "created_at",
+      "reply"
+    ];
+    const columnDefs = dtHelper.buildInitFields(
+      contactSchemas,
+      initFiledArrays
+    );
 
     return {
       filterOutput: [],
@@ -58,38 +71,40 @@ export default {
       rules: dtHelper.buildRules(contactSchemas),
       actions: [
         {
-          type: 'primary',
-          icon: 'nc-icon nc-ruler-pencil',
-          callback: this.edit,
-        },
+          type: "primary",
+          icon: "fa-solid fa-pen-to-square",
+          callback: this.edit
+        }
       ],
       actionsTable: [
         {
-          title: 'Chưa phản hồi',
-          callback: this.unreplyAll,
+          title: "Chưa phản hồi",
+          callback: this.unreplyAll
         },
         {
-          title: 'Đã phản hồi',
-          callback: this.replyAll,
+          title: "Đã phản hồi",
+          callback: this.replyAll
         },
         {
-          title: 'Xóa',
-          color: 'text-danger',
-          callback: this.deleteAll,
-        },
-      ],
+          title: "Xóa",
+          color: "text-danger",
+          callback: this.deleteAll
+        }
+      ]
     };
   },
   mounted() {
-    this.$store.dispatch('fetchContact');
+    this.$store.dispatch("fetchContact");
 
-    this.$store.dispatch('setPageTitle', 'Liên hệ');
-    this.$store.dispatch('setCurrentActions', [{
-      label: 'Xuất excel',
-      type: 'default',
-      icon: '',
-      callback: this.exportExcel,
-    }]);
+    this.$store.dispatch("setPageTitle", "Liên hệ");
+    this.$store.dispatch("setCurrentActions", [
+      {
+        label: "Xuất excel",
+        type: "default",
+        icon: "",
+        callback: this.exportExcel
+      }
+    ]);
   },
   methods: {
     edit(index, row) {
@@ -99,22 +114,22 @@ export default {
       this.filterOutput = filterOutput;
     },
     readAll(rows) {
-      this.updateStatus(rows, 'read', 'read');
+      this.updateStatus(rows, "read", "read");
     },
     replyAll(rows) {
-      this.updateStatus(rows, 'reply', 'reply');
+      this.updateStatus(rows, "reply", "reply");
     },
     unreplyAll(rows) {
-      this.updateStatus(rows, 'reply', 'unreply');
+      this.updateStatus(rows, "reply", "unreply");
     },
     deleteAll(rows) {
-      MessageBox.confirm('Bạn có chắc chắn xóa không?', 'Warning', {
-        confirmButtonText: 'Đồng ý',
-        cancelButtonText: 'Hủy bỏ',
-        type: 'warning',
-        center: true,
+      MessageBox.confirm("Bạn có chắc chắn xóa không?", "Warning", {
+        confirmButtonText: "Đồng ý",
+        cancelButtonText: "Hủy bỏ",
+        type: "warning",
+        center: true
       }).then(() => {
-        this.updateStatus(rows, 'display', 'delete');
+        this.updateStatus(rows, "display", "delete");
       });
     },
     updateStatus(rows, statusType, status) {
@@ -125,44 +140,47 @@ export default {
       }
 
       let data = {
-        type: 'contact',
+        type: "contact",
         arrId: arrID,
         status
       };
-      this.$store.dispatch('updateStatus', data).then((result) => {
-        self.$store.dispatch('fetchContact');
-        Message({
-          type: 'success',
-          message: 'Cập nhật thành công',
+      this.$store
+        .dispatch("updateStatus", data)
+        .then(result => {
+          self.$store.dispatch("fetchContact");
+          Message({
+            type: "success",
+            message: "Cập nhật thành công"
+          });
+        })
+        .catch(error => {
+          Message({
+            type: "error",
+            message: error.message
+          });
         });
-      }).catch((error) => {
-        Message({
-          type: 'error',
-          message: error.message,
-        });
-      });
     },
     sortChange(data) {
       const prop = data.prop;
-      const order = data.order == 'ascending' ? 'asc' : 'desc';
-      this.$store.dispatch('fetchContact', {
-        order: `${prop}=${order}`,
+      const order = data.order == "ascending" ? "asc" : "desc";
+      this.$store.dispatch("fetchContact", {
+        order: `${prop}=${order}`
       });
     },
-    exportExcel(){
+    exportExcel() {
       let self = this;
-      this.$util.exportExcel('contact', self.$store.state.contact);
-    },
+      this.$util.exportExcel("contact", self.$store.state.contact);
+    }
   },
   destroyed() {
-    this.$store.dispatch('setCurrentActions', []);
-  },
+    this.$store.dispatch("setCurrentActions", []);
+  }
 };
 </script>
 <style lang="scss">
-  .el-table .td-actions{
+.el-table .td-actions {
   button.btn {
     margin-right: 5px;
   }
-  }
+}
 </style>

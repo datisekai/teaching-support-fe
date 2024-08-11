@@ -37,7 +37,7 @@
               </p-button>
 
               <p-button type="danger">
-                <i slot="label" class="nc-icon nc-simple-remove"></i>
+                <i slot="label" class="fa-solid fa-xmark"></i>
                 Danger
               </p-button>
 
@@ -50,7 +50,6 @@
                 <i slot="labelRight" class="nc-icon nc-minimal-right"></i>
                 Right
               </p-button>
-
             </div>
           </div>
         </div>
@@ -92,8 +91,15 @@
             </div>
             <div class="card-body">
               <nav aria-label="Page navigation example">
-                <p-pagination :page-count="10" v-model="defaultPagination"></p-pagination>
-                <p-pagination type="info" :page-count="10" v-model="infoPagination"></p-pagination>
+                <p-pagination
+                  :page-count="10"
+                  v-model="defaultPagination"
+                ></p-pagination>
+                <p-pagination
+                  type="info"
+                  :page-count="10"
+                  v-model="infoPagination"
+                ></p-pagination>
               </nav>
             </div>
           </div>
@@ -107,8 +113,8 @@
                 <p-button type="info" round outline>Middle</p-button>
                 <p-button type="info" round outline>Right</p-button>
               </div>
-              <br>
-              <br>
+              <br />
+              <br />
               <div class="btn-group" data-toggle="buttons">
                 <p-button type="info" round outline>1</p-button>
                 <p-button type="info" round outline>2</p-button>
@@ -439,21 +445,19 @@
   </div>
 </template>
 <script>
-import { Button, Pagination } from 'src/components/UIComponents';
+import { Button, Pagination } from "src/components/UIComponents";
 
 export default {
   components: {
     [Pagination.name]: Pagination,
-    [Button.name]: Button,
+    [Button.name]: Button
   },
   data() {
     return {
       defaultPagination: 3,
-      infoPagination: 5,
+      infoPagination: 5
     };
-  },
+  }
 };
 </script>
-<style>
-
-</style>
+<style></style>

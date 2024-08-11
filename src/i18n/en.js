@@ -335,7 +335,9 @@ export default {
       department: "Department",
       room: "Room",
       course: "Course",
-      roomStudents: "Attendance List"
+      roomStudents: "Attendance List",
+      logStudents: "Log Students",
+      group: "Group"
     },
     tableHeader: {
       actions: "Actions",
@@ -465,7 +467,9 @@ export default {
       model: "Model",
       warranty: "Warranty",
       warrantyCode: "Warranty code",
-      theme: "Theme"
+      theme: "Theme",
+      course: "Course",
+      teacher_name: "Teacher name"
     },
     translate: {
       revenue: "Revenue",

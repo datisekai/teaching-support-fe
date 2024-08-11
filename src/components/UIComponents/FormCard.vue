@@ -385,7 +385,8 @@ export default {
         "category",
         "group",
         "department",
-        "course"
+        "course",
+        "teacher"
       ],
       imageUrl: "",
       windowWidth: 0

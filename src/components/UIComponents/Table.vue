@@ -38,12 +38,15 @@
         :data="queriedData"
         border
         :row-key="rowKey"
+        :load="true"
+        :lazy="true"
         default-expand-all
         style="width: 100%"
         @selection-change="handleSelectionChange"
         @sort-change="sortChange"
         :summary-method="getSummaries"
         :show-summary="summary ? summary.isSummary : false"
+        v-loading="loading"
       >
         <el-table-column
           type="selection"
@@ -298,7 +301,7 @@ export default {
     Badge
   },
   computed: {
-    ...mapState(["pageTitle"]),
+    ...mapState(["pageTitle", "loading"]),
     pagedData() {
       return this.tableData.slice(this.from, this.to);
     },

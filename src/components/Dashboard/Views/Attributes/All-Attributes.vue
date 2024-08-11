@@ -26,7 +26,7 @@
                   icon
                   @click="showModalAttributeOption(props.row, 'edit')"
                 >
-                  <i class="nc-icon nc-ruler-pencil"></i>
+                  <i class="fa-solid fa-pen-to-square"></i>
                 </p-button>
               </template>
             </el-table-column>
@@ -114,7 +114,7 @@ import {
   Table,
   Input,
   TableColumn,
-  Message,
+  Message
 } from "element-ui";
 import MyTable from "src/components/UIComponents/Table.vue";
 import MyFilter from "src/components/UIComponents/Filter.vue";
@@ -136,13 +136,13 @@ export default {
     ElTableColumn: TableColumn,
     MyTable,
     MyFilter,
-    ColumnToggle,
+    ColumnToggle
   },
   computed: {
     attributes() {
       let rows = this.$store.state.attributes;
       return dtHelper.filterByRules(rows, this.filterOutput);
-    },
+    }
   },
   data() {
     return {
@@ -151,9 +151,9 @@ export default {
         {
           type: "primary",
           title: "sync",
-          icon: "nc-icon nc-ruler-pencil",
-          callback: this.edit,
-        },
+          icon: "fa-solid fa-pen-to-square",
+          callback: this.edit
+        }
       ],
       filter: {},
       rules: dtHelper.buildRules(attributeSchema),
@@ -164,14 +164,14 @@ export default {
         attribute_id: "",
         name: "",
         meta: "",
-        action: "",
+        action: ""
       },
       formModalAttribute: {
         id: "",
         name: "",
         description: "",
-        action: "",
-      },
+        action: ""
+      }
     };
   },
   async mounted() {
@@ -180,8 +180,8 @@ export default {
         type: "primary",
         title: "create",
         icon: "",
-        callback: () => this.showModalAttribute({}, "add"),
-      },
+        callback: () => this.showModalAttribute({}, "add")
+      }
     ];
     this.$store.dispatch("setPageTitle", "Thuộc tính");
     this.$store.dispatch("fetchAttributes");
@@ -189,11 +189,11 @@ export default {
   },
   methods: {
     updateFilter(filterOutput) {
-      const filterTitle = filterOutput.find((f) => f.filter === "name");
+      const filterTitle = filterOutput.find(f => f.filter === "name");
       if (filterTitle) {
         this.$store.dispatch("fetchAttributes", {
           name: filterTitle.value,
-          perpage: 100,
+          perpage: 100
         });
       } else if (filterOutput.length) {
         this.filterOutput = filterOutput;
@@ -205,7 +205,7 @@ export default {
       const prop = data.prop;
       const order = data.order == "ascending" ? "asc" : "desc";
       this.$store.dispatch("fetchAttributes", {
-        order: `${prop}=${order}`,
+        order: `${prop}=${order}`
       });
     },
     edit(index, row) {
@@ -217,14 +217,14 @@ export default {
           id: attribute.id,
           name: attribute.name,
           description: attribute.description,
-          action: action,
+          action: action
         };
       } else {
         this.formModalAttribute = {
           id: "",
           name: "",
           description: "",
-          action: action,
+          action: action
         };
       }
       this.dialogAddAttribute = true;
@@ -233,7 +233,7 @@ export default {
       if (!this.formModalAttribute.name) {
         return Message({
           message: "Chưa nhập tên thuộc tính",
-          type: "error",
+          type: "error"
         });
       }
       try {
@@ -241,14 +241,14 @@ export default {
         await this.$store.dispatch("createAttribute", this.formModalAttribute);
         Message({
           message: "Tạo thành công",
-          type: "success",
+          type: "success"
         });
         this.dialogAddAttribute = false;
       } catch (error) {
         if (error) {
           Message({
             message: error.message,
-            type: "error",
+            type: "error"
           });
         }
       }
@@ -258,7 +258,7 @@ export default {
       if (!this.formModalAttributeOption.name) {
         return Message({
           message: "Chưa nhập tên tùy chọn thuộc tính",
-          type: "error",
+          type: "error"
         });
       }
       delete this.formModalAttributeOption.id;
@@ -269,29 +269,32 @@ export default {
         );
         Message({
           message: "Tạo thành công",
-          type: "success",
+          type: "success"
         });
         this.dialogEditAttributeOption = false;
       } catch (error) {
         Message({
           message: error.message,
-          type: "error",
+          type: "error"
         });
       }
     },
     async updateAttributeOption() {
       try {
-        await this.$store.dispatch('updateAttributeOption', this.formModalAttributeOption);
+        await this.$store.dispatch(
+          "updateAttributeOption",
+          this.formModalAttributeOption
+        );
         Message({
-          message: 'Cập nhật thành công',
-          type: 'success'
-        })
+          message: "Cập nhật thành công",
+          type: "success"
+        });
         this.dialogEditAttributeOption = false;
-      } catch(error) {
+      } catch (error) {
         Message({
           message: error.message,
-          type: 'error'
-        })
+          type: "error"
+        });
       }
     },
     showModalAttributeOption(option, action) {
@@ -299,22 +302,22 @@ export default {
         this.formModalAttributeOption = {
           id: option.id,
           attributeId: option.attributeId,
-          name: option.name,
+          name: option.name
         };
       } else {
         this.formModalAttributeOption = {
           id: "",
           attributeId: option.id,
-          name: "",
+          name: ""
         };
       }
 
       this.dialogEditAttributeOption = true;
-    },
+    }
   },
   destroyed() {
     this.$store.dispatch("setCurrentActions", []);
-  },
+  }
 };
 </script>
 
@@ -349,4 +352,3 @@ export default {
   }
 }
 </style>
-

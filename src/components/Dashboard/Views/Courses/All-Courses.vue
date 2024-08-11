@@ -62,12 +62,12 @@ export default {
       actions: [
         {
           type: "primary",
-          icon: "nc-icon nc-ruler-pencil",
+          icon: "fa-solid fa-pen-to-square",
           callback: this.edit
         },
         {
           type: "danger",
-          icon: "nc-icon nc-simple-remove",
+          icon: "fa-solid fa-xmark",
           callback: this.remove
         }
       ],

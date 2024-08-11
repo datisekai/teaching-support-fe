@@ -347,3 +347,7 @@ export const FETCH_GROUP = "FETCH_GROUP";
 
 export const REMOVE_GROUP = "REMOVE_GROUP";
 export const UPDATE_GROUP = "UPDATE_GROUP";
+
+export const FETCH_LOG_STUDENTS = "FETCH_LOG_STUDENTS";
+
+export const SET_LOADING = "SET_LOADING";

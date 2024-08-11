@@ -3,15 +3,19 @@
     <form class="offset-xl-2 col-xl-8 col-md-12" data-vv-scope="form">
       <div class="card">
         <div class="card-header">
-          <h6 class="title">{{$t('el.formCardTitle.flashSale')}}</h6>
+          <h6 class="title">{{ $t("el.formCardTitle.flashSale") }}</h6>
         </div>
         <div class="card-body form-card">
           <p>
-            <strong>Lưu ý:</strong> <i> mỗi sản phẩm chỉ được nằm trong một chương trình flashsale, và thời gian giữa các flashsale không được chồng chéo lên nhau.</i>
+            <strong>Lưu ý:</strong>
+            <i>
+              mỗi sản phẩm chỉ được nằm trong một chương trình flashsale, và
+              thời gian giữa các flashsale không được chồng chéo lên nhau.</i
+            >
           </p>
           <div class="row">
             <div class="col-sm-12 p-0">
-              <label class="required">{{$t('el.formCard.title')}}</label>
+              <label class="required">{{ $t("el.formCard.title") }}</label>
               <el-input
                 type="text"
                 class="full-width"
@@ -19,37 +23,41 @@
                 v-model="form.title"
                 v-validate="'required'"
                 :placeholder="$t('el.formCard.title')"
-                :class="errors.has('form.title')?'border-danger':''"
+                :class="errors.has('form.title') ? 'border-danger' : ''"
                 :data-vv-as="$t('el.formCard.title')"
               >
               </el-input>
-              <span class="text-danger" v-if="errors.has('form.title')">{{ errors.first('form.title') }}</span>
+              <span class="text-danger" v-if="errors.has('form.title')">{{
+                errors.first("form.title")
+              }}</span>
             </div>
           </div>
           <div class="row">
             <div class="col-sm-12 p-0">
-              <label>{{$t('el.formCard.image')}}</label>
-              <my-image-upload-single v-model="form.image"></my-image-upload-single>
+              <label>{{ $t("el.formCard.image") }}</label>
+              <my-image-upload-single
+                v-model="form.image"
+              ></my-image-upload-single>
             </div>
           </div>
           <div class="row">
             <div class="col-sm-12 p-0">
-              <label>{{$t('el.formCard.description')}}</label>
-              <my-editor
-                v-model="form.description"
-              ></my-editor>
+              <label>{{ $t("el.formCard.description") }}</label>
+              <my-editor v-model="form.description"></my-editor>
             </div>
           </div>
         </div>
       </div>
       <div class="card">
         <div class="card-header">
-          <h6 class="title">{{$t('el.formCardTitle.usageConditions')}}</h6>
+          <h6 class="title">{{ $t("el.formCardTitle.usageConditions") }}</h6>
         </div>
         <div class="card-body form-card">
           <div class="row">
             <div class="col-sm-12 p-0">
-              <label class="required">{{$t('el.formCard.activeDates')}}</label>
+              <label class="required">{{
+                $t("el.formCard.activeDates")
+              }}</label>
               <el-date-picker
                 unlink-panels
                 align="left"
@@ -64,14 +72,21 @@
                 :start-placeholder="$t('el.datepicker.startDate')"
                 :end-placeholder="$t('el.datepicker.endDate')"
                 :data-vv-as="$t('el.formCard.activeDates')"
-                :class="errors.has('form.start_end')?'border-danger':''"
+                :class="errors.has('form.start_end') ? 'border-danger' : ''"
               >
               </el-date-picker>
-              <span class="text-danger" v-if="errors.has('form.start_end')">{{ errors.first('form.start_end') }}</span>
+              <span class="text-danger" v-if="errors.has('form.start_end')">{{
+                errors.first("form.start_end")
+              }}</span>
             </div>
           </div>
           <div class="row">
-            <el-switch v-model="form.isActive" :active-value='true' :inactive-value='false' :active-text="$t('el.formCard.isActive')">
+            <el-switch
+              v-model="form.isActive"
+              :active-value="true"
+              :inactive-value="false"
+              :active-text="$t('el.formCard.isActive')"
+            >
             </el-switch>
           </div>
         </div>
@@ -80,45 +95,67 @@
     <form class="offset-xl-2 col-xl-8 col-md-12" data-vv-scope="formProduct">
       <div class="card">
         <div class="card-header">
-          <h6 class="title">{{$t('el.formCardTitle.applyFor')}}
-            <el-button class="pull-right" type="primary" @click="addProduct" :disabled="!canAddProduct">{{$t('el.button.add')}}</el-button>
+          <h6 class="title">
+            {{ $t("el.formCardTitle.applyFor") }}
+            <el-button
+              class="pull-right"
+              type="primary"
+              @click="addProduct"
+              :disabled="!canAddProduct"
+              >{{ $t("el.button.add") }}</el-button
+            >
           </h6>
         </div>
         <div class="card-body">
           <div class="row mb-4">
             <div class="col-sm-12">
-              <label>{{$t('el.formCard.product')}}</label>
+              <label>{{ $t("el.formCard.product") }}</label>
               <select-ajax
                 key="products"
                 v-model="formProduct.product"
-                :attribute="{type: 'products', field: 'name', multiple: false, key: 'id', valueKey: null, extraQuery: {hasFlashsale: 'false'}}"
+                :attribute="{
+                  type: 'products',
+                  field: 'name',
+                  multiple: false,
+                  key: 'id',
+                  valueKey: null,
+                  extraQuery: { hasFlashsale: 'false' }
+                }"
               >
               </select-ajax>
             </div>
           </div>
           <div class="row mb-4">
             <div class="col-sm-6">
-              <label>{{$t('el.formCard.price')}}</label>
-              <br/>
+              <label>{{ $t("el.formCard.price") }}</label>
+              <br />
               <div class="el-input__inner border-0 px-0">
-                <span>{{this.formProduct.rangePrice}}</span>
+                <span>{{ this.formProduct.rangePrice }}</span>
               </div>
             </div>
             <div class="col-sm-6">
-              <label class="required">{{$t('el.formCard.salePrice')}}</label>
+              <label class="required">{{ $t("el.formCard.salePrice") }}</label>
               <my-money
-                fixed=0
+                fixed="0"
                 data-vv-name="formProduct.salePrice"
                 v-model="formProduct.salePrice"
-                v-validate="`required|min_value:0|max_value:${formProduct.maxPrice}`"
+                v-validate="
+                  `required|min_value:0|max_value:${formProduct.maxPrice}`
+                "
                 :disabled="!formProduct.productId"
                 :placeholder="$t('el.formCard.salePrice')"
-                :class="errors.has('formProduct.salePrice')?'border-danger':''"
+                :class="
+                  errors.has('formProduct.salePrice') ? 'border-danger' : ''
+                "
                 :data-vv-as="$t('el.formCard.salePrice')"
               >
                 <span slot="append">VNĐ</span>
               </my-money>
-              <span class="text-danger" v-if="errors.has('formProduct.salePrice')">{{ errors.first('formProduct.salePrice') }}</span>
+              <span
+                class="text-danger"
+                v-if="errors.has('formProduct.salePrice')"
+                >{{ errors.first("formProduct.salePrice") }}</span
+              >
             </div>
             <!-- <div class="col-sm-6">
               <label class="required">{{$t('el.formCard.usageLimitQty')}}</label>
@@ -153,8 +190,10 @@
     </form>
     <div class="container-fluid">
       <div class="page-action">
-        <el-button @click="cancel">{{$t('el.button.cancel')}}</el-button>
-        <el-button :loading="saveLoading" type="primary" @click="save">{{$t('el.button.update')}}</el-button>
+        <el-button @click="cancel">{{ $t("el.button.cancel") }}</el-button>
+        <el-button :loading="saveLoading" type="primary" @click="save">{{
+          $t("el.button.update")
+        }}</el-button>
       </div>
     </div>
     <el-dialog
@@ -164,7 +203,11 @@
       @keyup.enter.native="updateProduct"
       @closed="closeUpdateProduct"
     >
-      <el-form :model="formUpdateProduct" label-width="140px" data-vv-scope="formUpdateProduct">
+      <el-form
+        :model="formUpdateProduct"
+        label-width="140px"
+        data-vv-scope="formUpdateProduct"
+      >
         <el-form-item :label="$t('el.formCard.product')">
           <el-input
             v-model="formUpdateProduct.name"
@@ -173,22 +216,30 @@
         </el-form-item>
         <el-form-item :label="$t('el.formCard.price')">
           <div class="el-input__inner border-0 px-0">
-            <span>{{this.formUpdateProduct.rangePrice}}</span>
+            <span>{{ this.formUpdateProduct.rangePrice }}</span>
           </div>
         </el-form-item>
         <el-form-item :label="$t('el.formCard.salePrice')">
           <my-money
-            fixed=0
+            fixed="0"
             data-vv-name="formUpdateProduct.salePrice"
             v-model="formUpdateProduct.salePrice"
-            v-validate="`required|min_value:0|max_value:${formUpdateProduct.maxPrice}`"
+            v-validate="
+              `required|min_value:0|max_value:${formUpdateProduct.maxPrice}`
+            "
             :placeholder="$t('el.formCard.salePrice')"
-            :class="errors.has('formUpdateProduct.salePrice')?'border-danger':''"
+            :class="
+              errors.has('formUpdateProduct.salePrice') ? 'border-danger' : ''
+            "
             :data-vv-as="$t('el.formCard.salePrice')"
           >
             <span slot="append">VNĐ</span>
           </my-money>
-          <span class="text-danger" v-if="errors.has('formUpdateProduct.salePrice')">{{ errors.first('formUpdateProduct.salePrice') }}</span>
+          <span
+            class="text-danger"
+            v-if="errors.has('formUpdateProduct.salePrice')"
+            >{{ errors.first("formUpdateProduct.salePrice") }}</span
+          >
         </el-form-item>
         <!-- <el-form-item :label="$t('el.formCard.usageLimitQty')">
           <el-input
@@ -206,8 +257,12 @@
         </el-form-item> -->
       </el-form>
       <span slot="footer" class="dialog-footer">
-        <el-button @click="dialogFormUpdateVisible = false">{{$t('el.button.cancel')}}</el-button>
-        <el-button type="primary" @click="updateProduct">{{$t('el.button.update')}}</el-button>
+        <el-button @click="dialogFormUpdateVisible = false">{{
+          $t("el.button.cancel")
+        }}</el-button>
+        <el-button type="primary" @click="updateProduct">{{
+          $t("el.button.update")
+        }}</el-button>
       </span>
     </el-dialog>
   </div>
@@ -304,14 +359,14 @@ export default {
       actions: [
         {
           type: "primary",
-          icon: "nc-icon nc-ruler-pencil",
+          icon: "fa-solid fa-pen-to-square",
           title: "edit",
           loading: true,
           callback: this.showUpdateProductForm
         },
         {
           type: "danger",
-          icon: "nc-icon nc-simple-remove",
+          icon: "fa-solid fa-xmark",
           title: "delete",
           callback: this.removeProduct
         }
@@ -525,26 +580,24 @@ export default {
             };
           })
         };
-        this.$store
-          .dispatch("updateFlashsale", data)
-          .then(
-            res => {
-              Notification({
-                title: "Success",
-                message: "Update completed",
-                position: "bottom-right",
-                type: "success"
-              });
-            },
-            err => {
-              Notification({
-                title: "Error",
-                message: err.message,
-                position: "bottom-right",
-                type: "error"
-              });
-            }
-          );
+        this.$store.dispatch("updateFlashsale", data).then(
+          res => {
+            Notification({
+              title: "Success",
+              message: "Update completed",
+              position: "bottom-right",
+              type: "success"
+            });
+          },
+          err => {
+            Notification({
+              title: "Error",
+              message: err.message,
+              position: "bottom-right",
+              type: "error"
+            });
+          }
+        );
       } else {
         Notification({
           title: "Error",

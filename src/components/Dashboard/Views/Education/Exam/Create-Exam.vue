@@ -50,7 +50,7 @@
                 :title="'Chỉnh sửa'"
                 @click="showUpdateQuestion(index, question)"
               >
-                <i class="nc-icon nc-ruler-pencil"></i>
+                <i class="fa-solid fa-pen-to-square"></i>
               </p-button>
               <p-button
                 size="sm"
@@ -59,7 +59,7 @@
                 :title="'Xóa'"
                 @click="removeQuestion(index, question)"
               >
-                <i class="nc-icon nc-simple-remove"></i>
+                <i class="fa-solid fa-xmark"></i>
               </p-button>
             </div>
           </div>

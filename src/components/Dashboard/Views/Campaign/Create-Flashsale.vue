@@ -290,13 +290,13 @@ export default {
       actions: [
         {
           type: 'primary',
-          icon: 'nc-icon nc-ruler-pencil',
+          icon: 'fa-solid fa-pen-to-square',
           title: 'edit',
           callback: this.showUpdateProductForm,
         },
         {
           type: 'danger',
-          icon: 'nc-icon nc-simple-remove',
+          icon: 'fa-solid fa-xmark',
           title: 'delete',
           callback: this.removeProduct,
         },

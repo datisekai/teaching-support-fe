@@ -75,7 +75,8 @@ export default {
         success: c.success ? "Thành công" : "Thất bại",
         phone: c.student.phone || "Chưa có",
         type: c.success ? "success" : "danger",
-        created_at: c.created_at
+        created_at: c.created_at,
+        id: c.id
       }));
       return dtHelper.filterByRules(rows, this.filterOutput);
     },

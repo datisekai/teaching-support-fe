@@ -98,19 +98,25 @@ export default {
       actions: [
         {
           type: "secondary",
-          icon: "nc-icon nc-badge",
+          icon: "fa-solid fa-users",
           title: "details",
           callback: this.view
         },
         {
+          type: "info",
+          icon: "fa-solid fa-gears",
+          title: "logs",
+          callback: this.viewLogs
+        },
+        {
           type: "primary",
-          icon: "nc-icon nc-ruler-pencil",
+          icon: "fa-solid fa-pen-to-square",
           title: "edit",
           callback: this.edit
         },
         {
           type: "danger",
-          icon: "nc-icon nc-simple-remove",
+          icon: "fa-solid fa-xmark",
           title: "delete",
           callback: this.remove
         }
@@ -147,6 +153,9 @@ export default {
   methods: {
     view(index, row) {
       this.$router.push(`/rooms/students/${row.id}`);
+    },
+    viewLogs(index, row) {
+      this.$router.push("/rooms/logs/" + row.id);
     },
     updateFilter(filterOutput) {
       this.filterOutput = filterOutput;

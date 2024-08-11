@@ -138,7 +138,7 @@ export default {
       actions: [
         // {
         //   type: "primary",
-        //   icon: "nc-icon nc-ruler-pencil",
+        //   icon: "fa-solid fa-pen-to-square",
         //   title: "Chỉnh sửa",
         //   callback: this.edit
         // }

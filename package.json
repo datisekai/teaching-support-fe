@@ -3,7 +3,7 @@
   "version": "0.6.27",
   "dependencies": {
     "@chenfengyuan/vue-qrcode": "^1.0.1",
-    "@tinymce/tinymce-vue": "^1.1.0",
+    "@tinymce/tinymce-vue": "^1.1.2",
     "axios": "^0.18.0",
     "babel-polyfill": "^6.26.0",
     "chart.js": "^2.7.3",

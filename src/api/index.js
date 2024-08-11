@@ -2,6 +2,7 @@
 import axios from "axios";
 import cookieUtil from "../helpers/cookie-util";
 const prefix = process.env.VUE_APP_API_BASE_URL;
+import store from "../store/store";
 
 export const SOCKET_URL = process.env.VUE_APP_SOCKET_URL;
 
@@ -26,7 +27,6 @@ let api = {
   onUnauthorized(cb) {
     client.interceptors.response.use(undefined, function(error) {
       const errorResponse = error.response;
-      console.log("errorResponse", errorResponse);
       if (401 === errorResponse.status && cb) {
         cb(errorResponse);
       } else {
@@ -35,8 +35,11 @@ let api = {
       }
     });
   },
-  get: function(url) {
-    return client.get(prefix + url, {});
+  get: async function(url) {
+    store.dispatch("setLoading", true);
+    const data = await client.get(prefix + url, {});
+    store.dispatch("setLoading", false);
+    return data;
   },
   post: function(url, data) {
     return client.post(prefix + url, data);

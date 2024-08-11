@@ -60,6 +60,7 @@ import FormCard from "src/components/UIComponents/FormCard.vue";
 import { Notification, Button } from "element-ui";
 import api, { SOCKET_URL } from "src/api/index";
 import VueQrcode from "vue-qrcode";
+import { Loading } from "element-ui";
 export default {
   components: {
     FormCard,
@@ -68,6 +69,7 @@ export default {
     ElButton: Button
   },
   data() {
+    let loadingInstance = Loading.service({ fullscreen: true });
     return {
       form: {},
       group: editRoomForm,
@@ -77,7 +79,8 @@ export default {
       roomState: {},
       roomPlayers: [],
       isFullScreen: false,
-      enrollStudents: []
+      enrollStudents: [],
+      loadingInstance
     };
   },
   computed: {},
@@ -142,6 +145,8 @@ export default {
         });
         this.$router.push(`/rooms`);
         console.log(error);
+      } finally {
+        this.loadingInstance.close();
       }
     },
     listenMessage(room) {

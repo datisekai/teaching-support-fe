@@ -3980,6 +3980,22 @@ export const actions = {
         console.error(err.stack);
       });
   },
+  fetchLogStudents(context, id) {
+    let { commit, state } = context;
+    api
+      .get("/api.event-room/logs/" + id)
+      .then(resp => {
+        let body = resp.data;
+        commit(types.FETCH_LOG_STUDENTS, body.data);
+      })
+      .catch(err => {
+        console.error(err.stack);
+      });
+  },
+  setLoading(context, loading) {
+    let { commit, state } = context;
+    commit(types.SET_LOADING, loading);
+  },
   resetRoomStudents(context) {
     let { commit, state } = context;
     commit(types.RESET_ROOM_STUDENTS, []);
@@ -4270,5 +4286,20 @@ export const actions = {
           }
         });
     });
+  },
+
+  //Teacher
+  fetchTeachers(context, params) {
+    let { commit, state } = context;
+    return api
+      .get("/api.user/teacher")
+      .catch(err => {
+        console.error(err.stack);
+      })
+      .then(resp => {
+        let body = resp.data;
+        commit(types.FETCH_TEACHERS, body.data);
+        return body.data;
+      });
   }
 };

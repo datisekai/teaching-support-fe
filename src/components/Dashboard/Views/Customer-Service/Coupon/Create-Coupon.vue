@@ -3,12 +3,12 @@
     <div class="offset-xl-2 col-xl-8 col-md-12">
       <div class="card">
         <div class="card-header">
-          <h6 class="title">{{$t('el.formCardTitle.coupon')}}</h6>
+          <h6 class="title">{{ $t("el.formCardTitle.coupon") }}</h6>
         </div>
-        <div class="card-body form-card">   
+        <div class="card-body form-card">
           <div class="row">
             <div class="col-sm-12 p-0">
-              <label class="required">{{$t('el.formCard.code')}}</label>
+              <label class="required">{{ $t("el.formCard.code") }}</label>
               <el-input
                 type="text"
                 class="full-width uppercase"
@@ -16,22 +16,30 @@
                 data-vv-name="code"
                 v-validate="'required'"
                 :placeholder="$t('el.formCard.code')"
-                :class="errors.has('code')?'border-danger':''"
+                :class="errors.has('code') ? 'border-danger' : ''"
                 :data-vv-as="$t('el.formCard.code')"
               >
-                <el-button id="new-code" slot="append" icon="fa fa-retweet" @click="genNewCode"></el-button>
+                <el-button
+                  id="new-code"
+                  slot="append"
+                  icon="fa fa-retweet"
+                  @click="genNewCode"
+                ></el-button>
               </el-input>
-              <span class="text-danger" v-if="errors.has('code')">{{ errors.first('code') }}</span>
+              <span class="text-danger" v-if="errors.has('code')">{{
+                errors.first("code")
+              }}</span>
             </div>
           </div>
           <div class="row">
             <div class="col-sm-12 p-0">
-              <label>{{$t('el.formCard.description')}}</label>
+              <label>{{ $t("el.formCard.description") }}</label>
               <el-input
                 type="textarea"
                 :rows="2"
                 placeholder="Description"
-                v-model="form.description">
+                v-model="form.description"
+              >
               </el-input>
             </div>
           </div>
@@ -39,87 +47,101 @@
       </div>
       <div class="card">
         <div class="card-header">
-          <h6 class="title">{{$t('el.formCardTitle.typeAndValue')}}</h6>
+          <h6 class="title">{{ $t("el.formCardTitle.typeAndValue") }}</h6>
         </div>
         <div class="card-body form-card">
           <div class="row">
             <div class="col-sm-12 p-0">
-              <label class="required">{{$t('el.formCard.type')}}</label>
+              <label class="required">{{ $t("el.formCard.type") }}</label>
               <my-select
                 class="full-width"
                 data-vv-name="type"
                 v-model="form.discountType"
                 v-validate="'required'"
-                :attribute="{options: $util.getOptions('discountType')}"
+                :attribute="{ options: $util.getOptions('discountType') }"
                 :placeholder="$t('el.formCard.type')"
-                :class="errors.has('type')?'border-danger':''"
+                :class="errors.has('type') ? 'border-danger' : ''"
                 :data-vv-as="$t('el.formCard.type')"
               >
               </my-select>
-              <span class="text-danger" v-if="errors.has('type')">{{ errors.first('type') }}</span>
+              <span class="text-danger" v-if="errors.has('type')">{{
+                errors.first("type")
+              }}</span>
             </div>
           </div>
           <hr />
-          <div v-if="form.discountType != 'free_shipping'"> 
+          <div v-if="form.discountType != 'free_shipping'">
             <div v-if="form.discountType == 'percentage'">
               <div class="row">
-                <div class="col-sm-12 p-0" >
-                  <label class="required">{{$t('el.formCard.value')}}</label>
+                <div class="col-sm-12 p-0">
+                  <label class="required">{{ $t("el.formCard.value") }}</label>
                   <my-money
-                    fixed=0
+                    fixed="0"
                     data-vv-name="value"
                     v-model="form.discountValue"
                     v-validate="'required|min_value:0|max_value:100'"
                     :placeholder="$t('el.formCard.value')"
-                    :class="errors.has('value')?'border-danger':''"
+                    :class="errors.has('value') ? 'border-danger' : ''"
                     :data-vv-as="$t('el.formCard.value')"
                   >
                     <span slot="append">%</span>
                   </my-money>
-                  <span class="text-danger" v-if="errors.has('value')">{{ errors.first('value') }}</span>
+                  <span class="text-danger" v-if="errors.has('value')">{{
+                    errors.first("value")
+                  }}</span>
                 </div>
               </div>
               <div class="row">
-                <div class="col-sm-12 p-0" >
-                  <label class="required">{{$t('el.formCard.discountMaxAmount')}}</label>
+                <div class="col-sm-12 p-0">
+                  <label class="required">{{
+                    $t("el.formCard.discountMaxAmount")
+                  }}</label>
                   <my-money
-                    fixed=0
+                    fixed="0"
                     data-vv-name="discount_max_amount"
                     v-model="form.discountMaxAmount"
                     v-validate="'required|min_value:0'"
                     :placeholder="$t('el.formCard.discountMaxAmount')"
-                    :class="errors.has('discount_max_amount')?'border-danger':''"
+                    :class="
+                      errors.has('discount_max_amount') ? 'border-danger' : ''
+                    "
                     :data-vv-as="$t('el.formCard.discountMaxAmount')"
                   >
                     <span slot="append">VNĐ</span>
                   </my-money>
-                  <span class="text-danger" v-if="errors.has('discount_max_amount')">{{ errors.first('discount_max_amount') }}</span>
+                  <span
+                    class="text-danger"
+                    v-if="errors.has('discount_max_amount')"
+                    >{{ errors.first("discount_max_amount") }}</span
+                  >
                 </div>
               </div>
             </div>
             <div v-if="form.discountType == 'fixed_amount'">
               <div class="row">
-                <div class="col-sm-12 p-0" >
-                  <label class="required">{{$t('el.formCard.value')}}</label>
+                <div class="col-sm-12 p-0">
+                  <label class="required">{{ $t("el.formCard.value") }}</label>
                   <my-money
-                    fixed=0
+                    fixed="0"
                     data-vv-name="value"
                     v-model="form.discountValue"
                     v-validate="'required|min_value:0'"
                     :placeholder="$t('el.formCard.value')"
-                    :class="errors.has('value')?'border-danger':''"
+                    :class="errors.has('value') ? 'border-danger' : ''"
                     :data-vv-as="$t('el.formCard.value')"
                   >
                     <span slot="append">VNĐ</span>
                   </my-money>
-                  <span class="text-danger" v-if="errors.has('value')">{{ errors.first('value') }}</span>
+                  <span class="text-danger" v-if="errors.has('value')">{{
+                    errors.first("value")
+                  }}</span>
                 </div>
               </div>
             </div>
             <hr />
             <div class="row">
               <div class="col-sm-12 p-0">
-                <label class="required">{{$t('el.formCard.applyTo')}}</label>
+                <label class="required">{{ $t("el.formCard.applyTo") }}</label>
                 <my-select
                   class="full-width"
                   data-vv-name="type_relation"
@@ -127,16 +149,22 @@
                   v-validate="'required'"
                   :placeholder="$t('el.formCard.applyTo')"
                   :data-vv-as="$t('el.formCard.applyTo')"
-                  :attribute="{options: $util.getOptions('typeRelation').filter(opt => opt.value !== 'all_product')}"
-                  :class="errors.has('type_relation')?'border-danger':''"
+                  :attribute="{
+                    options: $util
+                      .getOptions('typeRelation')
+                      .filter(opt => opt.value !== 'all_product')
+                  }"
+                  :class="errors.has('type_relation') ? 'border-danger' : ''"
                 >
                 </my-select>
-                <span class="text-danger" v-if="errors.has('type_relation')">{{ errors.first('type_relation') }}</span>
+                <span class="text-danger" v-if="errors.has('type_relation')">{{
+                  errors.first("type_relation")
+                }}</span>
               </div>
             </div>
             <div class="row" v-if="form.typeRelation != 'all_product'">
               <div class="col-sm-12 p-0">
-                <label class="required">{{$t('el.formCard.applyFor')}}</label>
+                <label class="required">{{ $t("el.formCard.applyFor") }}</label>
                 <select-ajax
                   v-if="form.typeRelation == 'category'"
                   key="categories"
@@ -144,8 +172,14 @@
                   v-model="form.categoryIds"
                   v-validate="'required'"
                   :data-vv-as="$t('el.formCard.applyFor')"
-                  :class="errors.has('categoryIds')?'border-danger':''"
-                  :attribute="{type: 'categories', field: 'name', key: 'id', valueKey: 'id', multiple: true}"
+                  :class="errors.has('categoryIds') ? 'border-danger' : ''"
+                  :attribute="{
+                    type: 'categories',
+                    field: 'name',
+                    key: 'id',
+                    valueKey: 'id',
+                    multiple: true
+                  }"
                 >
                 </select-ajax>
                 <select-ajax
@@ -155,22 +189,39 @@
                   v-model="form.productIds"
                   v-validate="'required'"
                   :data-vv-as="$t('el.formCard.applyFor')"
-                  :class="errors.has('productIds')?'border-danger':''"
-                  :attribute="{type: 'products', field: 'name', key: 'id', valueKey: 'id', multiple: true}"
+                  :class="errors.has('productIds') ? 'border-danger' : ''"
+                  :attribute="{
+                    type: 'products',
+                    field: 'name',
+                    key: 'id',
+                    valueKey: 'id',
+                    multiple: true
+                  }"
                 >
                 </select-ajax>
-                <span class="text-danger" v-if="errors.has('categoryIds')">{{ errors.first('categoryIds') }}</span>
-                <span class="text-danger" v-if="errors.has('productIds')">{{ errors.first('productIds') }}</span>
+                <span class="text-danger" v-if="errors.has('categoryIds')">{{
+                  errors.first("categoryIds")
+                }}</span>
+                <span class="text-danger" v-if="errors.has('productIds')">{{
+                  errors.first("productIds")
+                }}</span>
               </div>
             </div>
           </div>
           <div v-else>
             <div class="row">
               <div class="col-sm-12 p-0">
-                <label class="required">{{$t('el.formCard.applyFor')}}</label>
-                <el-radio-group class="full-width" v-model="form.isAllProvinces">
-                  <el-radio class="full-width pt-2"  :label="true">{{$t('el.selectOptions.allProvinces')}}</el-radio>
-                  <el-radio class="full-width pt-2"  :label="false">{{$t('el.selectOptions.someProvinces')}}</el-radio>
+                <label class="required">{{ $t("el.formCard.applyFor") }}</label>
+                <el-radio-group
+                  class="full-width"
+                  v-model="form.isAllProvinces"
+                >
+                  <el-radio class="full-width pt-2" :label="true">{{
+                    $t("el.selectOptions.allProvinces")
+                  }}</el-radio>
+                  <el-radio class="full-width pt-2" :label="false">{{
+                    $t("el.selectOptions.someProvinces")
+                  }}</el-radio>
                 </el-radio-group>
                 <my-select
                   v-if="form.isAllProvinces == false"
@@ -178,13 +229,19 @@
                   data-vv-name="provinceIds"
                   v-model="form.provinceIds"
                   v-validate="'required'"
-                  :attribute="{options: provinces, multiple: true, filterable: true}"
+                  :attribute="{
+                    options: provinces,
+                    multiple: true,
+                    filterable: true
+                  }"
                   :placeholder="$t('el.formCard.province')"
-                  :class="errors.has('provinceIds')?'border-danger':''"
+                  :class="errors.has('provinceIds') ? 'border-danger' : ''"
                   :data-vv-as="$t('el.formCard.applyFor')"
                 >
                 </my-select>
-                <span class="text-danger" v-if="errors.has('provinceIds')">{{ errors.first('provinceIds') }}</span>
+                <span class="text-danger" v-if="errors.has('provinceIds')">{{
+                  errors.first("provinceIds")
+                }}</span>
               </div>
             </div>
           </div>
@@ -192,29 +249,37 @@
       </div>
       <div class="card">
         <div class="card-header">
-          <h6 class="title">{{$t('el.formCardTitle.usageConditions')}}</h6>
+          <h6 class="title">{{ $t("el.formCardTitle.usageConditions") }}</h6>
         </div>
         <div class="card-body form-card">
           <div class="row">
             <div class="col-sm-12 p-0">
-              <label class="required">{{$t('el.formCard.minimumRequirement')}}</label>
+              <label class="required">{{
+                $t("el.formCard.minimumRequirement")
+              }}</label>
               <my-money
-                fixed=0
+                fixed="0"
                 v-validate="'required'"
                 data-vv-name="order_min_required"
                 v-model="form.orderMinRequired"
                 :placeholder="$t('el.formCard.minimumRequirement')"
-                :class="errors.has('order_min_required')?'border-danger':''"
+                :class="errors.has('order_min_required') ? 'border-danger' : ''"
                 :data-vv-as="$t('el.formCard.minimumRequirement')"
               >
                 <span slot="append">VNĐ</span>
               </my-money>
-              <span class="text-danger" v-if="errors.has('order_min_required')">{{ errors.first('order_min_required') }}</span>
+              <span
+                class="text-danger"
+                v-if="errors.has('order_min_required')"
+                >{{ errors.first("order_min_required") }}</span
+              >
             </div>
           </div>
           <div class="row">
             <div class="col-sm-12 p-0">
-              <label class="required">{{$t('el.formCard.activeDates')}}</label>
+              <label class="required">{{
+                $t("el.formCard.activeDates")
+              }}</label>
               <el-date-picker
                 unlink-panels
                 align="left"
@@ -229,18 +294,21 @@
                 :start-placeholder="$t('el.datepicker.startDate')"
                 :end-placeholder="$t('el.datepicker.endDate')"
                 :data-vv-as="$t('el.formCard.activeDates')"
-                :class="errors.has('start_end')?'border-danger':''"
+                :class="errors.has('start_end') ? 'border-danger' : ''"
               >
               </el-date-picker>
-              <span class="text-danger" v-if="errors.has('start_end')">{{ errors.first('start_end') }}</span>
+              <span class="text-danger" v-if="errors.has('start_end')">{{
+                errors.first("start_end")
+              }}</span>
             </div>
           </div>
           <div class="row" v-if="!form.forGiveAway">
-            <el-switch 
-              v-model="form.isLimitUsageTimes" 
-              :active-value='true' 
-              :inactive-value='false' 
-              :active-text="$t('el.formCard.limitNumberOfTimes')">
+            <el-switch
+              v-model="form.isLimitUsageTimes"
+              :active-value="true"
+              :inactive-value="false"
+              :active-text="$t('el.formCard.limitNumberOfTimes')"
+            >
             </el-switch>
           </div>
           <div class="row" v-if="!form.forGiveAway">
@@ -248,41 +316,50 @@
               <my-money
                 class="full-width"
                 placeholder="Limit usage"
-                :class="errors.has('limit_times')?'border-danger':''"
+                :class="errors.has('limit_times') ? 'border-danger' : ''"
                 :disabled="!form.isLimitUsageTimes"
                 v-model="form.limitUsage"
                 v-validate="'required'"
                 data-vv-name="limit_times"
                 data-vv-as="Limit usage"
               >
-                <span slot="append">{{form.limitUsage > 1 ? $t('el.formCard.times') : $t('el.formCard.time')}}</span>
+                <span slot="append">{{
+                  form.limitUsage > 1
+                    ? $t("el.formCard.times")
+                    : $t("el.formCard.time")
+                }}</span>
               </my-money>
-              <span class="text-danger" v-if="errors.has('limit_times')">{{ errors.first('limit_times') }}</span>
+              <span class="text-danger" v-if="errors.has('limit_times')">{{
+                errors.first("limit_times")
+              }}</span>
             </div>
           </div>
           <div class="row">
-            <el-switch 
+            <el-switch
               :disabled="form.forGiveAway"
-              v-model="form.isLimitUsagePerCustomer" 
-              :active-value='true' 
-              :inactive-value='false' 
-              :active-text="$t('el.formCard.limitToOneUsePerCustomer')">
+              v-model="form.isLimitUsagePerCustomer"
+              :active-value="true"
+              :inactive-value="false"
+              :active-text="$t('el.formCard.limitToOneUsePerCustomer')"
+            >
             </el-switch>
           </div>
           <div class="row">
-            <el-switch 
-              v-model="form.isApplyWithOtherPromotion" 
-              :active-value='true' 
-              :inactive-value='false'
-              :active-text="$t('el.formCard.isApplyWithOtherPromotion')">
+            <el-switch
+              v-model="form.isApplyWithOtherPromotion"
+              :active-value="true"
+              :inactive-value="false"
+              :active-text="$t('el.formCard.isApplyWithOtherPromotion')"
+            >
             </el-switch>
           </div>
           <div class="row">
-            <el-switch 
-              v-model="form.isActive" 
-              :active-value='true' 
-              :inactive-value='false'
-              :active-text="$t('el.formCard.isActive')">
+            <el-switch
+              v-model="form.isActive"
+              :active-value="true"
+              :inactive-value="false"
+              :active-text="$t('el.formCard.isActive')"
+            >
             </el-switch>
           </div>
         </div>
@@ -290,13 +367,20 @@
       <div class="card">
         <div class="card-header">
           <h6 class="title">
-            <el-switch 
-              v-model="form.forGiveAway" 
-              :active-value='true' 
-              :inactive-value='false' 
-              :active-text="$t('el.formCard.forGiveAway')">
+            <el-switch
+              v-model="form.forGiveAway"
+              :active-value="true"
+              :inactive-value="false"
+              :active-text="$t('el.formCard.forGiveAway')"
+            >
             </el-switch>
-            <el-button class="pull-right" type="primary" @click="addUser" :disabled="!canAddUser ||!form.forGiveAway">{{$t('el.button.add')}}</el-button>
+            <el-button
+              class="pull-right"
+              type="primary"
+              @click="addUser"
+              :disabled="!canAddUser || !form.forGiveAway"
+              >{{ $t("el.button.add") }}</el-button
+            >
           </h6>
         </div>
         <div class="card-body form-card">
@@ -307,38 +391,59 @@
                 v-model="formUser.user"
                 :disabled="!form.forGiveAway"
                 placeholder="Tìm kiếm khách hàng theo số điện thoại..."
-                :attribute="{type: 'user', field: 'phone', displayField: 'phone', key: 'id', valueKey: null, extraQuery: {role: 'user'}}"
+                :attribute="{
+                  type: 'user',
+                  field: 'phone',
+                  displayField: 'phone',
+                  key: 'id',
+                  valueKey: null,
+                  extraQuery: { role: 'user' }
+                }"
               >
               </select-ajax>
             </div>
             <div class="col-sm-6 p-0">
               <div class="row">
                 <div class="col-sm-12 p-0">
-                  <label>{{$t('el.formCard.fullname')}}:</label>
+                  <label>{{ $t("el.formCard.fullname") }}:</label>
                 </div>
                 <div class="col-sm-12 p-0">
-                  <span>{{formUser.fullname || 'N/A'}}</span>
+                  <span>{{ formUser.fullname || "N/A" }}</span>
                 </div>
                 <div class="col-sm-12 p-0">
-                  <label>{{$t('el.formCard.email')}}:</label>
+                  <label>{{ $t("el.formCard.email") }}:</label>
                 </div>
                 <div class="col-sm-12 p-0">
-                  <span>{{formUser.email || 'N/A'}}</span>
+                  <span>{{ formUser.email || "N/A" }}</span>
                 </div>
                 <div class="col-sm-12 p-0">
-                  <label>{{$t('el.formCard.dateOfBirth')}}:</label>
+                  <label>{{ $t("el.formCard.dateOfBirth") }}:</label>
                 </div>
                 <div class="col-sm-12 p-0">
-                  <span>{{formUser.dateOfBirth ? $util.formatDate(formUser.dateOfBirth) : 'N/A'}}</span>
+                  <span>{{
+                    formUser.dateOfBirth
+                      ? $util.formatDate(formUser.dateOfBirth)
+                      : "N/A"
+                  }}</span>
                 </div>
               </div>
             </div>
             <div class="col-sm-6 p-0">
               <div class="row">
                 <div class="col-sm-12 p-0" style="display: flex">
-                  <label class="mr-2">{{$t('el.formCard.avatar')}}:</label>
-                  <div v-if="formUser.avatar" class="feature-image" :style="{backgroundImage: 'url(' + formUser.avatar.src + ')'}"></div>
-                  <div v-else class="feature-image" :style="{backgroundImage: 'url(' + noImage + ')'}"></div>
+                  <label class="mr-2">{{ $t("el.formCard.avatar") }}:</label>
+                  <div
+                    v-if="formUser.avatar"
+                    class="feature-image"
+                    :style="{
+                      backgroundImage: 'url(' + formUser.avatar.src + ')'
+                    }"
+                  ></div>
+                  <div
+                    v-else
+                    class="feature-image"
+                    :style="{ backgroundImage: 'url(' + noImage + ')' }"
+                  ></div>
                 </div>
               </div>
             </div>
@@ -359,8 +464,10 @@
     </div>
     <div class="container-fluid">
       <div class="page-action">
-        <el-button @click="cancel">{{$t('el.button.cancel')}}</el-button>
-        <el-button type="primary" @click="save">{{$t('el.button.create')}}</el-button>
+        <el-button @click="cancel">{{ $t("el.button.cancel") }}</el-button>
+        <el-button type="primary" @click="save">{{
+          $t("el.button.create")
+        }}</el-button>
       </div>
     </div>
   </div>
@@ -368,16 +475,25 @@
 
 <script>
 import {
-  Select, Option, Button, Input, DatePicker, Radio, RadioGroup, Switch, Notification, MessageBox 
-} from 'element-ui';
-import MyMoney from 'src/components/UIComponents/Money';
-import MyEditor from 'src/components/UIComponents/Editor';
-import MySelect from 'src/components/UIComponents/Select';
-import MyTable from 'src/components/UIComponents/Table.vue';
-import SelectAjax from 'src/components/UIComponents/SelectAjax';
+  Select,
+  Option,
+  Button,
+  Input,
+  DatePicker,
+  Radio,
+  RadioGroup,
+  Switch,
+  Notification,
+  MessageBox
+} from "element-ui";
+import MyMoney from "src/components/UIComponents/Money";
+import MyEditor from "src/components/UIComponents/Editor";
+import MySelect from "src/components/UIComponents/Select";
+import MyTable from "src/components/UIComponents/Table.vue";
+import SelectAjax from "src/components/UIComponents/SelectAjax";
 import { mapState } from "vuex";
-import userSchemas from './user-schemas';
-import dtHelper from 'src/helpers/datatable';
+import userSchemas from "./user-schemas";
+import dtHelper from "src/helpers/datatable";
 
 export default {
   components: {
@@ -397,51 +513,57 @@ export default {
   },
   created() {
     const self = this;
-    this.$validator.extend('earlier', {
+    this.$validator.extend("earlier", {
       getMessage(field, val) {
-        return self.$t('el.translate.endGreaterStart');
+        return self.$t("el.translate.endGreaterStart");
       },
       validate(value, field) {
         const momentStart = new Date(value[0]).getTime();
         const momentEnd = new Date(value[1]).getTime();
         return momentEnd >= momentStart;
-      },
+      }
     });
   },
   computed: {
-    ...mapState(['noImage']),
+    ...mapState(["noImage"]),
     provinces() {
-      return this.$store.getters.provinces.map((c) => {
+      return this.$store.getters.provinces.map(c => {
         return {
           title: c.name,
           value: c.id
-        }
-      })
+        };
+      });
     },
     canAddUser() {
       return !!this.formUser.userId;
     }
   },
   data() {
-    const initFiledArrays = ['id', 'avatar', 'fullname', 'email', 'dateOfBirth'];
+    const initFiledArrays = [
+      "id",
+      "avatar",
+      "fullname",
+      "email",
+      "dateOfBirth"
+    ];
     return {
       columnDefs: dtHelper.buildInitFields(userSchemas, initFiledArrays),
-       actions: [
+      actions: [
         {
-          type: 'danger',
-          icon: 'nc-icon nc-simple-remove',
-          title: 'delete',
-          callback: this.removeUser,
-        },
+          type: "danger",
+          icon: "fa-solid fa-xmark",
+          title: "delete",
+          callback: this.removeUser
+        }
       ],
       is_disabled: false,
       form: {
-        code: '',
-        discountType: 'percentage',
+        code: "",
+        discountType: "percentage",
         discountValue: 0,
         discountMaxAmount: 9999999,
         isActive: true,
-        typeRelation: 'product',
+        typeRelation: "product",
         isAllProvinces: true,
         orderMinRequired: 0,
         isLimitUsageTimes: false,
@@ -451,15 +573,15 @@ export default {
         limitUsage: 0,
         productIds: [],
         categoryIds: [],
-        provinceIds: [],
+        provinceIds: []
       },
       formUser: {
         user: null,
         userId: null,
-        fullname: '',
-        email: '',
-        avatar: '',
-        dateOfBirth: '',
+        fullname: "",
+        email: "",
+        avatar: "",
+        dateOfBirth: ""
       },
       users: [],
       pickerOptions: {
@@ -470,54 +592,54 @@ export default {
         },
         shortcuts: [
           {
-            text: 'Next week',
+            text: "Next week",
             onClick(picker) {
               const start = new Date();
               const end = new Date();
-              start.setDate(start.getDate() + (1 + 7 - start.getDay()) % 7);
-              start.setHours(0,0,0,0);
+              start.setDate(start.getDate() + ((1 + 7 - start.getDay()) % 7));
+              start.setHours(0, 0, 0, 0);
               end.setTime(start.getTime() + 3600 * 1000 * 24 * 6);
-              end.setHours(23,59,59,999);
-              picker.$emit('pick', [start, end]);
+              end.setHours(23, 59, 59, 999);
+              picker.$emit("pick", [start, end]);
             }
           },
           {
-            text: 'Next month',
+            text: "Next month",
             onClick(picker) {
               let start = new Date();
               let end = new Date();
               if (start.getMonth() == 11) {
-                  start = new Date(start.getFullYear() + 1, 0, 1);
+                start = new Date(start.getFullYear() + 1, 0, 1);
               } else {
-                  start = new Date(start.getFullYear(), start.getMonth() + 1, 1);
+                start = new Date(start.getFullYear(), start.getMonth() + 1, 1);
               }
               end.setTime(start.getTime() + 3600 * 1000 * 24 * 30);
-              end.setHours(23,59,59,999);
-              picker.$emit('pick', [start, end]);
+              end.setHours(23, 59, 59, 999);
+              picker.$emit("pick", [start, end]);
             }
           },
           {
-            text: '1 week',
+            text: "1 week",
             onClick(picker) {
               const start = new Date();
               const end = new Date();
               start.setTime(start.getTime() + 3600 * 1000 * 24);
-              start.setHours(0,0,0,0);
+              start.setHours(0, 0, 0, 0);
               end.setTime(start.getTime() + 3600 * 1000 * 24 * 6);
-              end.setHours(23,59,59,999);
-              picker.$emit('pick', [start, end]);
+              end.setHours(23, 59, 59, 999);
+              picker.$emit("pick", [start, end]);
             }
           },
           {
-            text: '1 month',
+            text: "1 month",
             onClick(picker) {
               const start = new Date();
               const end = new Date();
               start.setTime(start.getTime() + 3600 * 1000 * 24);
-              start.setHours(0,0,0,0);
+              start.setHours(0, 0, 0, 0);
               end.setTime(start.getTime() + 3600 * 1000 * 24 * 30);
-              end.setHours(23,59,59,999);
-              picker.$emit('pick', [start, end]);
+              end.setHours(23, 59, 59, 999);
+              picker.$emit("pick", [start, end]);
             }
           }
         ]
@@ -525,18 +647,20 @@ export default {
     };
   },
   mounted() {
-    this.$store.dispatch('fetchProvinces');
-    this.$store.dispatch('setPageTitle', 'couponCreate');
-    this.$store.dispatch('setCurrentActions', [{
-      label: 'create',
-      type: 'primary',
-      icon: '',
-      callback: this.save,
-    }]);
+    this.$store.dispatch("fetchProvinces");
+    this.$store.dispatch("setPageTitle", "couponCreate");
+    this.$store.dispatch("setCurrentActions", [
+      {
+        label: "create",
+        type: "primary",
+        icon: "",
+        callback: this.save
+      }
+    ]);
   },
   methods: {
     cancel() {
-      this.$router.push('/cs/coupon');
+      this.$router.push("/cs/coupon");
     },
     updateSTT() {
       this.users = this.users.map((user, index) => {
@@ -545,70 +669,81 @@ export default {
       });
     },
     save() {
-      this.$validator.validateAll().then((result) => {
+      this.$validator.validateAll().then(result => {
         if (result) {
           const start_end = this.form.start_end;
           const data = {
             ...this.form,
             startDate: new Date(start_end[0]).getTime(),
-            expiredDate: new Date(start_end[1]).getTime(),
-          }
+            expiredDate: new Date(start_end[1]).getTime()
+          };
           if (this.form.forGiveAway) {
             if (!this.users || !this.users.length) {
-              return Notification ({
-                title: 'Warning',
-                message: 'Vui lòng chọn ít nhất một khách hàng',
-                position: 'bottom-right',
-                type: 'warning'
+              return Notification({
+                title: "Warning",
+                message: "Vui lòng chọn ít nhất một khách hàng",
+                position: "bottom-right",
+                type: "warning"
               });
             }
             data.userIds = this.users.map(u => u.id);
           }
-          this.$store.dispatch('createCSCoupon', Object.assign({}, data, {department: 'customer_service'})).then((res) => {
-            Notification ({
-              title: 'Success',
-              message: 'Create succeeded',
-              position: 'bottom-right',
-              type: 'success',
-            });
-            setTimeout(() => {
-              this.$router.push('/cs/coupon/' + res.id);
-            }, 500);
-          }, (err) => {
-            Notification ({
-              title: 'Error',
-              message: err.message,
-              position: 'bottom-right',
-              type: 'error',
-            });
-          });
+          this.$store
+            .dispatch(
+              "createCSCoupon",
+              Object.assign({}, data, { department: "customer_service" })
+            )
+            .then(
+              res => {
+                Notification({
+                  title: "Success",
+                  message: "Create succeeded",
+                  position: "bottom-right",
+                  type: "success"
+                });
+                setTimeout(() => {
+                  this.$router.push("/cs/coupon/" + res.id);
+                }, 500);
+              },
+              err => {
+                Notification({
+                  title: "Error",
+                  message: err.message,
+                  position: "bottom-right",
+                  type: "error"
+                });
+              }
+            );
         } else {
-          Notification ({
-            title: 'Error',
-            message: 'Validate failed',
-            position: 'bottom-right',
-            type: 'error',
+          Notification({
+            title: "Error",
+            message: "Validate failed",
+            position: "bottom-right",
+            type: "error"
           });
         }
       });
     },
     genNewCode() {
-      this.$store.dispatch('generateCodeCoupon').then((res) => {
-        this.form.code = res.code;
-        Notification ({
-          title: 'Success',
-          message: `Generated new code is ${res.code}`,
-          position: 'bottom-right',
-          type: 'success',
-        });
-      }, (err) => {
-        Notification ({
-          title: 'Error',
-          message: 'Generated new code failed',
-          position: 'bottom-right',
-          type: 'error',
-        });
-      });
+      this.$store.dispatch("generateCodeCoupon").then(
+        res => {
+          this.form.code = res.code;
+          Notification({
+            title: "Success",
+            message: `Generated new code is ${res.code}`,
+            position: "bottom-right",
+            type: "success"
+          });
+        },
+        err => {
+          Notification({
+            title: "Error",
+            message: "Generated new code failed",
+            position: "bottom-right",
+            type: "error"
+          });
+        }
+      );
     },
     addUser() {
       const user = {
@@ -616,70 +751,72 @@ export default {
         id: this.formUser.userId
       };
       if (this.users.find(p => p.id == user.id)) {
-        return Notification ({
-          title: 'Error',
-          message: 'This user has been added',
-          position: 'bottom-right',
-          type: 'error',
+        return Notification({
+          title: "Error",
+          message: "This user has been added",
+          position: "bottom-right",
+          type: "error"
         });
       }
       this.users.push(user);
       this.resetFormUser();
       this.updateSTT();
-      Notification ({
-        title: 'Success',
-        message: 'Add user succeeded',
-        position: 'bottom-right',
-        type: 'success',
+      Notification({
+        title: "Success",
+        message: "Add user succeeded",
+        position: "bottom-right",
+        type: "success"
       });
     },
     resetFormUser() {
       this.formUser.user = null;
       this.formUser.userId = null;
-      this.formUser.fullname = '';
-      this.formUser.email = '';
-      this.formUser.avatar = '';
-      this.formUser.dateOfBirth = '';
+      this.formUser.fullname = "";
+      this.formUser.email = "";
+      this.formUser.avatar = "";
+      this.formUser.dateOfBirth = "";
     },
     removeUser(index, row) {
-      MessageBox.confirm('Bạn có chắc chắn xóa không?', 'Warning', {
-        confirmButtonText: 'Đồng ý',
-        cancelButtonText: 'Hủy bỏ',
-        type: 'warning',
-        center: true,
-      }).then(() => {
-        this.users.splice(index, 1);
-        this.updateSTT();
-        Notification ({
-          title: 'Success',
-          message: 'Delete completed',
-          position: 'bottom-right',
-          type: 'success',
+      MessageBox.confirm("Bạn có chắc chắn xóa không?", "Warning", {
+        confirmButtonText: "Đồng ý",
+        cancelButtonText: "Hủy bỏ",
+        type: "warning",
+        center: true
+      })
+        .then(() => {
+          this.users.splice(index, 1);
+          this.updateSTT();
+          Notification({
+            title: "Success",
+            message: "Delete completed",
+            position: "bottom-right",
+            type: "success"
+          });
+        })
+        .catch(() => {
+          Notification({
+            title: "Canceled",
+            message: "Delete canceled",
+            position: "bottom-right",
+            type: "info"
+          });
         });
-      }).catch(() => {
-        Notification ({
-          title: 'Canceled',
-          message: 'Delete canceled',
-          position: 'bottom-right',
-          type: 'info',
-        });
-      });
-    },
+    }
   },
   watch: {
-    'form.code': function(newVal, oldVal) {
+    "form.code": function(newVal, oldVal) {
       if (newVal) {
-        this.form.code = newVal.replace(/[\W_]+/g,"").toUpperCase();
+        this.form.code = newVal.replace(/[\W_]+/g, "").toUpperCase();
       }
     },
-    'formUser.user': function (newVal, oldVal) {
+    "formUser.user": function(newVal, oldVal) {
       if (newVal) {
         if (this.users.find(p => p.id == newVal.id)) {
-          return Notification ({
-            title: 'Error',
-            message: 'This user has been added',
-            position: 'bottom-right',
-            type: 'error',
+          return Notification({
+            title: "Error",
+            message: "This user has been added",
+            position: "bottom-right",
+            type: "error"
           });
         }
         const profile = newVal.profile || {};
@@ -692,7 +829,7 @@ export default {
         this.resetFormUser();
       }
     },
-    'form.forGiveAway': function(newVal) {
+    "form.forGiveAway": function(newVal) {
       if (newVal === true) {
         this.form.limitUsage = 0;
         this.form.isLimitUsageTimes = false;
@@ -701,25 +838,25 @@ export default {
     }
   },
   destroyed() {
-    this.$store.dispatch('setCurrentActions', []);
-  },
+    this.$store.dispatch("setCurrentActions", []);
+  }
 };
 </script>
 <style lang="scss">
-  .el-radio + .el-radio {
-    margin-left: 0; 
-  }
-  .uppercase input.el-input__inner {
-    text-transform: uppercase !important;
-  }
-  button.is-disabled {
-    opacity: 0.5;
-  }
-  .feature-image {
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: contain;
-    width: 150px;
-    height: 150px;
-  }
+.el-radio + .el-radio {
+  margin-left: 0;
+}
+.uppercase input.el-input__inner {
+  text-transform: uppercase !important;
+}
+button.is-disabled {
+  opacity: 0.5;
+}
+.feature-image {
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  width: 150px;
+  height: 150px;
+}
 </style>

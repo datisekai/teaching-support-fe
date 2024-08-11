@@ -19,7 +19,12 @@
           <h6 class="title">Danh sách bài viết</h6>
         </div>
         <div class="card-body form-card p-0">
-          <my-table :columnDefs="columnDefs" v-bind:data-rows="articles" :actions="actions" :actionsTable="[]"/>
+          <my-table
+            :columnDefs="columnDefs"
+            v-bind:data-rows="articles"
+            :actions="actions"
+            :actionsTable="[]"
+          />
         </div>
       </div>
     </div>
@@ -61,21 +66,21 @@
 </template>
 
 <script>
-import FormCard from 'src/components/UIComponents/FormCard.vue';
-import CustomField from 'src/components/UIComponents/CustomField.vue';
-import {
-  Message, MessageBox, Input, Button,
-} from 'element-ui';
-import MySelect from 'src/components/UIComponents/Select';
-import MyTable from 'src/components/UIComponents/Table.vue';
-import { mapState } from 'vuex';
-import util from '@/helpers/util';
-import dtHelper from 'src/helpers/datatable';
-import dataFrom from './blog-form';
-import articleSchemas from './article-blog-schemas';
+import FormCard from "src/components/UIComponents/FormCard.vue";
+import CustomField from "src/components/UIComponents/CustomField.vue";
+import { Message, MessageBox, Input, Button } from "element-ui";
+import MySelect from "src/components/UIComponents/Select";
+import MyTable from "src/components/UIComponents/Table.vue";
+import { mapState } from "vuex";
+import util from "@/helpers/util";
+import dtHelper from "src/helpers/datatable";
+import dataFrom from "./blog-form";
+import articleSchemas from "./article-blog-schemas";
 
-const _form = {}; let _custom_field = {}; let firstGroups; let
-  secondGroups;
+const _form = {};
+let _custom_field = {};
+let firstGroups;
+let secondGroups;
 
 export default {
   components: {
@@ -85,43 +90,46 @@ export default {
     Message,
     MySelect,
     CustomField,
-    MyTable,
+    MyTable
   },
   beforeCreate() {
     firstGroups = dataFrom[0].groups;
     secondGroups = dataFrom[1].groups;
 
     if (this.$store.state.customFieldDefine) {
-      _custom_field = this.$store.state.customFieldDefine.reduce((result, item) => {
-        result[item.handle] = '';
-        return result;
-      }, {});
+      _custom_field = this.$store.state.customFieldDefine.reduce(
+        (result, item) => {
+          result[item.handle] = "";
+          return result;
+        },
+        {}
+      );
     }
 
-    firstGroups.forEach((group) => {
-      group.attributes.forEach((attr) => {
+    firstGroups.forEach(group => {
+      group.attributes.forEach(attr => {
         if (attr.multiple && _form[attr.prop]) {
           _form[attr.prop] = [];
         } else {
-          _form[attr.prop] = '';
+          _form[attr.prop] = "";
         }
         attr.value = _form[attr.prop];
       });
     });
-    secondGroups.forEach((group) => {
-      group.attributes.forEach((attr) => {
+    secondGroups.forEach(group => {
+      group.attributes.forEach(attr => {
         if (attr.multiple && _form[attr.prop]) {
           _form[attr.prop] = [];
         } else {
-          _form[attr.prop] = '';
+          _form[attr.prop] = "";
         }
         attr.value = _form[attr.prop];
       });
     });
 
     let id = this.$route.params.id;
-    this.$store.dispatch('getCustomField', { type: 'blog', id});
-    this.$store.dispatch('getListThemeView', 'blog');
+    this.$store.dispatch("getCustomField", { type: "blog", id });
+    this.$store.dispatch("getListThemeView", "blog");
   },
   data() {
     return {
@@ -131,12 +139,12 @@ export default {
       show_fields: [],
       actions: [
         {
-          type: 'danger',
-          icon: 'nc-icon nc-simple-remove',
-          callback: this.removeArticle,
-        },
+          type: "danger",
+          icon: "fa-solid fa-xmark",
+          callback: this.removeArticle
+        }
       ],
-      columnDefs: dtHelper.buildColumDefs(articleSchemas),
+      columnDefs: dtHelper.buildColumDefs(articleSchemas)
     };
   },
   computed: {
@@ -155,80 +163,88 @@ export default {
         const _originalForm = Object.assign({}, this.originalForm, hashSeo);
         return _originalForm;
       },
-      set(value) {},
+      set(value) {}
     },
     customField: {
       get() {
-        const data = this.$util.filterByHandle(this.$store.state.customField, this.show_fields);
+        const data = this.$util.filterByHandle(
+          this.$store.state.customField,
+          this.show_fields
+        );
         for (const item of data) {
           if (item.value) {
             _custom_field[item.handle] = item.value;
           } else {
-            _custom_field[item.handle] = '';
+            _custom_field[item.handle] = "";
           }
         }
-        return data || '';
+        return data || "";
       },
-      set(value) {},
+      set(value) {}
     },
     listView() {
       const self = this;
       const listTheme = self.$store.state.listThemeView;
       if (listTheme.length) {
         listTheme.unshift({
-          title: 'Mặc định',
-          value: '',
+          title: "Mặc định",
+          value: ""
         });
         return {
-          options: listTheme,
+          options: listTheme
         };
       }
-      return '';
-    },
+      return "";
+    }
   },
   mounted() {
     this.getContext();
     const id = this.$route.params.id;
-    this.$store.dispatch('fetchBlogDetail', id);
-    this.$store.dispatch('fetchBlogArticles', id);
+    this.$store.dispatch("fetchBlogDetail", id);
+    this.$store.dispatch("fetchBlogArticles", id);
 
-    this.$store.dispatch('setPageTitle', 'Cập nhật nhóm bài viết');
-    this.$store.dispatch('setCurrentActions', [{
-      label: 'Xem trên web',
-      type: 'default',
-      icon: '',
-      callback: this.view,
-    }, {
-      label: 'Xóa',
-      type: 'danger',
-      icon: '',
-      callback: this.remove,
-    }, {
-      label: 'Cập nhật',
-      type: 'primary',
-      icon: '',
-      callback: this.save,
-    }]);
+    this.$store.dispatch("setPageTitle", "Cập nhật nhóm bài viết");
+    this.$store.dispatch("setCurrentActions", [
+      {
+        label: "Xem trên web",
+        type: "default",
+        icon: "",
+        callback: this.view
+      },
+      {
+        label: "Xóa",
+        type: "danger",
+        icon: "",
+        callback: this.remove
+      },
+      {
+        label: "Cập nhật",
+        type: "primary",
+        icon: "",
+        callback: this.save
+      }
+    ]);
   },
   methods: {
     removeArticle(index, row) {
       const self = this;
-      MessageBox.confirm('Xóa bài viết', 'Warning', {
-        confirmButtonText: 'Đồng ý',
-        cancelButtonText: 'Hủy bỏ',
-        type: 'warning',
-        center: true,
-      }).then(() => {
-        this.$store.dispatch('removeBlogArticles', row.id).then((res) => {
-          Message({
-            type: 'success',
-            message: 'Đã xóa',
+      MessageBox.confirm("Xóa bài viết", "Warning", {
+        confirmButtonText: "Đồng ý",
+        cancelButtonText: "Hủy bỏ",
+        type: "warning",
+        center: true
+      })
+        .then(() => {
+          this.$store.dispatch("removeBlogArticles", row.id).then(res => {
+            Message({
+              type: "success",
+              message: "Đã xóa"
+            });
+            let id = this.$route.params.id;
+            this.$store.dispatch("fetchBlogArticles", id);
           });
-          let id = this.$route.params.id;
-          this.$store.dispatch('fetchBlogArticles', id);
-        });
-      }).catch(() => {
-      });
+        })
+        .catch(() => {});
     },
     changeTreeArticle(node, targetTree, oldTree) {
       const self = this;
@@ -237,98 +253,118 @@ export default {
       data.forEach((element, index) => {
         articles.push(element.id);
       });
-      this.$store.dispatch('updatePriorityArticle', {
-        listArticle: articles,
-        blogID: self.form.id,
-      }).then((result) => {
-        Message({
-          type: 'success',
-          message: 'Cập nhật thành công',
+      this.$store
+        .dispatch("updatePriorityArticle", {
+          listArticle: articles,
+          blogID: self.form.id
+        })
+        .then(result => {
+          Message({
+            type: "success",
+            message: "Cập nhật thành công"
+          });
+        })
+        .catch(error => {
+          Message({
+            type: "warning",
+            message: "Có lỗi xảy ra"
+          });
         });
-      }).catch((error) => {
-        Message({
-          type: 'warning',
-          message: 'Có lỗi xảy ra',
-        });
-      });
     },
     cancel() {
-      this.$router.push({ name: 'AllBlogs' });
+      this.$router.push({ name: "AllBlogs" });
     },
     updateHandle() {
       const self = this;
       const data = {
         handle: self.$util.createHandle(self.form.title),
-        lang: 'vi',
+        lang: "vi"
       };
-      self.$store.dispatch('checkHandle', data).then((result) => {
+      self.$store.dispatch("checkHandle", data).then(result => {
         self.$store.state.blogDetail = self.form;
         self.$store.state.blogDetail.handle = result;
       });
     },
     remove() {
       const self = this;
-      MessageBox.confirm('Bạn có chắc chắn xóa nhóm bài viết không?', 'Warning', {
-        confirmButtonText: 'Đồng ý',
-        cancelButtonText: 'Hủy bỏ',
-        type: 'warning',
-        center: true,
-      }).then(() => {
-        self.$store.dispatch('removeBlog', self.form.id).then((res) => {
-          Message({
-            type: 'success',
-            message: 'Đã xóa nhóm bài viết',
+      MessageBox.confirm(
+        "Bạn có chắc chắn xóa nhóm bài viết không?",
+        "Warning",
+        {
+          confirmButtonText: "Đồng ý",
+          cancelButtonText: "Hủy bỏ",
+          type: "warning",
+          center: true
+        }
+      )
+        .then(() => {
+          self.$store.dispatch("removeBlog", self.form.id).then(res => {
+            Message({
+              type: "success",
+              message: "Đã xóa nhóm bài viết"
+            });
+            setTimeout(() => {
+              self.$router.push({ name: "AllBlogs" });
+            }, 1000);
           });
-          setTimeout(() => {
-            self.$router.push({ name: 'AllBlogs' });
-          }, 1000);
+        })
+        .catch(() => {
+          Message({
+            type: "info",
+            message: "Hủy bỏ"
+          });
         });
-      }).catch(() => {
-        Message({
-          type: 'info',
-          message: 'Hủy bỏ',
-        });
-      });
     },
     view() {
       const self = this;
-      const win = window.open(self.form.url, '_blank');
+      const win = window.open(self.form.url, "_blank");
       if (win) {
         win.focus();
       } else {
         Message({
-          message: 'Please allow popups for this website',
-          type: 'error',
+          message: "Please allow popups for this website",
+          type: "error"
         });
       }
     },
     save() {
       const self = this;
-      this.$validator.validateAll().then((result) => {
+      this.$validator.validateAll().then(result => {
         if (result) {
           if (self.form.parent) {
             self.form.parent_id = self.form.parent.id;
           }
-          self.$store.dispatch('updateBlog', self.form).then((res) => {
-            self.$store.dispatch('storeCustomField', self.$util.parseDataCustomfield(self.customField, self.custom_field, 'blog', self.form.id));
-            Message({
-              message: 'Cập nhật thành công',
-              type: 'success',
-            });
-          }, (res) => {
-            Message({
-              message: res.message,
-              type: 'error'
-            });
-          });
+          self.$store.dispatch("updateBlog", self.form).then(
+            res => {
+              self.$store.dispatch(
+                "storeCustomField",
+                self.$util.parseDataCustomfield(
+                  self.customField,
+                  self.custom_field,
+                  "blog",
+                  self.form.id
+                )
+              );
+              Message({
+                message: "Cập nhật thành công",
+                type: "success"
+              });
+            },
+            res => {
+              Message({
+                message: res.message,
+                type: "error"
+              });
+            }
+          );
         }
       });
     },
     getContext() {
-      const ctx = this.$util.getContext(this.form, { module: 'blogs' });
+      const ctx = this.$util.getContext(this.form, { module: "blogs" });
       this.$store.state.ctx = ctx;
       return ctx;
-    },
+    }
   },
   watch: {
     form: {
@@ -337,14 +373,14 @@ export default {
         const output = window.__FUNC.CustomField(ctx);
         this.show_fields = output;
       },
-      deep: true,
-    },
+      deep: true
+    }
   },
   destroyed() {
-    this.$store.dispatch('setCurrentActions', []);
+    this.$store.dispatch("setCurrentActions", []);
     this.$store.state.blogDetail = [];
     this.$store.state.listThemeView = [];
     this.$store.state.customField = [];
-  },
+  }
 };
 </script>

@@ -176,7 +176,9 @@
           <el-table-column :label="$t('el.tableHeader.dkbh')">
             <template slot-scope="props">
               <el-checkbox
-                :disabled="formMaintenance.status != 'new' && warrantyLinesRemove"
+                :disabled="
+                  formMaintenance.status != 'new' && warrantyLinesRemove
+                "
                 @change="updateWarrantyItem(props.row)"
                 v-model="props.row.isDKBH"
               ></el-checkbox>
@@ -267,11 +269,12 @@
           Chọn ngày hoàn trả dự kiến
         </div>
         <el-date-picker
-        class="ml-3 mt-3"
+          class="ml-3 mt-3"
           v-model="workingDate"
           type="date"
           @change="onChangeDatePicker"
-          placeholder="Chọn ngày">
+          placeholder="Chọn ngày"
+        >
         </el-date-picker>
       </el-card>
     </div>
@@ -308,8 +311,18 @@
             v-model="formAddError.productErrorId"
             v-validate="'required'"
             :data-vv-as="$t('el.formCard.errorDescription')"
-            :class="errors.has('formAddError.warrantyTypeId')?'border-danger':''"
-            :attribute="{type: 'product_error', field: 'name', key: 'id', valueKey: 'id', multiple: false, initOptions: defaultProductErrors, extraQuery: extraQuery}"
+            :class="
+              errors.has('formAddError.warrantyTypeId') ? 'border-danger' : ''
+            "
+            :attribute="{
+              type: 'product_error',
+              field: 'name',
+              key: 'id',
+              valueKey: 'id',
+              multiple: false,
+              initOptions: defaultProductErrors,
+              extraQuery: extraQuery
+            }"
           >
           </select-ajax>
         </el-form-item>
@@ -318,11 +331,9 @@
         <el-button @click="modal.addError = false">{{
           $t("el.button.cancel")
         }}</el-button>
-        <el-button
-          type="primary"
-          @click="addWarrantyLine"
-          >{{ $t("el.button.add") }}</el-button
-        >
+        <el-button type="primary" @click="addWarrantyLine">{{
+          $t("el.button.add")
+        }}</el-button>
       </span>
     </el-dialog>
 
@@ -357,8 +368,18 @@
             v-model="formEditError.productErrorId"
             v-validate="'required'"
             :data-vv-as="$t('el.formCard.errorDescription')"
-            :class="errors.has('formAddError.warrantyTypeId')?'border-danger':''"
-            :attribute="{type: 'product_error', field: 'name', key: 'id', valueKey: 'id', multiple: false, initOptions: defaultProductErrors, extraQuery: extraQuery}"
+            :class="
+              errors.has('formAddError.warrantyTypeId') ? 'border-danger' : ''
+            "
+            :attribute="{
+              type: 'product_error',
+              field: 'name',
+              key: 'id',
+              valueKey: 'id',
+              multiple: false,
+              initOptions: defaultProductErrors,
+              extraQuery: extraQuery
+            }"
           >
           </select-ajax>
         </el-form-item>
@@ -503,8 +524,20 @@
           v-model="formAddProductWithoutCode.modelId"
           v-validate="'required'"
           :data-vv-as="$t('el.formCard.model')"
-          :class="errors.has('formAddProductWithoutCode.modelId')?'border-danger':''"
-          :attribute="{type: 'product_model', field: 'name', key: 'id', valueKey: 'id', multiple: false, initOptions: defaultProductModels, extraQuery: { parentId: -1}}"
+          :class="
+            errors.has('formAddProductWithoutCode.modelId')
+              ? 'border-danger'
+              : ''
+          "
+          :attribute="{
+            type: 'product_model',
+            field: 'name',
+            key: 'id',
+            valueKey: 'id',
+            multiple: false,
+            initOptions: defaultProductModels,
+            extraQuery: { parentId: -1 }
+          }"
         >
         </select-ajax>
       </div>
@@ -518,8 +551,20 @@
           v-model="formAddProductWithoutCode.productLineId"
           v-validate="'required'"
           :data-vv-as="$t('el.formCard.productLine')"
-          :class="errors.has('formAddProductWithoutCode.productLineId')?'border-danger':''"
-          :attribute="{type: 'product_model', field: 'name', key: 'id', valueKey: 'id', multiple: false, initOptions: defaultProductLines, extraQuery: extraQueryLine}"
+          :class="
+            errors.has('formAddProductWithoutCode.productLineId')
+              ? 'border-danger'
+              : ''
+          "
+          :attribute="{
+            type: 'product_model',
+            field: 'name',
+            key: 'id',
+            valueKey: 'id',
+            multiple: false,
+            initOptions: defaultProductLines,
+            extraQuery: extraQueryLine
+          }"
         >
         </select-ajax>
       </div>
@@ -559,10 +604,10 @@
         >
       </span>
     </el-dialog>
-    <el-dialog 
-      width="400px" 
-      :title="$t('el.dialogTitle.editProductLine')" 
-      :visible.sync="modal.editProductName"  
+    <el-dialog
+      width="400px"
+      :title="$t('el.dialogTitle.editProductLine')"
+      :visible.sync="modal.editProductName"
       @keyup.enter.native="editProductName"
     >
       <el-form :model="formEditProductName" data-vv-scope="formEditProductName">
@@ -574,15 +619,31 @@
             v-model="formEditProductName.productLineId"
             v-validate="'required'"
             :data-vv-as="$t('el.formCard.productName')"
-            :class="errors.has('formEditProductName.productLineId')?'border-danger':''"
-            :attribute="{type: 'product_model', field: 'name', key: 'id', valueKey: 'id', multiple: false, initOptions: defaultProductLines, extraQuery: extraQuery}"
+            :class="
+              errors.has('formEditProductName.productLineId')
+                ? 'border-danger'
+                : ''
+            "
+            :attribute="{
+              type: 'product_model',
+              field: 'name',
+              key: 'id',
+              valueKey: 'id',
+              multiple: false,
+              initOptions: defaultProductLines,
+              extraQuery: extraQuery
+            }"
           >
           </select-ajax>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
-        <el-button @click="modal.editProductName = false">{{$t('el.button.cancel')}}</el-button>
-        <el-button type="primary" @click="updateProductName">{{$t('el.button.update')}}</el-button>
+        <el-button @click="modal.editProductName = false">{{
+          $t("el.button.cancel")
+        }}</el-button>
+        <el-button type="primary" @click="updateProductName">{{
+          $t("el.button.update")
+        }}</el-button>
       </span>
     </el-dialog>
   </div>
@@ -649,7 +710,7 @@ export default {
     if (this.$util.checkPermissionAction(permissionSchemas, "edit")) {
       tableActions.push({
         type: "primary",
-        icon: "nc-icon nc-ruler-pencil",
+        icon: "fa-solid fa-pen-to-square",
         title: "edit",
         callback: this.popupWarrantyLine
       });
@@ -657,7 +718,7 @@ export default {
     if (this.$util.checkPermissionAction(permissionSchemas, "delete")) {
       tableActions.push({
         type: "danger",
-        icon: "nc-icon nc-simple-remove",
+        icon: "fa-solid fa-xmark",
         title: "delete",
         callback: this.removeWarrantyLine
       });
@@ -679,14 +740,15 @@ export default {
       columnDefs,
       workingDate: null,
       formCustomer: {},
-      url: "https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg",
+      url:
+        "https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg",
       formMaintenance: {
         warrantyItems: [],
         warrantyLines: []
       },
       formEditProductName: {
         id: null,
-        productLineId: null,
+        productLineId: null
       },
       formActivatedProducts: [],
       newLines: [],
@@ -760,7 +822,7 @@ export default {
       },
       extraQuery: {},
       extraQueryLine: {},
-      extraQueryModel: {},
+      extraQueryModel: {}
     };
   },
   async created() {
@@ -778,10 +840,16 @@ export default {
   computed: {
     repairRequestData() {
       return this.formMaintenance.warrantyItems.map(item => {
-        const productLine = this.productLines.find(i => i.id === item.productLineId);
-        item.item_code = (productLine ? productLine.name + ' - ' : '') + (item.warrantyCode && item.warrantyCode.code || item.name);
+        const productLine = this.productLines.find(
+          i => i.id === item.productLineId
+        );
+        item.item_code =
+          (productLine ? productLine.name + " - " : "") +
+          ((item.warrantyCode && item.warrantyCode.code) || item.name);
         item.children = (item.warrantyLines || []).map(line => {
-          const productError = this.productErrors.find(i => i.id === line.productErrorId);
+          const productError = this.productErrors.find(
+            i => i.id === line.productErrorId
+          );
           line.productError = (productError && productError.name) || "-";
           return line;
         });
@@ -795,23 +863,29 @@ export default {
       return this.models.reduce((c, i) => c.concat(i.children), []);
     },
     parentError() {
-      return this.$store.state.productErrors.find(i => i.type === 'error');
+      return this.$store.state.productErrors.find(i => i.type === "error");
     },
     productErrors() {
       if (!this.parentError) return [];
       return this.parentError.children;
     },
     warrantyItemWithCode() {
-      return this.formMaintenance.warrantyItems.filter(item => item.type === "warranty_code");
+      return this.formMaintenance.warrantyItems.filter(
+        item => item.type === "warranty_code"
+      );
     },
     formMaintenanceItemsRows() {
-      this.formMaintenance.warrantyItems = this.formMaintenance.warrantyItems.map(item => {
-        const foundModel = this.models.find(m => m.id === item.modelId);
-        item.modelName = foundModel && foundModel.name;
-        const foundLine = this.productLines.find(line => line.id === item.productLineId);
-        item.productLineName = foundLine && foundLine.name;
-        return item;
-      });
+      this.formMaintenance.warrantyItems = this.formMaintenance.warrantyItems.map(
+        item => {
+          const foundModel = this.models.find(m => m.id === item.modelId);
+          item.modelName = foundModel && foundModel.name;
+          const foundLine = this.productLines.find(
+            line => line.id === item.productLineId
+          );
+          item.productLineName = foundLine && foundLine.name;
+          return item;
+        }
+      );
       return this.formMaintenance.warrantyItems;
     },
     models() {
@@ -855,7 +929,8 @@ export default {
       return Math.ceil(Math.abs((startDate - endDate) / oneDay));
     },
     showEditProductNameModal(index, row) {
-      const productLines = this.productLines.filter((c) => c.parentId == row.modelId) || [];
+      const productLines =
+        this.productLines.filter(c => c.parentId == row.modelId) || [];
       this.extraQuery = { parentId: row.modelId };
       this.defaultProductLines = productLines;
       this.formEditProductName.id = row.id;
@@ -864,17 +939,23 @@ export default {
     },
     async updateProductName() {
       try {
-        let res = await this.$store.dispatch("updateWarrantyItem", this.formEditProductName);
+        let res = await this.$store.dispatch(
+          "updateWarrantyItem",
+          this.formEditProductName
+        );
         Notification({
           title: "Success",
           message: "Cập nhật thành công",
           position: "bottom-right",
-          type: "success",
+          type: "success"
         });
-        this.formMaintenance.warrantyItems = this.formMaintenance.warrantyItems.map((w) => {
+        this.formMaintenance.warrantyItems = this.formMaintenance.warrantyItems.map(
+          w => {
             if (w.id == res.id) {
               w.productLineId = res.productLineId;
-              w.productLine = this.productLines.find((l) => l.id === w.productLineId);
+              w.productLine = this.productLines.find(
+                l => l.id === w.productLineId
+              );
               w.productLineName = w.productLine && w.productLine.name;
             }
             return w;
@@ -886,14 +967,18 @@ export default {
           title: "Error",
           message: e.message,
           position: "bottom-right",
-          type: "error",
+          type: "error"
         });
       }
     },
     async addWarrantyProductWithoutCode() {
-      this.formAddProductWithoutCode.times = +this.formAddProductWithoutCode.times;
+      this.formAddProductWithoutCode.times = +this.formAddProductWithoutCode
+        .times;
       this.formAddProductWithoutCode.isDKBH = this.formAddProductWithoutCode.isDKBH;
-      this.formAddProductWithoutCode = Object.assign({ formId: this.formMaintenance.id }, this.formAddProductWithoutCode);
+      this.formAddProductWithoutCode = Object.assign(
+        { formId: this.formMaintenance.id },
+        this.formAddProductWithoutCode
+      );
       try {
         let resp = await this.$store.dispatch(
           "addWarrantyProductWithoutCode",
@@ -907,9 +992,12 @@ export default {
             times: 0,
             stamp: true,
             isDKBH: false
-          }
+          };
           this.modal.dialogProductVisible = false;
-          this.$store.dispatch("fetchMaintenanceFormDetail", this.$route.params.id);
+          this.$store.dispatch(
+            "fetchMaintenanceFormDetail",
+            this.$route.params.id
+          );
         }
       } catch (e) {
         Notification({
@@ -923,9 +1011,9 @@ export default {
     listImagesPreview(images) {
       if (images) {
         return images.map(v => ({
-            msrc: v.small,
-            src: v.origin
-          }));
+          msrc: v.small,
+          src: v.origin
+        }));
       }
       return [];
     },
@@ -939,7 +1027,7 @@ export default {
         id: null,
         productErrorId: null
       };
-      this.extraQuery = { parentId: this.parentError.id};
+      this.extraQuery = { parentId: this.parentError.id };
       this.defaultProductErrors = this.productErrors;
       this.modal.addError = true;
     },
@@ -969,13 +1057,18 @@ export default {
           position: "bottom-right",
           type: "success"
         });
-        this.formMaintenance.warrantyItems = this.formMaintenance.warrantyItems.map(i => {
-          if (i.id === res.warrantyItemId) {
-            i.warrantyLines.push(res);
+        this.formMaintenance.warrantyItems = this.formMaintenance.warrantyItems.map(
+          i => {
+            if (i.id === res.warrantyItemId) {
+              i.warrantyLines.push(res);
+            }
+            return i;
           }
-          return i;
-        });
-        this.$store.dispatch("fetchMaintenanceFormDetail", this.$route.params.id);
+        );
+        this.$store.dispatch(
+          "fetchMaintenanceFormDetail",
+          this.$route.params.id
+        );
         this.modal.addError = false;
       } catch (e) {
         Notification({
@@ -987,7 +1080,7 @@ export default {
       }
     },
     popupWarrantyLine(index, row) {
-      this.extraQuery = { parentId: this.parentError.id};
+      this.extraQuery = { parentId: this.parentError.id };
       this.defaultProductErrors = this.productErrors;
       this.formEditError.warrantyItemId = row.warrantyItemId;
       this.formEditError.productErrorId = row.productErrorId;
@@ -996,25 +1089,33 @@ export default {
     },
     async editWarrantyLine() {
       try {
-        let res = await this.$store.dispatch("updateWarrantyLine", this.formEditError);
+        let res = await this.$store.dispatch(
+          "updateWarrantyLine",
+          this.formEditError
+        );
         Notification({
           title: "Success",
           message: "Cập nhật thành công",
           position: "bottom-right",
           type: "success"
         });
-        this.formMaintenance.warrantyItems = this.formMaintenance.warrantyItems.map(item => {
-          if (item.id === res.warrantyItemId) {
-            item.warrantyLines = item.warrantyLines.map(line => {
-              if (line.id === res.id) {
-                line = res;
-              }
-              return line;
-            });
+        this.formMaintenance.warrantyItems = this.formMaintenance.warrantyItems.map(
+          item => {
+            if (item.id === res.warrantyItemId) {
+              item.warrantyLines = item.warrantyLines.map(line => {
+                if (line.id === res.id) {
+                  line = res;
+                }
+                return line;
+              });
+            }
+            return item;
           }
-          return item;
-        });
-        this.$store.dispatch("fetchMaintenanceFormDetail", this.$route.params.id);
+        );
+        this.$store.dispatch(
+          "fetchMaintenanceFormDetail",
+          this.$route.params.id
+        );
         this.modal.editError = false;
       } catch (e) {
         Notification({
@@ -1029,7 +1130,10 @@ export default {
       this.formDeleteError.id = this.formMaintenance.id;
       this.formDeleteError.warrantyLineId = row.id;
       try {
-        let res = await this.$store.dispatch("removeWarrantyLine", this.formDeleteError);
+        let res = await this.$store.dispatch(
+          "removeWarrantyLine",
+          this.formDeleteError
+        );
         if (res) {
           Notification({
             title: "Success",
@@ -1037,13 +1141,17 @@ export default {
             position: "bottom-right",
             type: "success"
           });
-          this.formMaintenance.warrantyItems = this.formMaintenance.warrantyItems.map(item => {
-            if (item.id === res.warrantyItemId) {
-              const index = item.warrantyLines.findIndex(l => l.id === res.id);
-              item.warrantyLines.splice(index, 1);
+          this.formMaintenance.warrantyItems = this.formMaintenance.warrantyItems.map(
+            item => {
+              if (item.id === res.warrantyItemId) {
+                const index = item.warrantyLines.findIndex(
+                  l => l.id === res.id
+                );
+                item.warrantyLines.splice(index, 1);
+              }
+              return item;
             }
-            return item;
-          });
+          );
         }
       } catch (e) {
         Notification({
@@ -1194,7 +1302,7 @@ export default {
       try {
         await this.$store.dispatch("updateMaintenanceForm", {
           id: this.formMaintenance.id,
-          working_date,
+          working_date
         });
       } catch (e) {
         Notification({
@@ -1241,15 +1349,21 @@ export default {
   watch: {
     "formAddProductWithoutCode.modelId": function() {
       this.formAddProductWithoutCode.productLineId = "";
-      this.extraQueryLine = { parentId: this.formAddProductWithoutCode.modelId};
-      this.defaultProductLines = this.productLines.filter(i => i.parentId === this.formAddProductWithoutCode.modelId);
+      this.extraQueryLine = {
+        parentId: this.formAddProductWithoutCode.modelId
+      };
+      this.defaultProductLines = this.productLines.filter(
+        i => i.parentId === this.formAddProductWithoutCode.modelId
+      );
     },
     "$store.state.maintenanceFormDetail": function(newVal) {
       this.formMaintenance = newVal;
       this.formCustomer = this.formMaintenance.customer.profile;
       this.formWarranty = this.formMaintenance.warrantyForm;
       this.workingDate = new Date();
-      this.workingDate.setDate(this.workingDate.getDate() + this.formMaintenance.working_date);
+      this.workingDate.setDate(
+        this.workingDate.getDate() + this.formMaintenance.working_date
+      );
       this.$store.dispatch("fetchActivatedProducts", {
         userId: this.formMaintenance.userId
       });
@@ -1260,7 +1374,9 @@ export default {
     "formMaintenance.status": function(newVal) {
       const currentAction = [];
       if (newVal == "completed") {
-        if (this.$util.checkPermissionAction(permissionSchemas, "create_recept")) {
+        if (
+          this.$util.checkPermissionAction(permissionSchemas, "create_recept")
+        ) {
           currentAction.push({
             label: this.$t("el.button.receipt"),
             type: "primary",

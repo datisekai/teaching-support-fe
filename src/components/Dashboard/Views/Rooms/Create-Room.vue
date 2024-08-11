@@ -9,6 +9,7 @@
 import roomForm from "./room-form.js";
 import FormCard from "src/components/UIComponents/FormCard.vue";
 import { Notification } from "element-ui";
+import { mapState } from "vuex";
 
 export default {
   components: {
@@ -18,12 +19,20 @@ export default {
   data() {
     return {
       form: {},
-      group: roomForm
+      group: roomForm,
+      initSelect: false
     };
+  },
+  computed: {
+    ...mapState(["groups"])
   },
   mounted() {
     this.$store.dispatch("setPageTitle", "Tạo phòng điểm danh");
 
+    const groupId = this.$route.query.group_id;
+    if (groupId) {
+      this.$store.dispatch("fetchGroups");
+    }
     this.$store.dispatch("setCurrentActions", [
       {
         label: "Tạo",
@@ -63,6 +72,21 @@ export default {
           position: "bottom-right",
           type: "error"
         });
+      }
+    }
+  },
+  watch: {
+    groups(newVal, oldVal) {
+      if (this.initSelect) return;
+      if (newVal && newVal.length > 0) {
+        const groupId = this.$route.query.group_id;
+        if (groupId) {
+          const group = newVal.find(item => item.id == groupId);
+          if (group) {
+            this.initSelect = true;
+            this.form.group = group;
+          }
+        }
       }
     }
   }

@@ -1224,6 +1224,9 @@ export const mutations = {
   [types.FETCH_ROOM_STUDENTS](state, data) {
     state.roomStudents = data;
   },
+  [types.FETCH_LOG_STUDENTS](state, data) {
+    state.logStudents = data;
+  },
   [types.RESET_ROOM_STUDENTS](state) {
     state.roomStudents = [];
   },
@@ -1267,6 +1270,10 @@ export const mutations = {
     });
   },
   [types.UPDATE_GROUP](state, data) {
-    state.group = { ...state.group, ...data };
+    state.group = { ...state.group, ...data.form };
+    console.log("state", state.group);
+  },
+  [types.SET_LOADING](state, loading) {
+    state.loading = loading;
   }
 };

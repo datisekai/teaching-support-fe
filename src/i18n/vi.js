@@ -410,7 +410,9 @@ export default {
       room: "Quản lý điểm danh",
       department: "Quản lý ngành học",
       course: "Quản lý môn học",
-      roomStudents: "Danh sách sinh viên điểm danh"
+      roomStudents: "Danh sách sinh viên điểm danh",
+      logStudents: "Logs điểm danh",
+      group: "Quản lý lớp học"
     },
     tableHeader: {
       actions: "Thao tác",
@@ -510,7 +512,9 @@ export default {
       accessories: "Linh kiện",
       duration: "Thời gian",
       department_name: "Ngành",
-      code: "Mã"
+      code: "Mã",
+      course: "Môn học",
+      teacher_name: "Giảng viên"
     },
     sidebar: {
       myAccount: "Tài khoản của tôi",

@@ -36,16 +36,18 @@
               <div class="col-sm-12 p-0">
                 <my-money
                   placeholder="Giá"
-                  fixed=0
+                  fixed="0"
                   v-model="form.regularPrice"
-                  :class="errors.has('price')?'border-danger':''"
+                  :class="errors.has('price') ? 'border-danger' : ''"
                   v-validate="'required'"
                   data-vv-name="price"
                   data-vv-as="Giá"
                 >
                   <span slot="append">VNĐ</span>
                 </my-money>
-                <span class="text-danger" v-if="errors.has('price')">{{ errors.first('price') }}</span>
+                <span class="text-danger" v-if="errors.has('price')">{{
+                  errors.first("price")
+                }}</span>
               </div>
             </div>
             <div class="row">
@@ -55,13 +57,25 @@
               <div class="col-sm-12 p-0">
                 <my-money
                   placeholder="Giá so sánh"
-                  fixed=0
-                  :class="form.comparePrice > 0 && form.regularPrice > form.comparePrice?'border-danger':''"
+                  fixed="0"
+                  :class="
+                    form.comparePrice > 0 &&
+                    form.regularPrice > form.comparePrice
+                      ? 'border-danger'
+                      : ''
+                  "
                   v-model="form.comparePrice"
                 >
                   <span slot="append">VNĐ</span>
                 </my-money>
-                <span class="text-danger" v-if="form.comparePrice > 0 && form.regularPrice > form.comparePrice">Giá so sánh đang thấp hơn giá bán</span>
+                <span
+                  class="text-danger"
+                  v-if="
+                    form.comparePrice > 0 &&
+                      form.regularPrice > form.comparePrice
+                  "
+                  >Giá so sánh đang thấp hơn giá bán</span
+                >
               </div>
             </div>
           </div>
@@ -73,11 +87,14 @@
           <div class="card-body form-card">
             <div class="row" v-for="(attribute, index) of form.attributes">
               <div class="col-sm-12 p-0">
-                <label>Thuộc tính {{index + 1}}</label>
+                <label>Thuộc tính {{ index + 1 }}</label>
               </div>
               <div class="col-sm-4 p-0">
                 <my-select
-                  :attribute="{options: pickableProductAttributes, multiple: false}"
+                  :attribute="{
+                    options: pickableProductAttributes,
+                    multiple: false
+                  }"
                   placeholder="Chọn thuộc tính"
                   v-model="attribute.name"
                   @change="val => resetSelect(index)"
@@ -86,14 +103,23 @@
               </div>
               <div class="col-sm-7 pl-4">
                 <my-select
-                  :attribute="{options: productAttributeOptions(attribute.name), multiple: true}"
+                  :attribute="{
+                    options: productAttributeOptions(attribute.name),
+                    multiple: true
+                  }"
                   placeholder="Chọn tùy chọn thuộc tính"
                   v-model="attribute.values"
                 >
                 </my-select>
               </div>
               <div>
-                <el-button :style="{height: '100%'}" size="small" type="primary" icon="el-icon-refresh-left" @click="() => resetSelect(index, true)"></el-button>
+                <el-button
+                  :style="{ height: '100%' }"
+                  size="small"
+                  type="primary"
+                  icon="el-icon-refresh-left"
+                  @click="() => resetSelect(index, true)"
+                ></el-button>
               </div>
             </div>
           </div>
@@ -118,12 +144,7 @@
     </div>
     <div class="col-lg-4 col-md-4 col-sm-12">
       <div v-for="(group, index) of sideGroups" :key="index">
-        <form-card
-          hasTop="true"
-          :group="group"
-          v-model="form"
-        >
-        </form-card>
+        <form-card hasTop="true" :group="group" v-model="form"> </form-card>
       </div>
     </div>
     <el-dialog
@@ -133,9 +154,9 @@
     >
       <my-money
         placeholder="Giá"
-        fixed=0
+        fixed="0"
         v-model="priceForm.regularPrice"
-        :class="errors.has('price')?'border-danger':''"
+        :class="errors.has('price') ? 'border-danger' : ''"
         v-validate="'required'"
         data-vv-name="price"
         data-vv-as="Giá"
@@ -186,32 +207,32 @@ export default {
     MyMoney,
     MyImage,
     Message,
-    CustomField,
+    CustomField
   },
   beforeCreate() {
     firstGroups = dataFrom[0].groups;
     secondGroups = dataFrom[1].groups;
-    firstGroups.forEach((group) => {
+    firstGroups.forEach(group => {
       if (group.languages && group.languages.length) {
-        group.languages.forEach((lang) => {
+        group.languages.forEach(lang => {
           group["attributes_" + lang] = [];
           let arr = [];
-          group.attributes.forEach((attr) => {
+          group.attributes.forEach(attr => {
             arr.push({
               prop: attr.prop + "_" + lang,
               label: attr.label,
-              type: attr.type,
+              type: attr.type
             });
           });
           group["attributes_" + lang] = arr;
-          group["attributes_" + lang].forEach((attr) => {
+          group["attributes_" + lang].forEach(attr => {
             _form[attr.prop] = "";
             attr.value = _form[attr.prop];
           });
         });
       }
 
-      group.attributes.forEach((attr) => {
+      group.attributes.forEach(attr => {
         if (attr.multiple && _form[attr.prop]) {
           _form[attr.prop] = [];
         } else {
@@ -221,8 +242,8 @@ export default {
       });
     });
 
-    secondGroups.forEach((group) => {
-      group.attributes.forEach((attr) => {
+    secondGroups.forEach(group => {
+      group.attributes.forEach(attr => {
         if (attr.multiple && _form[attr.prop]) {
           _form[attr.prop] = [];
         } else {
@@ -237,18 +258,18 @@ export default {
       {
         name: null,
         position: 1,
-        values: [],
+        values: []
       },
       {
         name: null,
         position: 2,
-        values: [],
+        values: []
       },
       {
         name: null,
         position: 3,
-        values: [],
-      },
+        values: []
+      }
     ];
   },
   data() {
@@ -269,16 +290,16 @@ export default {
         {
           type: "primary",
           title: "edit",
-          icon: "nc-icon nc-ruler-pencil",
-          callback: this.showModalVariant,
-        },
+          icon: "fa-solid fa-pen-to-square",
+          callback: this.showModalVariant
+        }
       ],
       priceForm: {
         id: 0,
         name: "",
         regularPrice: 0,
-        comparePrice: 0,
-      },
+        comparePrice: 0
+      }
     };
   },
 
@@ -290,11 +311,11 @@ export default {
       return this.$store.state.languages;
     },
     productAttributes() {
-      return this.$store.state.attributes.map((attribute) => {
+      return this.$store.state.attributes.map(attribute => {
         attribute.multiple = true;
         attribute.title = attribute.name;
         attribute.value = attribute.name;
-        attribute.options.forEach((item) => {
+        attribute.options.forEach(item => {
           item.title = item.name;
           item.value = item.name;
         });
@@ -303,7 +324,7 @@ export default {
     },
     pickableProductAttributes() {
       return this.productAttributes.filter(
-        (v) => !this.selectedAttribute.includes(v.name)
+        v => !this.selectedAttribute.includes(v.name)
       );
     },
     customField: {
@@ -313,21 +334,21 @@ export default {
           this.show_fields
         );
       },
-      set(value) {},
+      set(value) {}
     },
     listView() {
       const listTheme = this.$store.state.listThemeView;
       if (listTheme.length) {
         listTheme.unshift({
           title: "Mặc định",
-          value: "",
+          value: ""
         });
         return {
-          options: listTheme,
+          options: listTheme
         };
       }
       return "";
-    },
+    }
   },
 
   mounted() {
@@ -336,14 +357,14 @@ export default {
         label: "Quay lại",
         type: "info",
         icon: "",
-        callback: this.cancel,
+        callback: this.cancel
       },
       {
         label: "Tạo mới",
         type: "primary",
         icon: "",
-        callback: this.save,
-      },
+        callback: this.save
+      }
     ];
     this.$store.dispatch("setPageTitle", "Tạo sản phẩm");
     this.$store.dispatch("fetchAttributes");
@@ -355,14 +376,22 @@ export default {
 
   methods: {
     resetSelect(index, isClick) {
-      this.$set(this.form.attributes, index, Object.assign({}, this.form.attributes[index], { values: [] }));
+      this.$set(
+        this.form.attributes,
+        index,
+        Object.assign({}, this.form.attributes[index], { values: [] })
+      );
       if (isClick) {
-        this.$set(this.form.attributes, index, Object.assign({}, this.form.attributes[index], { name: null }));
+        this.$set(
+          this.form.attributes,
+          index,
+          Object.assign({}, this.form.attributes[index], { name: null })
+        );
       }
     },
     productAttributeOptions(attributeName) {
       const attr = this.productAttributes.find(a => a.name === attributeName);
-      return attr && attr.options || [];
+      return (attr && attr.options) || [];
     },
     updatePriceVariant() {
       this.$set(this.dataTable, this.priceForm.id, this.priceForm);
@@ -370,7 +399,7 @@ export default {
         id: 0,
         name: "",
         comparePrice: 0,
-        regularPrice: 0,
+        regularPrice: 0
       };
       this.dialogModalVariant = false;
     },
@@ -380,10 +409,10 @@ export default {
       this.dialogModalVariant = true;
     },
     cartesian(...args) {
-      const arr = args.filter((a) => a.length !== 0);
+      const arr = args.filter(a => a.length !== 0);
       if (arr.length) {
         return arr.reduce((a, b) =>
-          a.reduce((r, v) => r.concat(b.map((w) => [].concat(v, w))), [])
+          a.reduce((r, v) => r.concat(b.map(w => [].concat(v, w))), [])
         );
       }
       return [];
@@ -395,9 +424,9 @@ export default {
       this.form.handle = this.form.title;
       const data = {
         handle: this.$util.createHandle(this.form.title),
-        lang: "vi",
+        lang: "vi"
       };
-      this.$store.dispatch("checkHandle", data).then((result) => {
+      this.$store.dispatch("checkHandle", data).then(result => {
         this.form.handle = result;
       });
     },
@@ -407,7 +436,7 @@ export default {
       this.parseData();
       for (let variant of this.form.variants) {
         if (variant.list_image && variant.list_image.length) {
-          variant.images = variant.list_image.map((item) => item.name);
+          variant.images = variant.list_image.map(item => item.name);
         }
       }
       for (const image of this.form.images) {
@@ -416,19 +445,23 @@ export default {
         }
       }
       try {
-        const resp = await this.$store.dispatch("createProduct", Object.assign({}, this.form, {
-            attributes: this.form.attributes.filter((v) => v.name && v.values && v.values.length),
+        const resp = await this.$store.dispatch(
+          "createProduct",
+          Object.assign({}, this.form, {
+            attributes: this.form.attributes.filter(
+              v => v.name && v.values && v.values.length
+            )
           })
         );
         Message({
           message: "Tạo thành công",
-          type: "success",
+          type: "success"
         });
         this.$router.push({ name: "ViewProduct", params: { id: resp.id } });
       } catch (error) {
         Message({
           message: error.message,
-          type: "error",
+          type: "error"
         });
       }
     },
@@ -443,62 +476,62 @@ export default {
         variant.images = [];
         this.form.variants = [variant];
       } else this.form.variants = this.dataTable;
-    },
+    }
   },
   watch: {
-    "form.title": function (newVal, oldVal) {
+    "form.title": function(newVal, oldVal) {
       this.form["seo.meta_title"] = newVal;
       const data = {
         handle: this.$util.createHandle(newVal),
-        lang: "vi",
+        lang: "vi"
       };
-      this.$store.dispatch("checkHandle", data).then((result) => {
+      this.$store.dispatch("checkHandle", data).then(result => {
         this.form.handle = result;
       });
     },
-    "form.title_en": function (newVal, oldVal) {
+    "form.title_en": function(newVal, oldVal) {
       let data = {
         handle: this.$util.createHandle(newVal),
-        lang: "en",
+        lang: "en"
       };
-      this.$store.dispatch("checkHandle", data).then((result) => {
+      this.$store.dispatch("checkHandle", data).then(result => {
         this.form.handle_en = result;
       });
     },
-    "form.title_jp": function (newVal, oldVal) {
+    "form.title_jp": function(newVal, oldVal) {
       let data = {
         handle: this.$util.createHandle(newVal),
-        lang: "jp",
+        lang: "jp"
       };
-      this.$store.dispatch("checkHandle", data).then((result) => {
+      this.$store.dispatch("checkHandle", data).then(result => {
         this.form.handle_jp = result;
       });
     },
-    "form.description": function (newVal, oldVal) {
+    "form.description": function(newVal, oldVal) {
       this.form["seo.meta_description"] = newVal;
     },
     "form.regularPrice": {
       handler(nVal) {
-        this.dataTable.forEach((v) => {
+        this.dataTable.forEach(v => {
           v.regularPrice = nVal;
         });
-      },
+      }
     },
     "form.attributes": {
       deep: true,
       handler(nVal) {
-        this.selectedAttribute = nVal.map((v) => v.name).filter((v) => !!v);
-        const ops = nVal.map((v) =>
-          v.values.map((i) => ({
+        this.selectedAttribute = nVal.map(v => v.name).filter(v => !!v);
+        const ops = nVal.map(v =>
+          v.values.map(i => ({
             position: v.position,
-            value: i,
+            value: i
           }))
         );
-        this.dataTable = this.cartesian(...ops).map((v) => {
+        this.dataTable = this.cartesian(...ops).map(v => {
           let row = {};
           if (Array.isArray(v)) {
-            row.name = v.map((i) => i.value).join(" / ");
-            v.forEach((i) => {
+            row.name = v.map(i => i.value).join(" / ");
+            v.forEach(i => {
               row[`option${i.position}`] = i.value;
             });
           } else {
@@ -508,35 +541,35 @@ export default {
           row.regularPrice = this.form.regularPrice;
           return row;
         });
-      },
+      }
     },
     categories: {
       handler(nVal) {
-        const index = this.sideGroups.findIndex((g) => {
-          const props = g.attributes.map((a) => a.prop);
+        const index = this.sideGroups.findIndex(g => {
+          const props = g.attributes.map(a => a.prop);
           return props.includes("categories");
         });
         if (index !== -1) {
           const group = this.sideGroups[index];
-          group.attributes.forEach((a) => {
+          group.attributes.forEach(a => {
             if (a.prop === "categories") {
-              a.options = nVal.map((o) => ({
+              a.options = nVal.map(o => ({
                 title: o.name,
-                value: o.id,
+                value: o.id
               }));
             }
           });
           this.sideGroups = Object.assign({}, this.sideGroups);
         }
-      },
-    },
+      }
+    }
   },
   destroyed() {
     this.$store.dispatch("setCurrentActions", []);
     this.$store.state.productAttributes = [];
     this.$store.state.listThemeView = [];
     this.$store.state.customField = [];
-  },
+  }
 };
 </script>
 

@@ -18,29 +18,50 @@
     </div>
     <div class="col-xs-12 col-sm-8" v-if="region">
       <div class="row" style="margin-bottom: 10px">
-        <el-button type="primary" icon="el-icon-plus" @click="dialogFeeVisible=true">Thêm phương thức</el-button>
+        <el-button
+          type="primary"
+          icon="el-icon-plus"
+          @click="dialogFeeVisible = true"
+          >Thêm phương thức</el-button
+        >
       </div>
       <div class="row">
         <div class="card full-width" v-for="item of shippingDetail">
           <div class="card-header">
-            <h6 class="title pull-left">{{item.title}}</h6>
+            <h6 class="title pull-left">{{ item.title }}</h6>
             <div class="pull-right">
-              <p-button class="margin-0" size="sm" icon @click="edit(item)" type="primary">
-                <i class="nc-icon nc-ruler-pencil"></i>
+              <p-button
+                class="margin-0"
+                size="sm"
+                icon
+                @click="edit(item)"
+                type="primary"
+              >
+                <i class="fa-solid fa-pen-to-square"></i>
               </p-button>
-              <p-button class="margin-0" size="sm" icon @click="remove(item)" type="danger">
-                <i class="nc-icon nc-simple-remove"></i>
+              <p-button
+                class="margin-0"
+                size="sm"
+                icon
+                @click="remove(item)"
+                type="danger"
+              >
+                <i class="fa-solid fa-xmark"></i>
               </p-button>
             </div>
           </div>
           <div class="clearfix"></div>
           <div class="card-body form-card">
-            <p v-if="item.type=='all'">Áp dụng cho mọi đơn hàng</p>
+            <p v-if="item.type == 'all'">Áp dụng cho mọi đơn hàng</p>
             <div v-else>
               <p>Tính theo: Khoảng giá (VNĐ)</p>
-              <p>Áp dụng cho đơn hàng có tổng giá trị từ {{$util.formatMoney(item.from)}}đ đến {{$util.formatMoney(item.to)}}đ</p>
+              <p>
+                Áp dụng cho đơn hàng có tổng giá trị từ
+                {{ $util.formatMoney(item.from) }}đ đến
+                {{ $util.formatMoney(item.to) }}đ
+              </p>
             </div>
-            <p>Chi phí: {{$util.formatMoney(item.price)}}đ</p>
+            <p>Chi phí: {{ $util.formatMoney(item.price) }}đ</p>
           </div>
         </div>
       </div>
@@ -57,12 +78,14 @@
           <el-input
             placeholder="Tên phương thức vận chuyển"
             v-model="formShipping.title"
-            :class="errors.has('title')?'border-danger':''"
+            :class="errors.has('title') ? 'border-danger' : ''"
             v-validate="'required'"
             data-vv-name="title"
             data-vv-as="Tên"
           ></el-input>
-          <span class="text-danger" v-if="errors.has('title')">{{ errors.first('title') }}</span>
+          <span class="text-danger" v-if="errors.has('title')">{{
+            errors.first("title")
+          }}</span>
         </el-form-item>
         <el-form-item label="Tính theo tổng giá trị đơn hàng:"></el-form-item>
         <el-row :gutter="20">
@@ -72,39 +95,45 @@
               placeholder="Chọn loại"
               :attribute="typeShipping"
               v-model="formShipping.type"
-              :class="errors.has('type')?'border-danger':''"
+              :class="errors.has('type') ? 'border-danger' : ''"
               v-validate="'required'"
               data-vv-name="type"
               data-vv-as="Loại"
             >
             </my-select>
-            <span class="text-danger" v-if="errors.has('type')">{{ errors.first('type') }}</span>
+            <span class="text-danger" v-if="errors.has('type')">{{
+              errors.first("type")
+            }}</span>
           </el-col>
           <el-col :span="7" :offset="2" v-if="formShipping.type == 'price'">
             <el-input
               placeholder="Từ"
               v-model="formShipping.from"
-              :disabled="formShipping.type=='all'? true : false"
-              :class="errors.has('from')?'border-danger':''"
+              :disabled="formShipping.type == 'all' ? true : false"
+              :class="errors.has('from') ? 'border-danger' : ''"
               type="number"
               v-validate="'required|min_value:0'"
               data-vv-name="from"
               data-vv-as="Giá trị từ"
             ></el-input>
-            <span class="text-danger" v-if="errors.has('from')">{{ errors.first('from') }}</span>
+            <span class="text-danger" v-if="errors.has('from')">{{
+              errors.first("from")
+            }}</span>
           </el-col>
           <el-col :span="7" :offset="1" v-if="formShipping.type == 'price'">
             <el-input
               placeholder="Đến"
               v-model="formShipping.to"
-              :disabled="formShipping.type=='all'? true : false"
-              :class="errors.has('to')?'border-danger':''"
+              :disabled="formShipping.type == 'all' ? true : false"
+              :class="errors.has('to') ? 'border-danger' : ''"
               type="number"
               v-validate="'required|min_value:0'"
               data-vv-name="to"
               data-vv-as="Giá trị đến"
             ></el-input>
-            <span class="text-danger" v-if="errors.has('to')">{{ errors.first('to') }}</span>
+            <span class="text-danger" v-if="errors.has('to')">{{
+              errors.first("to")
+            }}</span>
           </el-col>
         </el-row>
         <div class="clearfix"></div>
@@ -113,14 +142,19 @@
             v-model="formShipping.price"
             type="number"
             placeholder="Chi phí"
-            :class="errors.has('price')?'border-danger':''"
+            :class="errors.has('price') ? 'border-danger' : ''"
             v-validate="'required|min_value:0'"
             data-vv-name="price"
             data-vv-as="Chi phí"
           ></el-input>
-          <span class="text-danger" v-if="errors.has('price')">{{ errors.first('price') }}</span>
+          <span class="text-danger" v-if="errors.has('price')">{{
+            errors.first("price")
+          }}</span>
         </el-form-item>
-        <el-form-item label="Quận/Huyện:" v-if="subRegionList.length"></el-form-item>
+        <el-form-item
+          label="Quận/Huyện:"
+          v-if="subRegionList.length"
+        ></el-form-item>
         <el-row
           :gutter="20"
           v-for="item of subRegionList"
@@ -128,22 +162,21 @@
           style="margin-bottom: 5px"
         >
           <el-col :span="11">
-            <el-input
-              disabled
-              :placeholder="item.name"
-            ></el-input>
+            <el-input disabled :placeholder="item.name"></el-input>
           </el-col>
           <el-col :span="11" :offset="2">
             <el-input
               placeholder="Nhập phí vận chuyển"
               v-model="item.price"
-              :class="errors.has(item.name)?'border-danger':''"
+              :class="errors.has(item.name) ? 'border-danger' : ''"
               type="number"
               v-validate="'min_value:0'"
               :data-vv-name="item.name"
               data-vv-as="Giá"
             ></el-input>
-            <span class="text-danger" v-if="errors.has(item.name)">{{ errors.first(item.name) }}</span>
+            <span class="text-danger" v-if="errors.has(item.name)">{{
+              errors.first(item.name)
+            }}</span>
           </el-col>
         </el-row>
         <div class="clearfix"></div>
@@ -166,16 +199,16 @@
           <el-input
             placeholder="Tên phương thức vận chuyển"
             v-model="formEditShipping.title"
-            :class="errors.has('title')?'border-danger':''"
+            :class="errors.has('title') ? 'border-danger' : ''"
             v-validate="'required'"
             data-vv-name="title"
             data-vv-as="Tên"
           ></el-input>
-          <span class="text-danger" v-if="errors.has('title')">{{ errors.first('title') }}</span>
+          <span class="text-danger" v-if="errors.has('title')">{{
+            errors.first("title")
+          }}</span>
         </el-form-item>
-        <el-form-item label="Tính theo tổng giá trị đơn hàng:">
-
-        </el-form-item>
+        <el-form-item label="Tính theo tổng giá trị đơn hàng:"> </el-form-item>
         <el-row :gutter="20">
           <el-col :span="7">
             <my-select
@@ -183,39 +216,45 @@
               placeholder="Chọn loại"
               :attribute="typeShipping"
               v-model="formEditShipping.type"
-              :class="errors.has('type')?'border-danger':''"
+              :class="errors.has('type') ? 'border-danger' : ''"
               v-validate="'required'"
               data-vv-name="type"
               data-vv-as="Loại"
             >
             </my-select>
-            <span class="text-danger" v-if="errors.has('type')">{{ errors.first('type') }}</span>
+            <span class="text-danger" v-if="errors.has('type')">{{
+              errors.first("type")
+            }}</span>
           </el-col>
           <el-col :span="7" :offset="2" v-if="formEditShipping.type == 'price'">
             <el-input
               placeholder="Từ"
               v-model="formEditShipping.from"
-              :disabled="formEditShipping.type=='all'? true : false"
-              :class="errors.has('from')?'border-danger':''"
+              :disabled="formEditShipping.type == 'all' ? true : false"
+              :class="errors.has('from') ? 'border-danger' : ''"
               type="number"
               v-validate="'required|min_value:0'"
               data-vv-name="from"
               data-vv-as="Giá trị từ"
             ></el-input>
-            <span class="text-danger" v-if="errors.has('from')">{{ errors.first('from') }}</span>
+            <span class="text-danger" v-if="errors.has('from')">{{
+              errors.first("from")
+            }}</span>
           </el-col>
           <el-col :span="7" :offset="1" v-if="formEditShipping.type == 'price'">
             <el-input
               placeholder="Đến"
               v-model="formEditShipping.to"
-              :disabled="formEditShipping.type=='all'? true : false"
-              :class="errors.has('to')?'border-danger':''"
+              :disabled="formEditShipping.type == 'all' ? true : false"
+              :class="errors.has('to') ? 'border-danger' : ''"
               type="number"
               v-validate="'required|min_value:0'"
               data-vv-name="to"
               data-vv-as="Giá trị đến"
             ></el-input>
-            <span class="text-danger" v-if="errors.has('to')">{{ errors.first('to') }}</span>
+            <span class="text-danger" v-if="errors.has('to')">{{
+              errors.first("to")
+            }}</span>
           </el-col>
         </el-row>
         <div class="clearfix"></div>
@@ -223,15 +262,20 @@
           <el-input
             v-model="formEditShipping.price"
             placeholder="Chi phí"
-            :class="errors.has('price')?'border-danger':''"
+            :class="errors.has('price') ? 'border-danger' : ''"
             v-validate="'required|min_value:0'"
             type="number"
             data-vv-name="price"
             data-vv-as="Chi phí"
           ></el-input>
-          <span class="text-danger" v-if="errors.has('price')">{{ errors.first('price') }}</span>
+          <span class="text-danger" v-if="errors.has('price')">{{
+            errors.first("price")
+          }}</span>
         </el-form-item>
-        <el-form-item label="Quận/Huyện:" v-if="subRegionList.length"></el-form-item>
+        <el-form-item
+          label="Quận/Huyện:"
+          v-if="subRegionList.length"
+        ></el-form-item>
         <el-row
           :gutter="20"
           v-for="item of subRegionList"
@@ -239,22 +283,21 @@
           style="margin-bottom: 5px"
         >
           <el-col :span="11">
-            <el-input
-              disabled
-              :placeholder="item.name"
-            ></el-input>
+            <el-input disabled :placeholder="item.name"></el-input>
           </el-col>
           <el-col :span="11" :offset="2">
             <el-input
               placeholder="Nhập phí vận chuyển"
               v-model="item.price"
-              :class="errors.has(item.name)?'border-danger':''"
+              :class="errors.has(item.name) ? 'border-danger' : ''"
               type="number"
               v-validate="'min_value:0'"
               :data-vv-name="item.name"
               data-vv-as="Giá"
             ></el-input>
-            <span class="text-danger" v-if="errors.has(item.name)">{{ errors.first(item.name) }}</span>
+            <span class="text-danger" v-if="errors.has(item.name)">{{
+              errors.first(item.name)
+            }}</span>
           </el-col>
         </el-row>
         <div class="clearfix"></div>
@@ -268,10 +311,20 @@
 </template>
 <script>
 import {
-  MessageBox, Message, Input, Button, Dialog, Form, FormItem, Select, Option, Col, Row,
-} from 'element-ui';
-import MySelect from 'src/components/UIComponents/Select';
-import { mapState } from 'vuex';
+  MessageBox,
+  Message,
+  Input,
+  Button,
+  Dialog,
+  Form,
+  FormItem,
+  Select,
+  Option,
+  Col,
+  Row
+} from "element-ui";
+import MySelect from "src/components/UIComponents/Select";
+import { mapState } from "vuex";
 
 export default {
   components: {
@@ -286,15 +339,15 @@ export default {
     ElRow: Row,
     Message,
     MessageBox,
-    MySelect,
+    MySelect
   },
   async beforeCreate() {
-    await this.$store.dispatch('setPageTitle', 'Thêm phí vận chuyển');
-    await this.$store.dispatch('fetchRegion');
+    await this.$store.dispatch("setPageTitle", "Thêm phí vận chuyển");
+    await this.$store.dispatch("fetchRegion");
   },
   computed: {
     ...mapState({
-      shippingDetail: state => state.shippingDetail,
+      shippingDetail: state => state.shippingDetail
     }),
     regionList() {
       const data = this.$store.state.region;
@@ -302,12 +355,12 @@ export default {
       arr.options = [];
       arr.options.push({
         value: 100,
-        title: 'Tất cả tỉnh thành',
+        title: "Tất cả tỉnh thành"
       });
       for (const item of data) {
         arr.options.push({
           value: item.id,
-          title: item.name,
+          title: item.name
         });
       }
       return arr;
@@ -319,11 +372,11 @@ export default {
         arr.push({
           name: item.name,
           subregion_id: item.id,
-          price: '',
+          price: ""
         });
       }
       return arr;
-    },
+    }
   },
   data() {
     return {
@@ -333,32 +386,32 @@ export default {
       formShipping: {},
       formEditShipping: {},
       typeShipping: {
-        options: [{
-          value: 'all',
-          title: 'Tất cả đơn hàng',
-        }, {
-          value: 'price',
-          title: 'Khoảng giá (VNĐ)',
-        },
-        ],
-      },
+        options: [
+          {
+            value: "all",
+            title: "Tất cả đơn hàng"
+          },
+          {
+            value: "price",
+            title: "Khoảng giá (VNĐ)"
+          }
+        ]
+      }
     };
   },
-  mounted() {
-
-  },
+  mounted() {},
   methods: {
     cancel() {
-      this.$router.push({ name: 'Shipping' });
+      this.$router.push({ name: "Shipping" });
     },
     edit(data) {
       const self = this;
       self.formEditShipping = {};
-      this.$store.dispatch('fetchShippingEdit', data.id).then((result) => {
+      this.$store.dispatch("fetchShippingEdit", data.id).then(result => {
         const data = result.data;
         const subregion = result.subregion;
-        this.subRegionList.forEach((attr) => {
-          subregion.forEach((item) => {
+        this.subRegionList.forEach(attr => {
+          subregion.forEach(item => {
             if (attr.subregion_id == item.subregion_id) {
               attr.price = item.price;
             }
@@ -370,24 +423,27 @@ export default {
     },
     remove(data) {
       const self = this;
-      MessageBox.confirm('Bạn có chắc chắn xóa không?', 'Warning', {
-        confirmButtonText: 'Đồng ý',
-        cancelButtonText: 'Hủy bỏ',
-        type: 'warning',
-        center: true,
+      MessageBox.confirm("Bạn có chắc chắn xóa không?", "Warning", {
+        confirmButtonText: "Đồng ý",
+        cancelButtonText: "Hủy bỏ",
+        type: "warning",
+        center: true
       }).then(() => {
-        this.$store.dispatch('removeShipping', data.id).then((res) => {
-          Message({
-            type: 'success',
-            message: 'Đã xóa phương thức',
+        this.$store
+          .dispatch("removeShipping", data.id)
+          .then(res => {
+            Message({
+              type: "success",
+              message: "Đã xóa phương thức"
+            });
+            self.$store.dispatch("fetchShippingDetail", this.region);
+          })
+          .catch(err => {
+            Message({
+              type: "error",
+              message: err.message
+            });
           });
-          self.$store.dispatch('fetchShippingDetail', this.region);
-        }).catch((err) => {
-          Message({
-            type: 'error',
-            message: err.message,
-          });
-        });
       });
     },
     save() {
@@ -395,23 +451,26 @@ export default {
       self.formShipping.region_id = this.region;
       const data = {
         data: self.formShipping,
-        subRegion: self.subRegionList.filter(item => item.price),
+        subRegion: self.subRegionList.filter(item => item.price)
       };
-      this.$validator.validateAll().then((result) => {
+      this.$validator.validateAll().then(result => {
         if (result) {
-          self.$store.dispatch('storeShipping', data).then((result) => {
-            Message({
-              type: 'success',
-              message: 'Tạo thành công',
+          self.$store
+            .dispatch("storeShipping", data)
+            .then(result => {
+              Message({
+                type: "success",
+                message: "Tạo thành công"
+              });
+              self.dialogFeeVisible = false;
+              self.$store.dispatch("fetchShippingDetail", self.region);
+            })
+            .catch(error => {
+              Message({
+                type: "error",
+                message: error.message
+              });
             });
-            self.dialogFeeVisible = false;
-            self.$store.dispatch('fetchShippingDetail', self.region);
-          }).catch((error) => {
-            Message({
-              type: 'error',
-              message: error.message,
-            });
-          });
         }
       });
     },
@@ -419,39 +478,42 @@ export default {
       const self = this;
       const data = {
         data: self.formEditShipping,
-        subRegion: self.subRegionList.filter(item => item.price),
+        subRegion: self.subRegionList.filter(item => item.price)
       };
-      this.$validator.validateAll().then((result) => {
+      this.$validator.validateAll().then(result => {
         if (result) {
-          self.$store.dispatch('updateShipping', data).then((result) => {
-            Message({
-              type: 'success',
-              message: 'Cập nhật thành công',
+          self.$store
+            .dispatch("updateShipping", data)
+            .then(result => {
+              Message({
+                type: "success",
+                message: "Cập nhật thành công"
+              });
+              self.dialogEditFeeVisible = false;
+              self.formEditShipping = {};
+              self.$store.dispatch("fetchShippingDetail", self.region);
+            })
+            .catch(error => {
+              Message({
+                type: "error",
+                message: error.message
+              });
             });
-            self.dialogEditFeeVisible = false;
-            self.formEditShipping = {};
-            self.$store.dispatch('fetchShippingDetail', self.region);
-          }).catch((error) => {
-            Message({
-              type: 'error',
-              message: error.message,
-            });
-          });
         }
       });
-    },
+    }
   },
   watch: {
     region(newValue, oldValue) {
-      this.$store.dispatch('fetchListSubRegion', this.region);
-      this.$store.dispatch('fetchShippingDetail', this.region);
-    },
-  },
+      this.$store.dispatch("fetchListSubRegion", this.region);
+      this.$store.dispatch("fetchShippingDetail", this.region);
+    }
+  }
 };
 </script>
 <style lang="scss">
-  .margin-0{
-    margin-top: 0;
-    margin-bottom: 0;
-  }
+.margin-0 {
+  margin-top: 0;
+  margin-bottom: 0;
+}
 </style>

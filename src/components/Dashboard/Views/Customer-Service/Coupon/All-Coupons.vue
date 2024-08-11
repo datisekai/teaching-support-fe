@@ -4,7 +4,10 @@
       <div class="card-body">
         <div class="row">
           <div class="col-lg-9 col-md-6 col-sm-6 col-6">
-            <my-filter :rules="rules" v-on:filter-change="updateFilter"></my-filter>
+            <my-filter
+              :rules="rules"
+              v-on:filter-change="updateFilter"
+            ></my-filter>
           </div>
           <div class="col-lg-3 col-md-6 col-sm-6 col-6">
             <column-toggle
@@ -28,34 +31,34 @@
   </div>
 </template>
 <script>
-import { mapState } from 'vuex'
-import { MessageBox, Notification } from 'element-ui';
-import MyTable from 'src/components/UIComponents/Table.vue';
-import MyFilter from 'src/components/UIComponents/Filter.vue';
-import dtHelper from 'src/helpers/datatable';
-import ColumnToggle from 'src/components/UIComponents/ColumnToggle';
-import couponSchemas from './coupon-schemas';
+import { mapState } from "vuex";
+import { MessageBox, Notification } from "element-ui";
+import MyTable from "src/components/UIComponents/Table.vue";
+import MyFilter from "src/components/UIComponents/Filter.vue";
+import dtHelper from "src/helpers/datatable";
+import ColumnToggle from "src/components/UIComponents/ColumnToggle";
+import couponSchemas from "./coupon-schemas";
 
 export default {
   components: {
     MyTable,
     MyFilter,
-    ColumnToggle,
+    ColumnToggle
   },
   computed: {
     csCoupons() {
       const rows = this.$store.state.csCoupons.map(r => {
-        let value = '';
+        let value = "";
         switch (r.discountType) {
-          case 'percentage':
-            value = this.$util.formatMoney(r.discountValue) + ' %';
+          case "percentage":
+            value = this.$util.formatMoney(r.discountValue) + " %";
             break;
-          case 'fixed_amount':
-            value = this.$util.formatMoney(r.discountValue) + ' VNĐ';
+          case "fixed_amount":
+            value = this.$util.formatMoney(r.discountValue) + " VNĐ";
             break;
-          case 'free_shipping':
+          case "free_shipping":
           default:
-            value = 'N/A';
+            value = "N/A";
             break;
         }
         r.value = value;
@@ -65,45 +68,55 @@ export default {
     }
   },
   data() {
-    let initFiledArrays = ['code', 'discountType', 'discountValue', 'createdAt', 'expiredDate', 'isActive', 'isExpired'];
-    let columnDefs = dtHelper.buildInitFields(couponSchemas, initFiledArrays)
+    let initFiledArrays = [
+      "code",
+      "discountType",
+      "discountValue",
+      "createdAt",
+      "expiredDate",
+      "isActive",
+      "isExpired"
+    ];
+    let columnDefs = dtHelper.buildInitFields(couponSchemas, initFiledArrays);
     couponSchemas.forEach(s => {
-      if (s.prop == 'isActive') {
-        s.callback = this.disableCoupon
+      if (s.prop == "isActive") {
+        s.callback = this.disableCoupon;
       }
-    })
+    });
     window.columnDefs = columnDefs;
     return {
       filterOutput: [],
       columnDefs,
       actions: [
         {
-          type: 'primary',
-          icon: 'nc-icon nc-ruler-pencil',
-          title: 'edit',
-          callback: this.edit,
-        },
+          type: "primary",
+          icon: "fa-solid fa-pen-to-square",
+          title: "edit",
+          callback: this.edit
+        }
         // {
         //   type: 'danger',
-        //   icon: 'nc-icon nc-simple-remove',
+        //   icon: 'fa-solid fa-xmark',
         //   title: 'delete',
         //   callback: this.remove,
         // },
       ],
       actionsTable: [],
       filter: {},
-      rules: dtHelper.buildRules(couponSchemas),
+      rules: dtHelper.buildRules(couponSchemas)
     };
   },
   mounted() {
-    this.$store.dispatch('fetchCSCoupons');
-    this.$store.dispatch('setPageTitle', 'coupon');
-    this.$store.dispatch('setCurrentActions', [{
-      label: 'create',
-      type: 'primary',
-      icon: '',
-      callback: this.create,
-    }]);
+    this.$store.dispatch("fetchCSCoupons");
+    this.$store.dispatch("setPageTitle", "coupon");
+    this.$store.dispatch("setCurrentActions", [
+      {
+        label: "create",
+        type: "primary",
+        icon: "",
+        callback: this.create
+      }
+    ]);
   },
   methods: {
     updateFilter(filterOutput) {
@@ -111,16 +124,16 @@ export default {
     },
     sortChange(data) {
       const prop = data.prop;
-      const order = data.order == 'ascending' ? 'asc' : 'desc';
-      this.$store.dispatch('fetchCSCoupons', {
-        order: `${prop}=${order}`,
+      const order = data.order == "ascending" ? "asc" : "desc";
+      this.$store.dispatch("fetchCSCoupons", {
+        order: `${prop}=${order}`
       });
     },
     edit(index, row) {
       this.$router.push(`/cs/coupon/${row.id}`);
     },
     create() {
-      this.$router.push('/cs/coupon/create');
+      this.$router.push("/cs/coupon/create");
     },
     // remove(index, row) {
     //   MessageBox.confirm('Bạn có chắc chắn xóa không?', 'Warning', {
@@ -147,10 +160,10 @@ export default {
     //   });
     // },
     inactiveAll(rows) {
-      this.updateStatus(rows, 'inactive');
+      this.updateStatus(rows, "inactive");
     },
     activeAll(rows) {
-      this.updateStatus(rows, 'active');
+      this.updateStatus(rows, "active");
     },
     // removeAll(rows) {
     //   MessageBox.confirm('Bạn có chắc chắn xóa không?', 'Warning', {
@@ -164,84 +177,92 @@ export default {
     // },
     updateStatus(rows, status) {
       const self = this;
-      this.$util.updateStatusAll('coupon', rows, status).then((result) => {
-        self.$store.dispatch('fetchCSCoupons');
-        Notification ({
-          title: 'Success',
-          message: 'Update succeeded',
-          position: 'bottom-right',
-          type: 'success',
-        });
-      }).catch((err) => {
-        Notification ({
-          title: 'Error',
-          message: err.message,
-          position: 'bottom-right',
-          type: 'error',
-        });
-      });
-    },
-    exportExcel(){
-      let self = this;
-      return Notification ({
-        title: 'Warning',
-        message: 'Tính năng chưa hiện thực',
-        position: 'bottom-right',
-        type: 'warning'
-      }); 
-      this.$util.exportExcel('coupon', self.$store.state.csCoupons);
-    },
-    disableCoupon(index, row) {
-      let text = row.isActive ? 'enable' : 'disable';
-      let Text = row.isActive ? 'Enable' : 'Disable';
-      MessageBox.confirm(`Are you sure to ${text}?`, `${Text}`, {
-        confirmButtonText: `${Text}`,
-        cancelButtonText: 'Cancel',
-        type: 'warning',
-        center: true
-      }).then(() => {
-        row.isActive = text == 'disable';
-        return Notification ({
-          title: 'Warning',
-          message: 'Tính năng chưa hiện thực',
-          position: 'bottom-right',
-          type: 'warning'
-        }); 
-        this.$store.dispatch('disableCoupon', row.id).then(res => {
-          Notification ({
-            title: 'Success',
-            message: `${Text} completed`,
-            position: 'bottom-right',
-            type: 'success',
-          });
-        }, err => {
-          Notification ({
-            title: 'Error',
-            message: err.message,
-            position: 'bottom-right',
-            type: 'error',
+      this.$util
+        .updateStatusAll("coupon", rows, status)
+        .then(result => {
+          self.$store.dispatch("fetchCSCoupons");
+          Notification({
+            title: "Success",
+            message: "Update succeeded",
+            position: "bottom-right",
+            type: "success"
           });
         })
-      }).catch(() => {
-        row.isActive = text == 'disable';
-        Notification ({
-          title: 'Canceled',
-          message: `${Text} canceled`,
-          position: 'bottom-right',
-          type: 'info',
+        .catch(err => {
+          Notification({
+            title: "Error",
+            message: err.message,
+            position: "bottom-right",
+            type: "error"
+          });
         });
-      })
     },
+    exportExcel() {
+      let self = this;
+      return Notification({
+        title: "Warning",
+        message: "Tính năng chưa hiện thực",
+        position: "bottom-right",
+        type: "warning"
+      });
+      this.$util.exportExcel("coupon", self.$store.state.csCoupons);
+    },
+    disableCoupon(index, row) {
+      let text = row.isActive ? "enable" : "disable";
+      let Text = row.isActive ? "Enable" : "Disable";
+      MessageBox.confirm(`Are you sure to ${text}?`, `${Text}`, {
+        confirmButtonText: `${Text}`,
+        cancelButtonText: "Cancel",
+        type: "warning",
+        center: true
+      })
+        .then(() => {
+          row.isActive = text == "disable";
+          return Notification({
+            title: "Warning",
+            message: "Tính năng chưa hiện thực",
+            position: "bottom-right",
+            type: "warning"
+          });
+          this.$store.dispatch("disableCoupon", row.id).then(
+            res => {
+              Notification({
+                title: "Success",
+                message: `${Text} completed`,
+                position: "bottom-right",
+                type: "success"
+              });
+            },
+            err => {
+              Notification({
+                title: "Error",
+                message: err.message,
+                position: "bottom-right",
+                type: "error"
+              });
+            }
+          );
+        })
+        .catch(() => {
+          row.isActive = text == "disable";
+          Notification({
+            title: "Canceled",
+            message: `${Text} canceled`,
+            position: "bottom-right",
+            type: "info"
+          });
+        });
+    }
   },
   destroyed() {
-    this.$store.dispatch('setCurrentActions', []);
-  },
+    this.$store.dispatch("setCurrentActions", []);
+  }
 };
 </script>
 <style lang="scss">
-  .el-table .td-actions{
+.el-table .td-actions {
   button.btn {
     margin-right: 5px;
   }
-  }
+}
 </style>

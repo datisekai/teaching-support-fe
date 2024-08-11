@@ -43,7 +43,7 @@ export default {
       dataSource: [],
       loading: false,
       firstFocus: false,
-      selectValues: this.value
+      selectValues: [this.value]
 
       // model: this.$util.findModel(this.attribute.type),
       // type: this.$util.findModelName(this.attribute.type),
@@ -86,20 +86,23 @@ export default {
   methods: {
     remoteMethod(query) {
       const buildQuery = this.buildUrl(query);
-      if (buildQuery === false) {
-        return;
-      }
+      // if (buildQuery === false) {
+      //   return;
+      // }
       this.loading = true;
       api
         .get(buildQuery)
         .then(resp => {
           let data = resp.data;
           if (!data.error) {
-            this.dataSource = this.buildDataSource(
+            const buildSrc = this.buildDataSource(
               [],
               this.dataField ? data.data[this.dataField] : data.data
             );
+
+            this.dataSource = buildSrc;
           }
+
           this.loading = false;
         })
         .catch(e => {
@@ -107,12 +110,15 @@ export default {
         });
     },
     buildUrl(query) {
-      console.log("query", query);
       // if (!query) return false;
       if (!this.model) {
         return false;
       }
       let url = `/api.${this.model}`;
+
+      if (this.model == "teacher") {
+        url = "/api.user/teacher";
+      }
       let queryObject = {};
       if (query) {
         queryObject[this.field] = query;
@@ -166,13 +172,13 @@ export default {
     },
     value: function(newVal, old) {
       this.selectValues = newVal;
-      if (this.isMultiple === false) {
-        if (newVal) {
-          this.dataSource = [];
-        } else {
-          this.remoteMethod();
-        }
-      }
+      // if (this.isMultiple === false) {
+      //   if (newVal) {
+      //     this.dataSource = [];
+      //   } else {
+      //     this.remoteMethod();
+      //   }
+      // }
     },
     "attribute.initOptions": {
       immediate: true,
