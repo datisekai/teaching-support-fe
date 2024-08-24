@@ -291,6 +291,8 @@ export default {
       addFilter: "Thêm điều kiện",
       filter: "Bộ lọc",
       exportExcel: "Xuất excel",
+      importExcel: "Nhập excel",
+      statistic: "Thống kê",
       details: "Chi tiết",
       save: "Lưu lại",
       saveDraft: "Lưu nháp",
@@ -306,6 +308,7 @@ export default {
       clickToChangePassword: "Nhấn để thay đổi mật khẩu",
       validate: "Kiểm tra",
       exportExcel: "Xuất file Excel",
+      importExcel: "Nhập file excel",
       receipt: "Biên nhận",
       invoice: "Phiếu thu",
       reimbursement: "Hoàn trả",
@@ -412,7 +415,9 @@ export default {
       course: "Quản lý môn học",
       roomStudents: "Danh sách sinh viên điểm danh",
       logStudents: "Logs điểm danh",
-      group: "Quản lý lớp học"
+      group: "Quản lý lớp học",
+      groupStudents: "Danh sách sinh viên của lớp",
+      groupStatistic: "Thống kê của lớp"
     },
     tableHeader: {
       actions: "Thao tác",

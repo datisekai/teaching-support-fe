@@ -8,7 +8,9 @@
     "babel-polyfill": "^6.26.0",
     "chart.js": "^2.7.3",
     "core-js": "^2.6.5",
-    "element-ui": "^2.4.11",
+    "element-ui": "^2.15.14",
+    "exceljs": "^4.4.0",
+    "file-saver": "^2.0.5",
     "firebase": "^7.15.5",
     "fullcalendar": "^3.9.0",
     "google-maps": "^3.3.0",
@@ -37,7 +39,8 @@
     "vue2-google-maps": "^0.10.7",
     "vue2-transitions": "^0.2.3",
     "vuex": "^3.0.1",
-    "vuex-toast": "^0.1.3"
+    "vuex-toast": "^0.1.3",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.9.0",
@@ -51,11 +54,11 @@
     "vue-template-compiler": "^2.6.10"
   },
   "scripts": {
-    "build": "export NODE_OPTIONS=--openssl-legacy-provider && vue-cli-service build",
+    "build": "set NODE_OPTIONS=--openssl-legacy-provider && vue-cli-service build",
     "build:prod": "NODE_ENV=production vue-cli-service build --mode=prod",
     "build:stg": "NODE_ENV=production vue-cli-service build --mode=stg",
     "lint": "vue-cli-service lint",
-    "serve": "export NODE_OPTIONS=--openssl-legacy-provider && vue-cli-service serve"
+    "serve": "set NODE_OPTIONS=--openssl-legacy-provider && vue-cli-service serve"
   },
   "private": true,
   "browserslist": [

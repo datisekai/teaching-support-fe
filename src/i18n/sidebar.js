@@ -3,104 +3,104 @@ export default [
   //   name: "notification",
   //   icon: "nc-icon nc-bell-55",
   //   path: "/notification",
-  //   roles: ["admin", "manager", "admin_agency"]
+  //   roles: ["GIANGVIEN", "manager", "GIANGVIEN_agency"]
   // },
   // {
   //   name: "allOrders",
   //   icon: "nc-icon nc-cart-simple",
-  //   roles: ["admin"],
+  //   roles: ["GIANGVIEN"],
   //   path: "/orders"
   // }
   // {
   //   name: "product",
   //   icon: "nc-icon nc-send",
-  //   roles: ["admin", "manager"],
+  //   roles: ["GIANGVIEN", "manager"],
   //   children: [
   //     {
   //       name: "product",
   //       path: "/product",
-  //       roles: ["admin", "manager"]
+  //       roles: ["GIANGVIEN", "manager"]
   //     },
   //     {
   //       name: "attributes",
   //       path: "/attributes",
-  //       roles: ["admin", "manager"]
+  //       roles: ["GIANGVIEN", "manager"]
   //     },
   //     {
   //       name: "collection",
   //       path: "/collections",
-  //       roles: ["admin", "manager"]
+  //       roles: ["GIANGVIEN", "manager"]
   //     },
   //     {
   //       name: "article",
   //       path: "/article",
-  //       roles: ["admin", "manager"]
+  //       roles: ["GIANGVIEN", "manager"]
   //     }
   //   ]
   // },
   // {
   //   name: "education",
   //   icon: "nc-icon nc-send",
-  //   roles: ["admin"],
+  //   roles: ["GIANGVIEN"],
   //   children: [
   //     {
   //       name: "education",
   //       path: "/education",
-  //       roles: ["admin"]
+  //       roles: ["GIANGVIEN"]
   //     },
   //     {
   //       name: "department",
   //       path: "/departments",
-  //       roles: ["admin"]
+  //       roles: ["GIANGVIEN"]
   //     },
   //     {
   //       name: "course",
   //       path: "/courses",
-  //       roles: ["admin"]
+  //       roles: ["GIANGVIEN"]
   //     },
   //     {
   //       name: "group",
   //       path: "/groups",
-  //       roles: ["admin"]
+  //       roles: ["GIANGVIEN"]
   //     }
   //   ]
   // }
   // {
   //   name: "promotion",
   //   icon: "nc-icon nc-diamond",
-  //   roles: ["admin", "manager"],
+  //   roles: ["GIANGVIEN", "manager"],
   //   children: [
   //     {
   //       name: "coupon",
   //       path: "/coupon",
-  //       roles: ["admin", "manager"]
+  //       roles: ["GIANGVIEN", "manager"]
   //     },
   //     {
   //       name: "campaign",
   //       path: "/campaign",
-  //       roles: ["admin", "manager"]
+  //       roles: ["GIANGVIEN", "manager"]
   //     },
   //     {
   //       name: "flashsale",
   //       path: "/flashsale",
-  //       roles: ["admin", "manager"]
+  //       roles: ["GIANGVIEN", "manager"]
   //     }
   //   ]
   // },
   // {
   //   name: "customer",
   //   icon: "nc-icon nc-single-02",
-  //   roles: ["admin", "manager", "supporter", "admin_warranty"],
+  //   roles: ["GIANGVIEN", "manager", "supporter", "GIANGVIEN_warranty"],
   //   children: [
   //     {
   //       name: "customer",
   //       path: "/customer",
-  //       roles: ["admin", "manager", "admin_warranty"]
+  //       roles: ["GIANGVIEN", "manager", "GIANGVIEN_warranty"]
   //     },
   //     {
   //       name: "review",
   //       path: "/review",
-  //       roles: ["admin", "manager", "supporter", "admin_warranty"]
+  //       roles: ["GIANGVIEN", "manager", "supporter", "GIANGVIEN_warranty"]
   //     }
   //   ]
   // },
@@ -108,58 +108,58 @@ export default [
   //   name: "warranty",
   //   icon: "fa fa-qrcode",
   //   roles: [
-  //     "admin",
+  //     "GIANGVIEN",
   //     "warranty_manager",
-  //     "admin_warranty",
+  //     "GIANGVIEN_warranty",
   //     "technical_leader",
   //     "technician",
-  //     "vice_admin_warranty"
+  //     "vice_GIANGVIEN_warranty"
   //   ],
   //   children: [
   //     {
   //       name: "warrantyCode",
   //       path: "/warranty-code",
-  //       roles: ["admin", "admin_warranty"]
+  //       roles: ["GIANGVIEN", "GIANGVIEN_warranty"]
   //     },
   //     {
   //       name: "warrantyLocation",
   //       path: "/warranty-location",
   //       roles: [
-  //         "admin",
+  //         "GIANGVIEN",
   //         "warranty_manager",
-  //         "admin_warranty",
-  //         "vice_admin_warranty"
+  //         "GIANGVIEN_warranty",
+  //         "vice_GIANGVIEN_warranty"
   //       ]
   //     },
   //     {
   //       name: "warrantyForm",
   //       path: "/warranty-form",
   //       roles: [
-  //         "admin",
+  //         "GIANGVIEN",
   //         "warranty_manager",
-  //         "admin_warranty",
-  //         "vice_admin_warranty"
+  //         "GIANGVIEN_warranty",
+  //         "vice_GIANGVIEN_warranty"
   //       ]
   //     },
   //     {
   //       name: "maintenanceForm",
   //       path: "/maintenance-form",
   //       roles: [
-  //         "admin",
+  //         "GIANGVIEN",
   //         "warranty_manager",
-  //         "admin_warranty",
+  //         "GIANGVIEN_warranty",
   //         "technical_leader",
-  //         "vice_admin_warranty"
+  //         "vice_GIANGVIEN_warranty"
   //       ]
   //     },
   //     {
   //       name: "receiptForm",
   //       path: "/receipt-form",
   //       roles: [
-  //         "admin",
+  //         "GIANGVIEN",
   //         "warranty_manager",
-  //         "admin_warranty",
-  //         "vice_admin_warranty",
+  //         "GIANGVIEN_warranty",
+  //         "vice_GIANGVIEN_warranty",
   //         "technician"
   //       ]
   //     },
@@ -167,22 +167,22 @@ export default [
   //       name: "quotation",
   //       path: "/quotation",
   //       roles: [
-  //         "admin",
+  //         "GIANGVIEN",
   //         "warranty_manager",
-  //         "admin_warranty",
+  //         "GIANGVIEN_warranty",
   //         "technical_leader",
   //         "technician",
-  //         "vice_admin_warranty"
+  //         "vice_GIANGVIEN_warranty"
   //       ]
   //     },
   //     {
   //       name: "invoice",
   //       path: "/invoice",
   //       roles: [
-  //         "admin",
+  //         "GIANGVIEN",
   //         "warranty_manager",
-  //         "admin_warranty",
-  //         "vice_admin_warranty",
+  //         "GIANGVIEN_warranty",
+  //         "vice_GIANGVIEN_warranty",
   //         "technician"
   //       ]
   //     },
@@ -190,10 +190,10 @@ export default [
   //       name: "reimbursement",
   //       path: "/reimbursement",
   //       roles: [
-  //         "admin",
+  //         "GIANGVIEN",
   //         "warranty_manager",
-  //         "admin_warranty",
-  //         "vice_admin_warranty",
+  //         "GIANGVIEN_warranty",
+  //         "vice_GIANGVIEN_warranty",
   //         "technician"
   //       ]
   //     },
@@ -201,16 +201,16 @@ export default [
   //       name: "warrantyPost",
   //       path: "/warranty-post",
   //       roles: [
-  //         "admin",
+  //         "GIANGVIEN",
   //         "warranty_manager",
-  //         "admin_warranty",
-  //         "vice_admin_warranty"
+  //         "GIANGVIEN_warranty",
+  //         "vice_GIANGVIEN_warranty"
   //       ]
   //     },
   //     {
   //       name: "report",
   //       path: "/warranty-report",
-  //       roles: ["admin", "manager", "admin_warranty", "vice_admin_warranty"]
+  //       roles: ["GIANGVIEN", "manager", "GIANGVIEN_warranty", "vice_GIANGVIEN_warranty"]
   //     }
   //   ]
   // },
@@ -218,40 +218,40 @@ export default [
   //   name: "warrantySettings",
   //   icon: "nc-icon nc-settings-gear-65",
   //   roles: [
-  //     "admin",
-  //     "admin_warranty",
+  //     "GIANGVIEN",
+  //     "GIANGVIEN_warranty",
   //     "technical_leader",
-  //     "vice_admin_warranty"
+  //     "vice_GIANGVIEN_warranty"
   //   ],
   //   children: [
   //     {
   //       name: "modelSetting",
   //       path: "/setting/model",
   //       roles: [
-  //         "admin",
-  //         "admin_warranty",
+  //         "GIANGVIEN",
+  //         "GIANGVIEN_warranty",
   //         "technical_leader",
-  //         "vice_admin_warranty"
+  //         "vice_GIANGVIEN_warranty"
   //       ]
   //     },
   //     {
   //       name: "accessoriesSetting",
   //       path: "/setting/product-accessories",
   //       roles: [
-  //         "admin",
-  //         "admin_warranty",
+  //         "GIANGVIEN",
+  //         "GIANGVIEN_warranty",
   //         "technical_leader",
-  //         "vice_admin_warranty"
+  //         "vice_GIANGVIEN_warranty"
   //       ]
   //     },
   //     {
   //       name: "errorSetting",
   //       path: "/setting/product-error",
   //       roles: [
-  //         "admin",
-  //         "admin_warranty",
+  //         "GIANGVIEN",
+  //         "GIANGVIEN_warranty",
   //         "technical_leader",
-  //         "vice_admin_warranty"
+  //         "vice_GIANGVIEN_warranty"
   //       ]
   //     }
   //   ]
@@ -259,108 +259,108 @@ export default [
   // {
   //   name: "postManager",
   //   icon: "fa fa-clipboard",
-  //   roles: ["admin"],
+  //   roles: ["GIANGVIEN"],
   //   children: [
   //     {
   //       name: "warrantyPost",
   //       path: "/warranty-post",
-  //       roles: ["admin"]
+  //       roles: ["GIANGVIEN"]
   //     }
   //   ]
   // },
   // {
   //   name: "setting",
   //   icon: "nc-icon nc-settings-gear-65",
-  //   roles: ["admin", "manager", "admin_warranty"],
+  //   roles: ["GIANGVIEN", "manager", "GIANGVIEN_warranty"],
   //   children: [
   //     {
   //       name: "theme",
   //       path: "/setting/theme",
-  //       roles: ["admin"]
+  //       roles: ["GIANGVIEN"]
   //     },
   //     {
   //       name: "staff",
   //       path: "/setting/staff",
-  //       roles: ["admin", "manager", "admin_warranty"]
+  //       roles: ["GIANGVIEN", "manager", "GIANGVIEN_warranty"]
   //     },
   //     {
   //       name: "page",
   //       path: "/setting/page",
-  //       roles: ["admin", "manager", "admin_warranty"]
+  //       roles: ["GIANGVIEN", "manager", "GIANGVIEN_warranty"]
   //     },
   //     {
   //       name: "menu",
   //       path: "/setting/menu",
-  //       roles: ["admin", "manager", "admin_warranty"]
+  //       roles: ["GIANGVIEN", "manager", "GIANGVIEN_warranty"]
   //     },
   //     {
   //       name: "meta",
   //       path: "/setting/meta",
-  //       roles: ["admin", "manager", "admin_warranty"]
+  //       roles: ["GIANGVIEN", "manager", "GIANGVIEN_warranty"]
   //     },
   //     {
   //       name: "couponSetting",
   //       path: "/setting/coupon",
-  //       roles: ["admin", "manager", "admin_warranty"]
+  //       roles: ["GIANGVIEN", "manager", "GIANGVIEN_warranty"]
   //     },
   //     {
   //       name: "collectionSetting",
   //       path: "/setting/collection",
-  //       roles: ["admin", "manager", "admin_warranty"]
+  //       roles: ["GIANGVIEN", "manager", "GIANGVIEN_warranty"]
   //     }
   //   ]
   // },
   {
     name: "allRooms",
     icon: "nc-icon nc-atom",
-    roles: ["admin"],
+    roles: ["GIANGVIEN"],
     path: "/rooms"
   },
   // Education menu
   {
     name: "education",
     icon: "nc-icon nc-app",
-    roles: ["admin", "manager"],
+    roles: ["GIANGVIEN", "manager"],
     children: [
       // {
       //   name: "coupon",
       //   path: "/education/coupon",
-      //   roles: ["admin", "manager"]
+      //   roles: ["GIANGVIEN", "manager"]
       // },
       // {
       //   name: "teachers",
       //   path: "/education/teacher",
-      //   roles: ["admin", "manager"]
+      //   roles: ["GIANGVIEN", "manager"]
       // },
       // {
       //   name: "documents",
       //   path: "/education/document",
-      //   roles: ["admin", "manager"]
+      //   roles: ["GIANGVIEN", "manager"]
       // },
       {
         name: "exam",
         path: "/education/exam",
-        roles: ["admin", "manager"]
+        roles: ["GIANGVIEN", "manager"]
       },
       // {
       //   name: "surveys",
       //   path: "/education/survey",
-      //   roles: ["admin", "manager"]
+      //   roles: ["GIANGVIEN", "manager"]
       // },
       // {
       //   name: "posts",
       //   path: "/education/post",
-      //   roles: ["admin", "manager"]
+      //   roles: ["GIANGVIEN", "manager"]
       // },
       {
         name: "ticket",
         path: "/education/ticket",
-        roles: ["admin", "manager"]
+        roles: ["GIANGVIEN", "manager"]
       },
       {
         name: "report",
         path: "/education/report",
-        roles: ["admin", "manager"]
+        roles: ["GIANGVIEN", "manager"]
       }
     ]
   },
@@ -368,46 +368,46 @@ export default [
   {
     name: "allDepartments",
     icon: "nc-icon nc-atom",
-    roles: ["admin"],
+    roles: ["GIANGVIEN"],
     path: "/departments"
   },
   {
     name: "allCourses",
     icon: "nc-icon nc-atom",
-    roles: ["admin"],
+    roles: ["GIANGVIEN"],
     path: "/courses"
   },
   {
     name: "allGroups",
     icon: "nc-icon nc-atom",
-    roles: ["admin"],
+    roles: ["GIANGVIEN"],
     path: "/groups"
   }
   // // Customer service menu
   // {
   //   name: "cs",
   //   icon: "nc-icon nc-app",
-  //   roles: ["admin", "manager"],
+  //   roles: ["GIANGVIEN", "manager"],
   //   children: [
   //     {
   //       name: "coupon",
   //       path: "/cs/coupon",
-  //       roles: ["admin", "manager"]
+  //       roles: ["GIANGVIEN", "manager"]
   //     },
   //     {
   //       name: "agency",
   //       path: "/cs/agency",
-  //       roles: ["admin", "manager"]
+  //       roles: ["GIANGVIEN", "manager"]
   //     },
   //     {
   //       name: "customerSurvey",
   //       path: "/cs/survey",
-  //       roles: ["admin", "manager"]
+  //       roles: ["GIANGVIEN", "manager"]
   //     },
   //     {
   //       name: "report",
   //       path: "/cs/report",
-  //       roles: ["admin", "manager"]
+  //       roles: ["GIANGVIEN", "manager"]
   //     }
   //   ]
   // }

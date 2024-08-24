@@ -4248,6 +4248,63 @@ export const actions = {
         console.error(err.stack);
       });
   },
+  fetchGroupStudents(context, id) {
+    let { commit, state } = context;
+    api
+      .get("/api.group/students/" + id)
+      .then(resp => {
+        let body = resp.data;
+        commit(types.FETCH_GROUP_STUDENT, body.data);
+      })
+      .catch(err => {
+        console.error(err.stack);
+      });
+  },
+  fetchGroupStatistic(context, id) {
+    let { commit, state } = context;
+    api
+      .get("/api.statistic/" + id)
+      .then(resp => {
+        let body = resp.data;
+        console.log(body);
+        commit(types.FETCH_GROUP_STATISTIC, body.data);
+      })
+      .catch(err => {
+        console.error(err.stack);
+      });
+  },
+  fetchRoomByGroupId(context, id) {
+    let { commit, state } = context;
+    api
+      .get("/api.room/group/" + id)
+      .then(resp => {
+        let body = resp.data;
+        commit(types.FETCH_ROOMS_GROUP_BY_ID, body.data);
+        if (body.data.length > 0) {
+          context.dispatch("fetchGroupStatistic", body.data[0].id);
+        }
+      })
+      .catch(err => {
+        console.error(err.stack);
+      });
+  },
+  addStudentByGroupId(context, id, payload) {
+    console.log(payload);
+    let { commit, state } = context;
+    api
+      .post("/api.group/import/" + id, payload)
+      .then(resp => {
+        let body = resp.data;
+        commit(types.FETCH_GROUP_STUDENT, body.data);
+      })
+      .catch(err => {
+        console.error(err.stack);
+      });
+  },
+  resetGroupStudents(context) {
+    let { commit, state } = context;
+    commit(types.RESET_GROUP_STUDENTS, []);
+  },
   removeGroup(context, id) {
     let { commit, state } = context;
     return new Promise((resolve, reject) => {

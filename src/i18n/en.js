@@ -236,7 +236,9 @@ export default {
       showHideCol: "Show/hide columns",
       addFilter: "Condition",
       filter: "Filter",
+      importtExcel: "Import excel",
       exportExcel: "Export excel",
+      statistic: "Statistic",
       details: "Details",
       save: "Save",
       saveDraft: "Save draft",
@@ -337,7 +339,9 @@ export default {
       course: "Course",
       roomStudents: "Attendance List",
       logStudents: "Log Students",
-      group: "Group"
+      group: "Group",
+      groupStudents: "List of students in the class",
+      groupStatistic: "class statistics"
     },
     tableHeader: {
       actions: "Actions",

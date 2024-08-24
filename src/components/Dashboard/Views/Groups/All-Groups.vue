@@ -17,13 +17,8 @@
           </div>
         </div> -->
         <div class="col-sm-12 p-0">
-          <my-table
-            ref="table"
-            :columnDefs="columnDefs"
-            v-bind:data-rows="groups"
-            :actions="actions"
-            :actionsTable="actionsTable"
-          />
+          <my-table ref="table" :columnDefs="columnDefs" v-bind:data-rows="groups" :actions="actions"
+            :actionsTable="actionsTable" />
         </div>
       </div>
     </div>
@@ -61,6 +56,18 @@ export default {
       filterOutput: [],
       columnDefs,
       actions: [
+        {
+          type: "info",
+          icon: "fa-solid fa-chart-simple",
+          title: "statistic",
+          callback: this.statistic
+        },
+        {
+          type: "secondary",
+          icon: "fa-solid fa-users",
+          title: "details",
+          callback: this.view
+        },
         {
           type: "secondary",
           icon: "fa-solid fa-clipboard-user",
@@ -102,6 +109,12 @@ export default {
     ]);
   },
   methods: {
+    statistic(index, row) {
+      this.$router.push(`/groups/statistic/${row.id}`);
+    },
+    view(index, row) {
+      this.$router.push(`/groups/students/${row.id}`);
+    },
     createRoom(index, row) {
       this.$router.push(`/rooms/create?group_id=${row.id}`);
     },

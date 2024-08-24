@@ -207,7 +207,15 @@ const state = {
 
   //groups
   groups: [],
+  groupStudents: {
+    course: {},
+    members: []
+  },
   group: {},
+  roomsGroup: [],
+  groupStatistic: {
+    listUser: [{ student: {} }]
+  },
 
   loading: false,
 

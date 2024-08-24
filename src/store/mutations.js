@@ -1264,6 +1264,21 @@ export const mutations = {
   [types.FETCH_GROUP](state, data) {
     state.group = data;
   },
+  [types.FETCH_ROOMS_GROUP_BY_ID](state, data) {
+    state.roomsGroup = data;
+  },
+  [types.FETCH_GROUP_STATISTIC](state, data) {
+    state.groupStatistic = data;
+  },
+  [types.FETCH_GROUP_STUDENT](state, data) {
+    state.groupStudents = data;
+  },
+  [types.ADD_GROUP_STUDENTS](state, data) {
+    state.students = data;
+  },
+  [types.RESET_GROUP_STUDENTS](state) {
+    state.groupStudents = {};
+  },
   [types.REMOVE_GROUP](state, resp) {
     state.groups = state.groups.filter(row => {
       return row.id != resp.id;

@@ -364,7 +364,10 @@ const CreateGroup = () =>
   import("src/components/Dashboard/Views/Groups/Create-Group.vue");
 const EditGroup = () =>
   import("src/components/Dashboard/Views/Groups/Edit-Group.vue");
-
+const AllGroupStudents = () =>
+  import("src/components/Dashboard/Views/Groups/All-Students.vue");
+const AllGroupStatistic = () =>
+  import("src/components/Dashboard/Views/Groups/All-Statistic.vue");
 const customerServiceMenu = {
   path: "/cs",
   component: DashboardLayout,
@@ -1189,6 +1192,16 @@ const groupMenu = {
       path: ":id",
       name: "EditGroup",
       component: EditGroup
+    },
+    {
+      path: "students/:id",
+      name: "AllGroupStudents",
+      component: AllGroupStudents
+    },
+    {
+      path: "statistic/:id",
+      name: "AllGroupStatistic",
+      component: AllGroupStatistic
     }
   ]
 };
