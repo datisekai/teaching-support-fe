@@ -45,6 +45,11 @@ export const actions = {
     commit(types.CHANGE_LANGUAGE, lang);
   },
 
+  setSelectedFile(context, actions) {
+    let { commit, state } = context;
+    commit(types.SET_SELECTED_FILE, actions);
+  },
+
   setCurrentActions(context, actions) {
     let { commit, state } = context;
     commit(types.SET_CURRENT_ACTIONS, actions);

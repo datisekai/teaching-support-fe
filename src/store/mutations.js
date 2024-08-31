@@ -467,6 +467,9 @@ export const mutations = {
     if (!payload.code) {
     }
   },
+  [types.SET_SELECTED_FILE](state, data) {
+    state.selectedFile = data;
+  },
 
   [types.SET_CURRENT_ACTIONS](state, payload) {
     let items = payload.map(item => {

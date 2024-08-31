@@ -133,8 +133,10 @@ export default {
         }
     },
     data() {
-        const initFiledArrays = ['id', 'code', 'name', 'email', 'status'];
-        const columnDefs = dtHelper.buildInitFields(studentSchemas, initFiledArrays);
+        const initFiledArrays = ['id', 'code', 'name', 'email', 'phone', 'success', 'created_at'];
+        const columnDefs = dtHelper.buildInitFields(studentSchemas, initFiledArrays).filter(column =>
+            initFiledArrays.includes(column.prop)
+        );
         return {
             filterOutput: [],
             columnDefs,

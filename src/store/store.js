@@ -106,6 +106,7 @@ const state = {
   roles: [],
   deleted: [],
   deletedDetail: [],
+  selectedFile: null,
   currentActions: [],
   loadingAction: {
     edit: true,

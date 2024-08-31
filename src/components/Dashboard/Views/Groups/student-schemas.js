@@ -34,7 +34,6 @@ export default [
   {
     prop: "success",
     label: "status",
-
     type: "badge"
   },
   {

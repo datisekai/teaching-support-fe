@@ -26,9 +26,6 @@
         <div class="container-fluid">
             <div class="page-action">
                 <el-button @click="back">Quay lại</el-button>
-                <el-button @click="triggerImport" style=" margin-right: 4px;">Import Excel</el-button>
-                <input type="file" ref="importInput" @change="handleFileChange" style="display: none;" />
-                <el-button @click="exportExcel">Export Excel</el-button>
             </div>
         </div>
     </div>
@@ -90,10 +87,9 @@ export default {
         }
     },
     data() {
-        const initFiledArrays = ["id", "code", "name", "email", "phone"];
-        const columnDefs = dtHelper.buildInitFields(
-            studentSchemas,
-            initFiledArrays
+        const initFiledArrays = ["id", "code", "name", "email", "phone", "created_at"];
+        const columnDefs = dtHelper.buildInitFields(studentSchemas, initFiledArrays).filter(column =>
+            initFiledArrays.includes(column.prop)
         );
         return {
             filterOutput: [],
@@ -119,19 +115,21 @@ export default {
     mounted() {
         this.$store.dispatch("fetchGroupStudents", this.$route.params.id);
         this.$store.dispatch("setPageTitle", "groupStudents");
-
+        this.$store.dispatch("setCurrentActions", [
+            {
+                label: "exportExcel",
+                type: "default",
+                icon: "",
+                callback: this.exportExcel,
+            }, {
+                label: "importExcel",
+                type: "file",
+                icon: "",
+                callbackSelected: this.importExcel
+            }
+        ]);
     },
     methods: {
-
-        triggerImport() {
-            this.$refs.importInput.click();
-        },
-        handleFileChange(event) {
-            const file = event.target.files[0];
-            if (file) {
-                this.importExcel(file);
-            }
-        },
         async importExcel(file) {
             const workbook = new ExcelJS.Workbook();
             await workbook.xlsx.load(file);
@@ -140,7 +138,6 @@ export default {
             const data = [];
 
             worksheet.eachRow((row, rowNumber) => {
-                console.log(rowNumber)
                 if (rowNumber > 1) {
                     const rowData = {
                         id: row.getCell(1).value,
